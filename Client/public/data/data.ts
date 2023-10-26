@@ -5,7 +5,7 @@ const mockData: GraphData & any = {
     {
       id: "Aimer",
       spotify_id: "0bAsR2unSRpn6BQPEnNlZm",
-      img: "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314",
+      img: null,
       size: 7,
     },
     {

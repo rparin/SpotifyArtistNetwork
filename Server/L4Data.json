@@ -1,6 +1,6 @@
 {
   "Aimer": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0k7JZhYS35IewiKNHW7KMj"
@@ -662,10 +662,42 @@
         "uri": "spotify:artist:6m14xgA0m3w92UM7ujJgky"
       }
     ],
-    "info": "empty"
+    "info": {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/0bAsR2unSRpn6BQPEnNlZm"
+      },
+      "followers": {
+        "href": null,
+        "total": 708685
+      },
+      "genres": ["anime", "anime rock", "j-pixie"],
+      "href": "https://api.spotify.com/v1/artists/0bAsR2unSRpn6BQPEnNlZm",
+      "id": "0bAsR2unSRpn6BQPEnNlZm",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314",
+          "width": 160
+        }
+      ],
+      "name": "Aimer",
+      "popularity": 68,
+      "type": "artist",
+      "uri": "spotify:artist:0bAsR2unSRpn6BQPEnNlZm"
+    }
   },
   "EGOIST": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/4Mc3zbnQx4wRb0tYg7A8sG"
@@ -1362,7 +1394,7 @@
     }
   },
   "supercell": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0k7JZhYS35IewiKNHW7KMj"
@@ -2065,7 +2097,7 @@
     }
   },
   "yanaginagi": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5t7eQ2d1UmzfIr9oWQ538Y"
@@ -2768,7 +2800,7 @@
     }
   },
   "Luna Haruna": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/17Xrh1jox4g1VQcUcIcgra"
@@ -3471,7 +3503,7 @@
     }
   },
   "Kalafina": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5Q08YLH6CfTdmvhvRJ3iyz"
@@ -4168,7 +4200,7 @@
     }
   },
   "Sayuri": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5pjjlQXYjoMFWdjdKOre9s"
@@ -4871,7 +4903,7 @@
     }
   },
   "ryo (supercell)": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/16YLTve2FXhfNIn0YO9yER"
@@ -5557,7 +5589,7 @@
     }
   },
   "CHiCO with HoneyWorks": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/40oxjbVm3kdeyJEiGsKrmd"
@@ -6227,7 +6259,7 @@
     }
   },
   "KISIDA KYODAN & THE AKEBOSI ROCKETS": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/4SLTgwsFXbomwbNjsAvs3E"
@@ -6875,7 +6907,7 @@
     }
   },
   "SawanoHiroyuki[nZk]": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/2PszAsvg6kdXh0D2bMC8Yz"
@@ -7473,7 +7505,7 @@
     }
   },
   "Mika Kobayashi": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3gMQIwIzRRTX8tQg5COTaX"
@@ -8071,7 +8103,7 @@
     }
   },
   "NANO": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/2mg9AmMi3b9jTbaOR5If4C"
@@ -8773,7 +8805,7 @@
     }
   },
   "SennaRin": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/4HzUr7Nr82O1bLSB78jWVR"
@@ -9470,7 +9502,7 @@
     }
   },
   "milet": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1qM11R4ylJyQiPJ0DffE9z"
@@ -10167,7 +10199,7 @@
     }
   },
   "Lilas Ikuta": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1S8OQ9SqlLdD9l4paaZMuZ"
@@ -10869,7 +10901,7 @@
     }
   },
   "Ayase": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5lEzAveEBteB85UVvKTanp"
@@ -11566,7 +11598,7 @@
     }
   },
   "Ryokuoushoku Shakai": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1qM11R4ylJyQiPJ0DffE9z"
@@ -12268,7 +12300,7 @@
     }
   },
   "あたらよ": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1J6OD7vLbjEuFVgVRlusmS"
@@ -12965,7 +12997,7 @@
     }
   },
   "Tani Yuuki": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3BjFX1nExMNHvSaoLd1I1k"
@@ -13667,7 +13699,7 @@
     }
   },
   "MAN WITH A MISSION": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0QZqdhoRQkn1VphAa5eX8h"
@@ -14389,7 +14421,7 @@
     }
   },
   "10-FEET": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/180SgP7FcRAhmrgwuNTvhL"
@@ -15111,7 +15143,7 @@
     }
   },
   "BLUE ENCOUNT": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0nES8AwBZpeQ69oZZp47OL"
@@ -15808,7 +15840,7 @@
     }
   },
   "UVERworld": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/7gRg6C2qgQ1F01k3sgyEVt"
@@ -16512,7 +16544,7 @@
     }
   },
   "Fear, and Loathing in Las Vegas": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3gy7nxZ3l2Q0Xz9sXAXrVX"
@@ -17243,7 +17275,7 @@
     }
   },
   "amazarashi": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/00DuPiLri3mNomvvM3nZvU"
@@ -17952,7 +17984,7 @@
     }
   },
   "Rei Yasuda": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3GnM9zjuaItYitYvN8lneJ"
@@ -18649,7 +18681,7 @@
     }
   },
   "Maiko Fujita": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3SK0go2QBoTNd5W7uPCWM6"
@@ -19346,7 +19378,7 @@
     }
   },
   "Alisa Takigawa": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/6RW0qyqTFCtWmE9LYEAt3U"
@@ -20043,7 +20075,7 @@
     }
   },
   "熊川みゆ": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/7oVNI7cJUA5f1Qvu8vQlq9"
@@ -20740,7 +20772,7 @@
     }
   },
   "Leo Ieiri": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5TS11vZTUaDP4maTjFCcBU"
@@ -21404,7 +21436,7 @@
     }
   },
   "Sakurako Ohara": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/74F5BixS3Q9eSs9AnG3xIz"
@@ -22068,7 +22100,7 @@
     }
   },
   "ayaka": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5sm4rWbXSE6K8MdyTIZg7q"
@@ -22765,7 +22797,7 @@
     }
   },
   "Remioromen": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0wRzWf3I4lUl9hdFF5uL0m"
@@ -23434,7 +23466,7 @@
     }
   },
   "Ko Shibasaki": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/74iC908yY2tkjyHMOl0Fyr"
@@ -24082,7 +24114,7 @@
     }
   },
   "Naoto Inti Raymi": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/087QaLOI8MKeT9yHgjPu7P"
@@ -24746,7 +24778,7 @@
     }
   },
   "eill": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/6OgsusVzVrkzCvbXpv6GWh"
@@ -25443,7 +25475,7 @@
     }
   },
   "Furui Riho": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/3ucekCZdcSOBgiLZ37nKyn"
@@ -26140,7 +26172,7 @@
     }
   },
   "iri": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1HzcHe0WFm4koBalCEOkVh"
@@ -26847,7 +26879,7 @@
     }
   },
   "I Don't Like Mondays.": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/71wVBrMErg4ng9lxc1ajZo"
@@ -27555,7 +27587,7 @@
     }
   },
   "Penthouse": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/4eF1tYcUa9voNDX7xVTrZG"
@@ -28257,7 +28289,7 @@
     }
   },
   "みゆな": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/7ivVCtwuf00c6Nk7CQG4X8"
@@ -28958,7 +28990,7 @@
     }
   },
   "Mizuki Ohira": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/20RZYpmOiZTCdkl4c5u4li"
@@ -29659,7 +29691,7 @@
     }
   },
   "Vaundy": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/4WqXqPmUuenMIr4QaFrZXN"
@@ -30361,7 +30393,7 @@
     }
   },
   "WurtS": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/2llRPLPOCvnAiUozItvPsU"
@@ -31070,7 +31102,7 @@
     }
   },
   "King Gnu": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/0hCWVMGGQnRVfDgmhwLIxq"
@@ -31773,7 +31805,7 @@
     }
   },
   "indigo la End": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/1ieluXFoq2RRxMXZIQksTz"
@@ -32480,7 +32512,7 @@
     }
   },
   "LiSA": {
-    "related": [
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/18moNotPmBWa2YZtRnIoZ3"
