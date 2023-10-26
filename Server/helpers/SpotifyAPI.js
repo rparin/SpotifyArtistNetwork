@@ -1,6 +1,6 @@
 const axios = require("axios");
 const qs = require("qs");
-const createNode = require("../utils/Node.js");
+const createNode = require("../lib/Node.js");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
