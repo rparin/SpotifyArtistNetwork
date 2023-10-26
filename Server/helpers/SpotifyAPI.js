@@ -1,5 +1,6 @@
 const axios = require("axios");
 const qs = require("qs");
+const createNode = require("../utils/Node.js");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
@@ -68,12 +69,11 @@ class SpotifyAPI {
     const relatedMap = { nodes: [], links: [] };
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
     const nameNodes = new Set();
-    const CData = {};
 
     const getArtist = async (info, depth) => {
       console.log(info.id, info.name, depth);
 
-      relatedMap.nodes.push({ id: info.name });
+      relatedMap.nodes.push(createNode(info));
       nameNodes.add(info.name);
 
       if (depth > 0) {
@@ -81,10 +81,6 @@ class SpotifyAPI {
         let related = await this.getRelatedArtists(info.id, access_token);
         if (!related.error) {
           related = related.data;
-
-          CData[info.name] = {};
-          CData[info.name]["related"] = related.artists;
-          CData[info.name]["info"] = info;
 
           for (var i = 0; i < related.artists.length; i++) {
             const data = related.artists[i];
@@ -100,9 +96,9 @@ class SpotifyAPI {
     const fArtist = await this.getArtistInfo(id, access_token);
     if (!fArtist.error) {
       await getArtist(fArtist.data, depth);
-      return CData;
-      // return relatedMap;
+      return relatedMap;
     } else return null;
   }
 }
+
 module.exports = SpotifyAPI;

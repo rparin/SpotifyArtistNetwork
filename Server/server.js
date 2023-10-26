@@ -16,32 +16,3 @@ app.get("/api/home", (req, res) => {
 //Import spotify router
 const spRouter = require("./routes/spotifyRouter");
 app.use("/api/spotify", spRouter);
-
-/*
-
-Node type:
-  id: artistName
-  img: artistImage
-  size: size based on popularity
-
-{
-  ArtistName: {
-    related: set()
-    image: string
-    id: string
-    popularity: int
-    followers: int
-    genres: []
-    
-  },
-  ArtistName: {
-    related: set()
-    image: string
-    id: string
-    popularity: int
-    followers: int
-    genres: []
-    
-  }
-}
-*/

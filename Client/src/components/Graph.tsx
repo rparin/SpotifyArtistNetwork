@@ -3,13 +3,14 @@ import React, { useCallback, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { mockData } from "../../public/data/data";
 import * as THREE from "three";
+import { Node } from "@/lib/utils";
 
 const Graph = () => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(mockData);
 
   const getData = () => {
-    fetch("http://localhost:8080/api/related")
+    fetch("http://localhost:8080/api/spotify/relatedMap")
       .then((res) => res.json())
       .then((d) => {
         console.log(d.relatedArtists);
@@ -20,8 +21,8 @@ const Graph = () => {
       });
   };
 
-  const nodeVal = (node: any) => {
-    return node.r | 3;
+  const nodeVal = (node: Node) => {
+    return (node.size + 2) | 2;
   };
 
   const handleClick = useCallback(
@@ -48,14 +49,13 @@ const Graph = () => {
     <>
       <div className="relative">
         <ForceGraph3D
-          nodeVal={nodeVal}
           ref={fgRef}
           graphData={data}
           nodeLabel="id"
           // nodeAutoColorBy="group"
           onNodeClick={handleClick}
           nodeThreeObject={(node: any) => {
-            const imgTexture = new THREE.TextureLoader().load(`/src.jpg`);
+            const imgTexture = new THREE.TextureLoader().load(node.img);
             const mask = new THREE.TextureLoader().load(`/mask.png`);
             imgTexture.colorSpace = THREE.SRGBColorSpace;
             const material = new THREE.SpriteMaterial({
@@ -64,7 +64,8 @@ const Graph = () => {
               transparent: true,
             });
             const sphere = new THREE.Sprite(material);
-            sphere.scale.set(13, 13, 1);
+            const size = 10 + nodeVal(node);
+            sphere.scale.set(size, size, 1);
             return sphere;
           }}
           nodeThreeObjectExtend={false}
