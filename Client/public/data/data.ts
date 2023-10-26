@@ -4,234 +4,129 @@ const mockData: GraphData & any = {
   nodes: [
     {
       id: "Aimer",
+      spotify_id: "0bAsR2unSRpn6BQPEnNlZm",
+      img: "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314",
+      size: 7,
     },
     {
       id: "EGOIST",
-    },
-    {
-      id: "supercell",
-    },
-    {
-      id: "ClariS",
-    },
-    {
-      id: "GARNiDELiA",
-    },
-    {
-      id: "yanaginagi",
-    },
-    {
-      id: "Eir Aoi",
-    },
-    {
-      id: "SawanoHiroyuki[nZk]",
-    },
-    {
-      id: "fripSide",
-    },
-    {
-      id: "Konomi Suzuki",
-    },
-    {
-      id: "ASCA",
-    },
-    {
-      id: "MYTH & ROID",
-    },
-    {
-      id: "Kalafina",
-    },
-    {
-      id: "Sayuri",
-    },
-    {
-      id: "Luna Haruna",
-    },
-    {
-      id: "いとうかなこ",
-    },
-    {
-      id: "Tia",
-    },
-    {
-      id: "KISIDA KYODAN & THE AKEBOSI ROCKETS",
-    },
-    {
-      id: "ReoNa",
-    },
-    {
-      id: "Haruka Tomatsu",
-    },
-    {
-      id: "Mashiro Ayano",
-    },
-    {
-      id: "Nana Mizuki",
+      spotify_id: "0k7JZhYS35IewiKNHW7KMj",
+      img: "https://i.scdn.co/image/ab6761610000e5eb440b3a60ac778d29202a6b0f",
+      size: 6,
     },
     {
       id: "milet",
+      spotify_id: "45ft4DyTCEJfQwTBHXpdhM",
+      img: "https://i.scdn.co/image/ab6761610000e5eb922f65e3e4ae5012949505b2",
+      size: 7,
     },
     {
-      id: "Lilas Ikuta",
+      id: "SawanoHiroyuki[nZk]",
+      spotify_id: "2EWXgN0xWOnbqJOxa9pWNO",
+      img: "https://i.scdn.co/image/ab6761610000e5eb51e1391ea25462ed101be37f",
+      size: 6,
     },
     {
-      id: "Uru",
+      id: "supercell",
+      spotify_id: "4Mc3zbnQx4wRb0tYg7A8sG",
+      img: "https://i.scdn.co/image/ab6761610000e5ebd513f8abaccf1dffb3c35c1f",
+      size: 5,
     },
     {
-      id: "Ryokuoushoku Shakai",
+      id: "Eir Aoi",
+      spotify_id: "18moNotPmBWa2YZtRnIoZ3",
+      img: "https://i.scdn.co/image/ab6761610000e5eb76252cf0f56a32dc2b1f8423",
+      size: 5,
     },
     {
-      id: "MAN WITH A MISSION",
+      id: "ReoNa",
+      spotify_id: "2SIBY7Jwq1kYng12Zguo3C",
+      img: "https://i.scdn.co/image/ab6761610000e5eb0442c1792f38b71d58af091a",
+      size: 6,
     },
     {
-      id: "Rei Yasuda",
-    },
-    {
-      id: "yama",
-    },
-    {
-      id: "Leo Ieiri",
-    },
-    {
-      id: "Novelbright",
-    },
-    {
-      id: "eill",
-    },
-    {
-      id: "Awesome City Club",
-    },
-    {
-      id: "miwa",
-    },
-    {
-      id: "ヨルシカ",
-    },
-    {
-      id: "iri",
-    },
-    {
-      id: "にしな",
-    },
-    {
-      id: "Vaundy",
-    },
-    {
-      id: "[Alexandros]",
-    },
-    {
-      id: "King Gnu",
+      id: "Sayuri",
+      spotify_id: "1YLxQZIGsaZq9rvFu8zeRz",
+      img: "https://i.scdn.co/image/ab6761610000e5ebb1f57cab1a62f826a54dc887",
+      size: 6,
     },
     {
       id: "LiSA",
+      spotify_id: "0blbVefuxOGltDBa00dspv",
+      img: "https://i.scdn.co/image/ab6761610000e5ebc983b74b84e1f258e7c89da3",
+      size: 7,
+    },
+    {
+      id: "ヨルシカ",
+      spotify_id: "4UK2Lzi6fBfUi9rpDt6cik",
+      img: "https://i.scdn.co/image/ab6761610000e5ebe62cff9c6018ae5616b01eab",
+      size: 7,
     },
     {
       id: "CHiCO with HoneyWorks",
+      spotify_id: "7qpGWSiolU9E5WbkvTaMDd",
+      img: "https://i.scdn.co/image/ab6761610000e5ebf1ea1a5c44fd4d35fe1cf297",
+      size: 3,
     },
     {
-      id: "UVERworld",
-    },
-    {
-      id: "FLOW",
-    },
-    {
-      id: "KANA-BOON",
+      id: "ClariS",
+      spotify_id: "5htVtReJ3NAwcAdxdHpim3",
+      img: "https://i.scdn.co/image/ab6761610000e5eb99007faaf652521e8f206d99",
+      size: 5,
     },
     {
       id: "SPYAIR",
+      spotify_id: "7gRg6C2qgQ1F01k3sgyEVt",
+      img: "https://i.scdn.co/image/ab6761610000e5ebf2def4d951f18e955ee32527",
+      size: 6,
+    },
+    {
+      id: "yama",
+      spotify_id: "7kOrrFIBIBc8uCu2zbxbLv",
+      img: "https://i.scdn.co/image/ab6761610000e5eb25feb1ba3ec364ce810351a6",
+      size: 7,
+    },
+    {
+      id: "miwa",
+      spotify_id: "3R3WEsfL1WC1zLiz3XG9K5",
+      img: "https://i.scdn.co/image/ab6761610000e5ebeb7ce80999056f06b3318df0",
+      size: 5,
     },
     {
       id: "美波",
-    },
-    {
-      id: "majiko",
-    },
-    {
-      id: "Sangatsu no Phantasia",
-    },
-    {
-      id: "Kano",
-    },
-    {
-      id: "TUYU",
-    },
-    {
-      id: "the peggies",
-    },
-    {
-      id: "藤川千愛",
-    },
-    {
-      id: "Cö shu Nie",
-    },
-    {
-      id: "花譜",
-    },
-    {
-      id: "whaledontsleep",
-    },
-    {
-      id: "理芽",
-    },
-    {
-      id: "n-buna",
-    },
-    {
-      id: "ZUTOMAYO",
-    },
-    {
-      id: "DUSTCELL",
-    },
-    {
-      id: "H△G",
-    },
-    {
-      id: "須田景凪",
+      spotify_id: "1KXJUpTiNeMv93LrJbbm7G",
+      img: "https://i.scdn.co/image/ab6761610000e5ebae291e3c3634447a2a6432de",
+      size: 6,
     },
     {
       id: "amazarashi",
+      spotify_id: "6T4K8YuFc0JPDrYgABbxao",
+      img: "https://i.scdn.co/image/ab6761610000e5eb117b809e83bad107dd015d15",
+      size: 6,
     },
     {
-      id: "Ling tosite sigure",
+      id: "Uru",
+      spotify_id: "6le80R1opKnTlP4o3KvA2k",
+      img: "https://i.scdn.co/image/ab6761610000e5eb78eb56a891489469afb47d5d",
+      size: 6,
     },
     {
-      id: "TK from Ling tosite sigure",
+      id: "Kalafina",
+      spotify_id: "2otsTXVV2ZWZ8T5LPzsBhy",
+      img: "https://i.scdn.co/image/ab6761610000e5eb509ff4872e533f7426719408",
+      size: 5,
     },
     {
-      id: "Hello Sleepwalkers",
+      id: "Lilas Ikuta",
+      spotify_id: "1qM11R4ylJyQiPJ0DffE9z",
+      img: "https://i.scdn.co/image/ab6761610000e5eb79f98bece3624ebcd0b036bc",
+      size: 6,
     },
     {
-      id: "BLUE ENCOUNT",
-    },
-    {
-      id: "Hitorie",
-    },
-    {
-      id: "Galileo Galilei",
-    },
-    {
-      id: "QUEEN BEE",
-    },
-    {
-      id: "Kami-sama, I have noticed",
-    },
-    {
-      id: "THE ORAL CIGARETTES",
-    },
-    {
-      id: "NICO Touches the Walls",
-    },
-    {
-      id: "ASIAN KUNG-FU GENERATION",
-    },
-    {
-      id: "Kiro Akiyama",
-    },
-    {
-      id: "9mm Parabellum Bullet",
-    },
-    {
-      id: "ROOKiEZ is PUNK'D",
+      id: "UVERworld",
+      spotify_id: "6m14xgA0m3w92UM7ujJgky",
+      img: "https://i.scdn.co/image/ab6761610000e5ebfff91bb5113721cbae0a1e4f",
+      size: 6,
     },
   ],
   links: [
@@ -240,168 +135,8 @@ const mockData: GraphData & any = {
       target: "EGOIST",
     },
     {
-      source: "EGOIST",
-      target: "supercell",
-    },
-    {
-      source: "EGOIST",
-      target: "ClariS",
-    },
-    {
-      source: "EGOIST",
-      target: "GARNiDELiA",
-    },
-    {
-      source: "EGOIST",
-      target: "yanaginagi",
-    },
-    {
-      source: "EGOIST",
-      target: "Eir Aoi",
-    },
-    {
-      source: "EGOIST",
-      target: "SawanoHiroyuki[nZk]",
-    },
-    {
-      source: "EGOIST",
-      target: "fripSide",
-    },
-    {
-      source: "EGOIST",
-      target: "Konomi Suzuki",
-    },
-    {
-      source: "EGOIST",
-      target: "ASCA",
-    },
-    {
-      source: "EGOIST",
-      target: "MYTH & ROID",
-    },
-    {
-      source: "EGOIST",
-      target: "Kalafina",
-    },
-    {
-      source: "EGOIST",
-      target: "Sayuri",
-    },
-    {
-      source: "EGOIST",
-      target: "Luna Haruna",
-    },
-    {
-      source: "EGOIST",
-      target: "いとうかなこ",
-    },
-    {
-      source: "EGOIST",
-      target: "Tia",
-    },
-    {
-      source: "EGOIST",
-      target: "KISIDA KYODAN & THE AKEBOSI ROCKETS",
-    },
-    {
-      source: "EGOIST",
-      target: "ReoNa",
-    },
-    {
-      source: "EGOIST",
-      target: "Haruka Tomatsu",
-    },
-    {
-      source: "EGOIST",
-      target: "Mashiro Ayano",
-    },
-    {
-      source: "EGOIST",
-      target: "Nana Mizuki",
-    },
-    {
       source: "Aimer",
       target: "milet",
-    },
-    {
-      source: "milet",
-      target: "Lilas Ikuta",
-    },
-    {
-      source: "milet",
-      target: "Uru",
-    },
-    {
-      source: "milet",
-      target: "Ryokuoushoku Shakai",
-    },
-    {
-      source: "milet",
-      target: "Aimer",
-    },
-    {
-      source: "milet",
-      target: "MAN WITH A MISSION",
-    },
-    {
-      source: "milet",
-      target: "Rei Yasuda",
-    },
-    {
-      source: "milet",
-      target: "yama",
-    },
-    {
-      source: "milet",
-      target: "Leo Ieiri",
-    },
-    {
-      source: "milet",
-      target: "Novelbright",
-    },
-    {
-      source: "milet",
-      target: "ReoNa",
-    },
-    {
-      source: "milet",
-      target: "eill",
-    },
-    {
-      source: "milet",
-      target: "Awesome City Club",
-    },
-    {
-      source: "milet",
-      target: "miwa",
-    },
-    {
-      source: "milet",
-      target: "ヨルシカ",
-    },
-    {
-      source: "milet",
-      target: "iri",
-    },
-    {
-      source: "milet",
-      target: "にしな",
-    },
-    {
-      source: "milet",
-      target: "Vaundy",
-    },
-    {
-      source: "milet",
-      target: "[Alexandros]",
-    },
-    {
-      source: "milet",
-      target: "King Gnu",
-    },
-    {
-      source: "milet",
-      target: "SawanoHiroyuki[nZk]",
     },
     {
       source: "Aimer",
@@ -426,86 +161,6 @@ const mockData: GraphData & any = {
     {
       source: "Aimer",
       target: "LiSA",
-    },
-    {
-      source: "LiSA",
-      target: "Eir Aoi",
-    },
-    {
-      source: "LiSA",
-      target: "EGOIST",
-    },
-    {
-      source: "LiSA",
-      target: "ClariS",
-    },
-    {
-      source: "LiSA",
-      target: "ReoNa",
-    },
-    {
-      source: "LiSA",
-      target: "supercell",
-    },
-    {
-      source: "LiSA",
-      target: "ASCA",
-    },
-    {
-      source: "LiSA",
-      target: "Luna Haruna",
-    },
-    {
-      source: "LiSA",
-      target: "Aimer",
-    },
-    {
-      source: "LiSA",
-      target: "Konomi Suzuki",
-    },
-    {
-      source: "LiSA",
-      target: "GARNiDELiA",
-    },
-    {
-      source: "LiSA",
-      target: "Nana Mizuki",
-    },
-    {
-      source: "LiSA",
-      target: "Haruka Tomatsu",
-    },
-    {
-      source: "LiSA",
-      target: "CHiCO with HoneyWorks",
-    },
-    {
-      source: "LiSA",
-      target: "fripSide",
-    },
-    {
-      source: "LiSA",
-      target: "Sayuri",
-    },
-    {
-      source: "LiSA",
-      target: "UVERworld",
-    },
-    {
-      source: "LiSA",
-      target: "FLOW",
-    },
-    {
-      source: "LiSA",
-      target: "Kalafina",
-    },
-    {
-      source: "LiSA",
-      target: "KANA-BOON",
-    },
-    {
-      source: "LiSA",
-      target: "SPYAIR",
     },
     {
       source: "Aimer",
@@ -536,168 +191,8 @@ const mockData: GraphData & any = {
       target: "美波",
     },
     {
-      source: "美波",
-      target: "majiko",
-    },
-    {
-      source: "美波",
-      target: "Sangatsu no Phantasia",
-    },
-    {
-      source: "美波",
-      target: "Sayuri",
-    },
-    {
-      source: "美波",
-      target: "ReoNa",
-    },
-    {
-      source: "美波",
-      target: "Kano",
-    },
-    {
-      source: "美波",
-      target: "TUYU",
-    },
-    {
-      source: "美波",
-      target: "the peggies",
-    },
-    {
-      source: "美波",
-      target: "藤川千愛",
-    },
-    {
-      source: "美波",
-      target: "Cö shu Nie",
-    },
-    {
-      source: "美波",
-      target: "花譜",
-    },
-    {
-      source: "美波",
-      target: "whaledontsleep",
-    },
-    {
-      source: "美波",
-      target: "yanaginagi",
-    },
-    {
-      source: "美波",
-      target: "理芽",
-    },
-    {
-      source: "美波",
-      target: "n-buna",
-    },
-    {
-      source: "美波",
-      target: "ASCA",
-    },
-    {
-      source: "美波",
-      target: "ZUTOMAYO",
-    },
-    {
-      source: "美波",
-      target: "EGOIST",
-    },
-    {
-      source: "美波",
-      target: "DUSTCELL",
-    },
-    {
-      source: "美波",
-      target: "H△G",
-    },
-    {
-      source: "美波",
-      target: "須田景凪",
-    },
-    {
       source: "Aimer",
       target: "amazarashi",
-    },
-    {
-      source: "amazarashi",
-      target: "Ling tosite sigure",
-    },
-    {
-      source: "amazarashi",
-      target: "TK from Ling tosite sigure",
-    },
-    {
-      source: "amazarashi",
-      target: "Sayuri",
-    },
-    {
-      source: "amazarashi",
-      target: "Hello Sleepwalkers",
-    },
-    {
-      source: "amazarashi",
-      target: "BLUE ENCOUNT",
-    },
-    {
-      source: "amazarashi",
-      target: "Hitorie",
-    },
-    {
-      source: "amazarashi",
-      target: "Cö shu Nie",
-    },
-    {
-      source: "amazarashi",
-      target: "Galileo Galilei",
-    },
-    {
-      source: "amazarashi",
-      target: "SPYAIR",
-    },
-    {
-      source: "amazarashi",
-      target: "QUEEN BEE",
-    },
-    {
-      source: "amazarashi",
-      target: "supercell",
-    },
-    {
-      source: "amazarashi",
-      target: "EGOIST",
-    },
-    {
-      source: "amazarashi",
-      target: "Kami-sama, I have noticed",
-    },
-    {
-      source: "amazarashi",
-      target: "SawanoHiroyuki[nZk]",
-    },
-    {
-      source: "amazarashi",
-      target: "THE ORAL CIGARETTES",
-    },
-    {
-      source: "amazarashi",
-      target: "NICO Touches the Walls",
-    },
-    {
-      source: "amazarashi",
-      target: "ASIAN KUNG-FU GENERATION",
-    },
-    {
-      source: "amazarashi",
-      target: "Kiro Akiyama",
-    },
-    {
-      source: "amazarashi",
-      target: "9mm Parabellum Bullet",
-    },
-    {
-      source: "amazarashi",
-      target: "ROOKiEZ is PUNK'D",
     },
     {
       source: "Aimer",
@@ -714,10 +209,12 @@ const mockData: GraphData & any = {
     {
       source: "Aimer",
       target: "UVERworld",
+      value: 10,
     },
   ],
 };
-const data: GraphData & any = {
+
+const sData: GraphData & any = {
   nodes: [
     { id: "Myriel", group: 1 },
     { id: "Napoleon", group: 1 },
@@ -765,7 +262,7 @@ const data: GraphData & any = {
     { id: "Woman2", group: 5 },
     { id: "MotherInnocent", group: 0 },
     { id: "Gribier", group: 0 },
-    { id: "Jondrette", group: 7 },
+    { id: "Jondrette", group: 7, size: 10 },
     { id: "Mme.Burgon", group: 7 },
     { id: "Gavroche", group: 8 },
     { id: "Gillenormand", group: 5 },
@@ -1055,4 +552,4 @@ const data: GraphData & any = {
   ],
 };
 
-export { data, mockData };
+export { sData, mockData };
