@@ -1,6 +1,7 @@
 const axios = require("axios");
 const qs = require("qs");
 const createNode = require("../lib/Node.js");
+const l4Data = require("../L4Data.json");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
@@ -79,6 +80,7 @@ class SpotifyAPI {
       if (depth > 0) {
         await delay(this.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
+        // let related = { error: false, data: l4Data[info.name] };
         if (!related.error) {
           related = related.data;
 
