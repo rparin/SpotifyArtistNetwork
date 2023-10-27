@@ -7,29 +7,48 @@ class SpotifyAPI {
   constructor(client_id, client_secret) {
     this._client_id = client_id;
     this._client_secret = client_secret;
+    this._auth_token = new Buffer.from(
+      client_id + ":" + client_secret
+    ).toString("base64");
     this.delay = 1000;
   }
 
   async getClientAuthToken() {
-    const auth_token = Buffer.from(
-      `${this._client_id}:${this._client_secret}`,
-      "utf-8"
-    ).toString("base64");
     try {
-      //make post request to SPOTIFY API for access token, sending relevant info
       const token_url = "https://accounts.spotify.com/api/token";
       const data = qs.stringify({ grant_type: "client_credentials" });
 
-      const response = await axios.post(token_url, data, {
+      const res = await axios.post(token_url, data, {
         headers: {
-          Authorization: `Basic ${auth_token}`,
+          Authorization: `Basic ${this._auth_token}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      return response.data.access_token;
+      return res.data.access_token;
     } catch (error) {
-      //on fail, log the error in console
-      //   console.log(error);
+      return { error: true, status: error.response.status };
+    }
+  }
+
+  async refreshToken(refresh_token) {
+    try {
+      const url = `https://accounts.spotify.com/api/token`;
+      const data = qs.stringify({
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
+      });
+      const res = await axios.post(url, data, {
+        headers: {
+          Authorization: `Basic ${this._auth_token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      return {
+        error: false,
+        access_token: res.access_token,
+        refresh_token: res.refresh_token,
+      };
+    } catch (error) {
       return { error: true, status: error.response.status };
     }
   }
@@ -37,15 +56,13 @@ class SpotifyAPI {
   async getRelatedArtists(id, accessToken) {
     try {
       const url = `https://api.spotify.com/v1/artists/${id}/related-artists`;
-      const response = await axios.get(url, {
+      const res = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      return { error: false, data: response.data };
+      return { error: false, data: res.data };
     } catch (error) {
-      //on fail, log the error in console
-      // console.log(error);
       return { error: true, status: error.response.status };
     }
   }
@@ -60,13 +77,12 @@ class SpotifyAPI {
       });
       return { error: false, data: response.data };
     } catch (error) {
-      //on fail, log the error in console
-      // console.log(error);
       return { error: true, status: error.response.status };
     }
   }
 
   async getArtistRelatedMap(id, depth, access_token) {
+    console.log(access_token);
     const relatedMap = { nodes: [], links: [] };
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
     const nameNodes = new Set();
