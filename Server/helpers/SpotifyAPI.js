@@ -8,7 +8,7 @@ const Aimer4 = require("../data/Aimer4.json");
 class SpotifyAPI {
   constructor(client_id, client_secret) {
     this._client_id = client_id;
-    this._client_secret = client_secret;
+    // this._client_secret = client_secret;
     this._auth_token = new Buffer.from(
       client_id + ":" + client_secret
     ).toString("base64");
