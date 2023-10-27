@@ -15,3 +15,8 @@ export interface Node {
   img: string;
   size: number;
 }
+
+export interface ClientToken {
+  access_token: string;
+  obtained_at: number;
+}

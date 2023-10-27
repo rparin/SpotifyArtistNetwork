@@ -3,21 +3,49 @@ import React, { useCallback, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { mockData } from "../../../public/data/data";
 import * as THREE from "three";
-import { Node } from "@/lib/utils";
+import { Node, ClientToken } from "@/lib/utils";
 
 const Graph = () => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(mockData);
+  const [authToken, setAuthToken] = useState<ClientToken | undefined>(
+    undefined
+  );
 
-  const getData = () => {
-    fetch("http://localhost:8080/api/spotify/relatedMap/0bAsR2unSRpn6BQPEnNlZm")
+  const checkClientToken = async (cToken: ClientToken | undefined) => {
+    let curDate = new Date().getTime();
+
+    if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
+      try {
+        const res = await fetch("http://localhost:8080/api/spotify/cAuthToken");
+        const data = await res.json();
+        return {
+          access_token: data.access_token,
+          obtained_at: new Date().getTime(),
+        };
+      } catch (error) {
+        console.error("Error fetching client token:", error);
+        return undefined;
+      }
+    }
+
+    return cToken;
+  };
+
+  const getData = async () => {
+    const cTokenObj = await checkClientToken(authToken);
+    const aId = "0bAsR2unSRpn6BQPEnNlZm";
+    // handle undefined / error
+    setAuthToken(cTokenObj);
+    fetch(
+      `http://localhost:8080/api/spotify/relatedMap/${aId}/${cTokenObj?.access_token}`
+    )
       .then((res) => res.json())
-      .then((d) => {
-        console.log(d.relatedArtists);
-        setData(d.relatedArtists);
+      .then((data) => {
+        setData(data.relatedArtists);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching related artists:", error);
       });
   };
 
@@ -26,11 +54,10 @@ const Graph = () => {
   };
 
   const handleClick = useCallback(
-    (node: any) => {
-      const distance = 40;
+    (node: Node | any) => {
+      const distance = 70;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
-        // console.log(fgRef.current);
         fgRef.current.cameraPosition(
           {
             x: node.x * distRatio,
@@ -38,7 +65,7 @@ const Graph = () => {
             z: node.z * distRatio,
           },
           node,
-          3000
+          2000
         );
       }
     },
@@ -54,7 +81,7 @@ const Graph = () => {
           nodeLabel="id"
           // nodeAutoColorBy="group"
           onNodeClick={handleClick}
-          nodeThreeObject={(node: any) => {
+          nodeThreeObject={(node: Node | any) => {
             const nodeImg = node.img ? node.img : "/src.jpg";
             const imgTexture = new THREE.TextureLoader().load(nodeImg);
             const mask = new THREE.TextureLoader().load("/mask.png");
