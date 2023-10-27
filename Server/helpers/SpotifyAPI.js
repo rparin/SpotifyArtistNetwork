@@ -3,7 +3,7 @@ const qs = require("querystring");
 const crypto = require("crypto");
 const createNode = require("../lib/Node.js");
 const Spotify = require("../constants/Spotify.js");
-const l4Data = require("../L4Data.json");
+const Aimer4 = require("../data/Aimer4.json");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
@@ -45,7 +45,6 @@ class SpotifyAPI {
       const res = await this._getToken(data);
       return res.data.access_token;
     } catch (error) {
-      console.log(error);
       return { error: true, status: error.response.status };
     }
   }
@@ -118,7 +117,7 @@ class SpotifyAPI {
       if (depth > 0) {
         await this.delay(Spotify.Variables.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
-        // let related = { error: false, data: l4Data[info.name] };
+        // let related = { error: false, data: Aimer4[info.name] };
         if (!related.error) {
           related = related.data;
 
