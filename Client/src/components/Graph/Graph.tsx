@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import { mockData } from "../../public/data/data";
+import { mockData } from "../../../public/data/data";
 import * as THREE from "three";
 import { Node } from "@/lib/utils";
 
@@ -10,7 +10,7 @@ const Graph = () => {
   const [data, setData] = useState(mockData);
 
   const getData = () => {
-    fetch("http://localhost:8080/api/spotify/relatedMap")
+    fetch("http://localhost:8080/api/spotify/relatedMap/0bAsR2unSRpn6BQPEnNlZm")
       .then((res) => res.json())
       .then((d) => {
         console.log(d.relatedArtists);

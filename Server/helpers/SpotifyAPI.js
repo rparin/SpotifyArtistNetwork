@@ -72,15 +72,15 @@ class SpotifyAPI {
     const nameNodes = new Set();
 
     const getArtist = async (info, depth) => {
-      console.log(info.id, info.name, depth);
+      // console.log(info.id, info.name, depth);
 
       relatedMap.nodes.push(createNode(info));
       nameNodes.add(info.name);
 
       if (depth > 0) {
-        await delay(this.delay);
-        let related = await this.getRelatedArtists(info.id, access_token);
-        // let related = { error: false, data: l4Data[info.name] };
+        // await delay(this.delay);
+        // let related = await this.getRelatedArtists(info.id, access_token);
+        let related = { error: false, data: l4Data[info.name] };
         if (!related.error) {
           related = related.data;
 

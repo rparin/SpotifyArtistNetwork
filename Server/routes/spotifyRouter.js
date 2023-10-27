@@ -14,13 +14,12 @@ router.get("/cAuthToken", async (req, res) => {
 });
 
 // /relatedMap/:id/:authToken
-router.get("/relatedMap", async (req, res) => {
-  //   const id = req.params.id; //0bAsR2unSRpn6BQPEnNlZm
+router.get("/relatedMap/:id", async (req, res) => {
+  const id = req.params.id; //0bAsR2unSRpn6BQPEnNlZm
   //   const authToken = req.params.authToken;
-  const id = "0bAsR2unSRpn6BQPEnNlZm"; //0bAsR2unSRpn6BQPEnNlZm
   const authToken = await spotifyAPI.getClientAuthToken();
   res.json({
-    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, 1, authToken),
+    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, 4, authToken),
   });
 });
 
