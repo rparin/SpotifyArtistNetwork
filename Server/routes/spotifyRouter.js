@@ -1,6 +1,7 @@
 const express = require("express");
 const SpotifyAPI = require("../helpers/SpotifyAPI");
 const router = express.Router();
+const qs = require("querystring");
 
 //Import Env Variables
 require("dotenv").config();
@@ -13,16 +14,43 @@ router.get("/cAuthToken", async (req, res) => {
   res.json({ access_token: await spotifyAPI.getClientAuthToken() });
 });
 
+router.get("/askAuth", async (req, res) => {
+  res.redirect(spotifyAPI.getAuthEndpoint());
+});
+
+router.get("/authCallback", async (req, res) => {
+  var code = req.query.code || null;
+  var state = req.query.state || null;
+  var redirect_uri = "http://localhost:8080/api/home";
+
+  if (state === null) {
+    res.redirect(
+      "/#" +
+        qs.stringify({
+          error: "state_mismatch",
+        })
+    );
+  } else {
+    const data = await spotifyAPI.getUserAuthToken(code);
+    if (data.error) {
+      res.redirect(`${redirect_uri}?error=true&status=${data.status}`);
+    } else {
+      res.redirect(
+        `${redirect_uri}?error=false&access_token=${data.access_token}&refresh_token=${data.refresh_token}&expires_in=${data.expires_in}&token_type=${data.token_type}`
+      );
+    }
+  }
+});
+
 router.get("/rAuthToken/:authToken", async (req, res) => {
   res.json(await spotifyAPI.refreshToken(req.params.authToken));
 });
 
-// /relatedMap/:id/:authToken
 router.get("/relatedMap/:id/:authToken", async (req, res) => {
   const id = req.params.id;
   const authToken = req.params.authToken;
   res.json({
-    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, 4, authToken),
+    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, 2, authToken),
   });
 });
 
