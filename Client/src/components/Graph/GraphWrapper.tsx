@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const ForceGraph = dynamic(() => import("../components/Graph"), {
+const ForceGraph = dynamic(() => import("../Graph/Graph"), {
   ssr: false,
 });
 
