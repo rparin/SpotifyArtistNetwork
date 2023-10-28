@@ -46,11 +46,12 @@ router.get("/rAuthToken/:authToken", async (req, res) => {
   res.json(await spotifyAPI.refreshToken(req.params.authToken));
 });
 
-router.get("/relatedMap/:id/:authToken", async (req, res) => {
+router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
   const id = req.params.id;
+  const depth = req.params.depth;
   const authToken = req.params.authToken;
   res.json({
-    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, 2, authToken),
+    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, depth, authToken),
   });
 });
 
