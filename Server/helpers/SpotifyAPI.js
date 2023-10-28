@@ -3,7 +3,6 @@ const qs = require("querystring");
 const crypto = require("crypto");
 const createNode = require("../lib/Node.js");
 const Spotify = require("../constants/Spotify.js");
-const Aimer4 = require("../data/Aimer4.json");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
@@ -88,6 +87,7 @@ class SpotifyAPI {
       );
       return { error: false, data: res.data };
     } catch (error) {
+      console.log(error);
       return { error: true, status: error.response.status };
     }
   }
@@ -109,7 +109,9 @@ class SpotifyAPI {
     const nameNodes = new Set();
 
     const getArtist = async (info, depth) => {
-      console.log(info.id, info.name, depth);
+      if (depth != 0) {
+        console.log(info.id, info.name, depth);
+      }
 
       relatedMap.nodes.push(createNode(info));
       nameNodes.add(info.name);
@@ -117,10 +119,9 @@ class SpotifyAPI {
       if (depth > 0) {
         await this.delay(Spotify.Variables.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
-        // let related = { error: false, data: Aimer4[info.name] };
+
         if (!related.error) {
           related = related.data;
-
           for (var i = 0; i < related.artists.length; i++) {
             const data = related.artists[i];
             relatedMap.links.push({ source: info.name, target: data.name });

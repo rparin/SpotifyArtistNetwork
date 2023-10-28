@@ -1,20 +1,19 @@
 "use client";
 import React, { useCallback, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import { mockData } from "../../../public/data/data";
+import { Aimer1, Aimer2, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
 import { Node, ClientToken } from "@/lib/utils";
 
 const Graph = () => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [data, setData] = useState(mockData);
+  const [data, setData] = useState(Aimer1);
   const [authToken, setAuthToken] = useState<ClientToken | undefined>(
     undefined
   );
 
   const checkClientToken = async (cToken: ClientToken | undefined) => {
     let curDate = new Date().getTime();
-
     if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
       try {
         const res = await fetch("http://localhost:8080/api/spotify/cAuthToken");
@@ -33,12 +32,14 @@ const Graph = () => {
   };
 
   const getData = async () => {
-    const cTokenObj = await checkClientToken(authToken);
     const aId = "0bAsR2unSRpn6BQPEnNlZm";
+    const depth = 2;
+    const cTokenObj = await checkClientToken(authToken);
+
     // handle undefined / error
     setAuthToken(cTokenObj);
     fetch(
-      `http://localhost:8080/api/spotify/relatedMap/${aId}/${cTokenObj?.access_token}`
+      `http://localhost:8080/api/spotify/relatedMap/${aId}/${depth}/${cTokenObj?.access_token}`
     )
       .then((res) => res.json())
       .then((data) => {
