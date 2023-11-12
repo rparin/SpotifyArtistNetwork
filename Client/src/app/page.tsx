@@ -1,9 +1,9 @@
-import ForceGraph from "@/components/Graph/GraphWrapper";
+import Landing from "@/pages/Landing";
 
 export default function Home() {
   return (
     <main>
-      <ForceGraph />
+      <Landing />
     </main>
   );
 }
