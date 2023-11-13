@@ -1,6 +1,6 @@
 import { APP_NAME, SEARCH_PLACEHOLDER } from "@/constants";
 
-export default function Landing() {
+export default function Search() {
   return (
     <>
       <div className="h-[70vh] flex flex-col justify-center items-center gap-7">
