@@ -1,5 +1,5 @@
 import { APP_NAME } from "@/constants";
-import Searchbox from "@/components/UI/Searchbox";
+import { Searchbox } from "@/components/UI/Searchbox";
 
 export default function Search() {
   return (

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FOOTER_LOGIN_TEXT, FOOTER_SEARCH_TEXT, CR } from "@/constants";
-import extLink from "@icons/external-link.svg";
+import extLinkIco from "@icons/external-link.svg";
 
 export default function Footer() {
   return (
@@ -28,8 +28,8 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer">
           <Image
-            className="max-w-[1.5vh] invert-0 dark:invert opacity-40 w-auto h-[.7rem]"
-            src={extLink}
+            className="max-w-[1.5vh] invert opacity-40 w-auto h-[.7rem]"
+            src={extLinkIco}
             alt="External link to source code"
           />
         </a>
