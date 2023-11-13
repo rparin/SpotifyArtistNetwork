@@ -1,24 +1,12 @@
-import { APP_NAME, SEARCH_PLACEHOLDER, MY_NETWORK_BTN_TEXT } from "@/constants";
-import { ThemeToggle } from "@/components/UI/ThemeToggle";
-import { Button } from "@/components/UI/button";
+import { APP_NAME, SEARCH_PLACEHOLDER } from "@/constants";
 
 export default function Landing() {
   return (
     <>
-      {/* Buttons */}
-      <div className="flex justify-end gap-3 mx-5 mt-5">
-        <ThemeToggle className="rounded-[2rem]" />
-
-        <Button variant="default" className=" rounded-[2rem]">
-          {MY_NETWORK_BTN_TEXT}
-        </Button>
-      </div>
-
-      {/* Search Area */}
-      <div className="">
-        <h1>{APP_NAME}</h1>
+      <div className="h-[70vh] flex flex-col justify-center items-center gap-7">
+        <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
         <input
-          className="rounded-xl"
+          className="rounded-[7rem] h-14 px-7 w-[80%] lg:w-[50%] text-sm md:text-base shadow-lg focus:shadow-xl outline outline-black outline-2 dark:outline-white dark:bg-background"
           type="text"
           placeholder={SEARCH_PLACEHOLDER}
         />
