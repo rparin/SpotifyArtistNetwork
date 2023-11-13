@@ -4,7 +4,7 @@ import SearchResults from "@/pages/SearchResults";
 export default function Home() {
   return (
     <main>
-      {/* <Search /> */}
+      <Search />
       <SearchResults />
     </main>
   );
