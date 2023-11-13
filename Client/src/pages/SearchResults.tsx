@@ -1,4 +1,4 @@
-import Searchbox from "@/components/Searchbox";
+import Searchbox from "@/components/UI/Searchbox";
 import { APP_NAME } from "@/constants";
 export default function SearchResults() {
   return (
