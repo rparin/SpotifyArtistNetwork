@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font sizes: Perfect Fourth */
-body,
-p,
-a,
-span {
+/* Font sizes: Major Third */
+body {
   font-weight: 400;
 }
 
@@ -23,27 +20,27 @@ html {
 } /* 16px */
 
 h1 {
-  font-size: 4.21rem; /* 67.36px */
+  font-size: 3.053rem; /* 48.8px */
 }
 
 h2 {
-  font-size: 3.158rem; /* 50.56px */
+  font-size: 2.442rem; /* 39.04px */
 }
 
 h3 {
-  font-size: 2.369rem; /* 37.92px */
+  font-size: 1.954rem; /* 31.2px */
 }
 
 h4 {
-  font-size: 1.777rem; /* 28.48px */
+  font-size: 1.563rem; /* 24.96px */
 }
 
 h5 {
-  font-size: 1.333rem; /* 21.28px */
+  font-size: 1.25rem; /* 20px */
 }
 
 small {
-  font-size: 0.75rem; /* 12px */
+  font-size: 0.8rem; /* 12.8px */
 }
 
 /* Colors */
