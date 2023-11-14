@@ -32,7 +32,7 @@ export default function ArtistCard(props: artistCardType) {
           alt={props.alt}
         />
         <h2 className="text-3xl font-medium">{props.name}</h2>
-        <ul className="flex gap-2 px-5 w-full h-auto overflow-x-scroll whitespace-nowrap no-scrollbar text-black text-sm">
+        <ul className="flex gap-2 px-5 w-full h-auto overflow-x-scroll whitespace-nowrap no-scrollbar text-black text-sm horizontal-mask">
           {genres}
         </ul>
       </article>
