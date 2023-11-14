@@ -26,7 +26,7 @@ export default function Footer() {
           href="https://rparin.github.io"
           target="_blank"
           rel="noopener noreferrer">
-          <ExternalLink className="max-w-[1.5vh] opacity-40 w-auto h-[.7rem]" />
+          <ExternalLink className="opacity-40 w-auto h-[.7rem]" />
         </a>
       </section>
     </div>
