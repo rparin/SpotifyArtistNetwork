@@ -1,6 +1,5 @@
-import Image from "next/image";
 import { FOOTER_LOGIN_TEXT, FOOTER_SEARCH_TEXT, CR } from "@/constants";
-import extLinkIco from "@icons/external-link.svg";
+import { ExternalLink } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -27,11 +26,7 @@ export default function Footer() {
           href="https://rparin.github.io"
           target="_blank"
           rel="noopener noreferrer">
-          <Image
-            className="max-w-[1.5vh] invert opacity-40 w-auto h-[.7rem]"
-            src={extLinkIco}
-            alt="External link to source code"
-          />
+          <ExternalLink className="max-w-[1.5vh] opacity-40 w-auto h-[.7rem]" />
         </a>
       </section>
     </div>
