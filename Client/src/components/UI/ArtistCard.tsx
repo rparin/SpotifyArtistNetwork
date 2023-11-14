@@ -12,8 +12,12 @@ export type artistCardType = {
 };
 
 export default function ArtistCard(props: artistCardType) {
-  const genres = props.genres.map((genre) => {
-    return <li className="bg-white px-3 rounded-xl">{genre}</li>;
+  const genres = props.genres.map((genre, index) => {
+    return (
+      <li key={index} className="bg-white px-3 rounded-xl">
+        {genre}
+      </li>
+    );
   });
 
   return (
