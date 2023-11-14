@@ -1,9 +1,7 @@
 import React from "react";
-import Image from "next/image";
-import { SEARCH_PLACEHOLDER } from "@/constants";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import searchIco from "@icons/search.svg";
+import { Search } from "lucide-react";
 
 const searchVariants = cva(
   "rounded-[7rem] w-full px-4 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
@@ -33,39 +31,43 @@ const sizeVariants = cva("relative h-10 flex justify-start", {
   },
 });
 
+const searchIconVariants = cva(
+  "absolute rounded-md z-50 top-1 right-3 w-auto h-8 p-1",
+  {
+    variants: {
+      variant: {
+        default: "bg-background",
+        secondary: "invert bg-white dark:bg-black",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
 export interface SearchProps
   extends React.HtmlHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof searchVariants>,
-    VariantProps<typeof sizeVariants> {}
+    VariantProps<typeof sizeVariants> {
+  placeholder?: string;
+}
 
 const Searchbox = React.forwardRef<HTMLDivElement, SearchProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, placeholder, ...props }, ref) => {
     return (
       <div className={cn(sizeVariants({ size }))}>
         <input
           className={cn(searchVariants({ variant }), className)}
           type="text"
-          placeholder={SEARCH_PLACEHOLDER}
+          placeholder={placeholder}
         />
 
-        <div
-          className={
-            "absolute bg-background rounded-md z-50 top-1 right-3" +
-            (variant == "secondary" ? " bg-black dark:bg-white " : "")
-          }>
-          <Image
-            className={
-              "w-auto h-8 dark:invert p-1" +
-              (variant == "secondary" ? " invert dark:invert-0 opacity-60" : "")
-            }
-            src={searchIco}
-            alt="Icon of magnifying glass"
-          />
-        </div>
+        <Search className={searchIconVariants({ variant })} />
       </div>
     );
   }
 );
 
 Searchbox.displayName = "Searchbox";
-export { Searchbox, searchVariants, sizeVariants };
+export { Searchbox };
