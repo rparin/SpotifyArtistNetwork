@@ -56,7 +56,7 @@ export interface SearchProps
 const Searchbox = React.forwardRef<HTMLDivElement, SearchProps>(
   ({ className, variant, size, placeholder, ...props }, ref) => {
     return (
-      <div className={cn(sizeVariants({ size }))}>
+      <div ref={ref} className={cn(sizeVariants({ size }))}>
         <input
           className={cn(searchVariants({ variant }), className)}
           type="text"
