@@ -18,7 +18,7 @@ export default function ArtistCard(props: artistCardType) {
       {/* Artist Music Info */}
       <article className="rounded-t-md flex flex-col text-center items-center py-3 gap-2 backdrop-blur-md">
         <Image
-          className="w-auto h-32 object-contain rounded-[50%]"
+          className="h-32 w-32 object-cover rounded-[50%]"
           width={100}
           height={100}
           src={props.img}
@@ -27,17 +27,17 @@ export default function ArtistCard(props: artistCardType) {
         <h2 className="text-3xl font-medium">{props.name}</h2>
         <HorizontalList
           items={props.genres}
-          className="dark:bg-slate-500/80 bg-white/50"
+          className="dark:bg-slate-500/80 bg-slate-200/70"
         />
       </article>
 
       {/* Artist Social Info */}
-      <article className=" grid grid-cols-2 gap-1 backdrop-blur-md">
-        <div className="bg-slate-300/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+      <article className="grid grid-cols-2 gap-1 backdrop-blur-md">
+        <div className="bg-slate-200/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
           <h3 className="text-base font-normal">Followers</h3>
           <p className="font-medium">{props.followers}</p>
         </div>
-        <div className="bg-slate-300/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+        <div className="bg-slate-200/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
           <h3 className="text-base font-normal">Popularity</h3>
           <p className="font-medium">{props.pop}</p>
         </div>
@@ -62,6 +62,7 @@ export default function ArtistCard(props: artistCardType) {
         src={props.img}
         alt={props.alt}
       />
+      <div className="dark:hidden absolute -z-20 bg-black/30 w-full h-full top-0 rounded-md"></div>
     </section>
   );
 }
