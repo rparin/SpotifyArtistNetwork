@@ -14,9 +14,9 @@ export type artistCardType = {
 
 export default function ArtistCard(props: artistCardType) {
   return (
-    <section className="w-full max-w-[15rem]">
+    <section className="relative w-full max-w-[15rem]">
       {/* Artist Music Info */}
-      <article className="bg-slate-800 rounded-t-md flex flex-col text-center items-center py-3 gap-2">
+      <article className="rounded-t-md flex flex-col text-center items-center py-3 gap-2 backdrop-blur-md">
         <Image
           className="w-auto h-32 object-contain rounded-[50%]"
           width={100}
@@ -25,28 +25,43 @@ export default function ArtistCard(props: artistCardType) {
           alt={props.alt}
         />
         <h2 className="text-3xl font-medium">{props.name}</h2>
-        <HorizontalList items={props.genres} />
+        <HorizontalList
+          items={props.genres}
+          className="dark:bg-slate-500/80 bg-white/50"
+        />
       </article>
 
       {/* Artist Social Info */}
-      <article className="bg-slate-800 grid grid-cols-2 gap-1">
-        <div className="bg-slate-600 flex flex-col justify-center items-center text-center py-2">
-          <p>Followers</p>
+      <article className=" grid grid-cols-2 gap-1 backdrop-blur-md">
+        <div className="bg-slate-300/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+          <h3 className="text-base font-normal">Followers</h3>
           <p className="font-medium">{props.followers}</p>
         </div>
-        <div className="bg-slate-600 flex flex-col justify-center items-center text-center py-2">
-          <p>Popularity</p>
+        <div className="bg-slate-300/70 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+          <h3 className="text-base font-normal">Popularity</h3>
           <p className="font-medium">{props.pop}</p>
         </div>
       </article>
 
       {/* Spotify Link to Artist */}
-      <article className="bg-emerald-800 flex justify-center items-center text-center gap-1 rounded-b-md">
-        <p>Spotify</p>
-        <a href={props.url} target="_blank" rel="noopener noreferrer">
-          <ExternalLink className="w-auto h-[.7rem] mb-1" />
+      <article className="bg-[#1DB954] text-black  rounded-b-md">
+        <a
+          href={props.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex gap-1 justify-center items-center text-center">
+          Spotify
+          <ExternalLink className="w-auto h-[.7rem] mb-2" />
         </a>
       </article>
+
+      <Image
+        className="absolute top-0 h-full w-auto -z-10 rounded-md opacity-80 dark:opacity-40"
+        width={100}
+        height={100}
+        src={props.img}
+        alt={props.alt}
+      />
     </section>
   );
 }
