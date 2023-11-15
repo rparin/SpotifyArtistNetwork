@@ -1,11 +1,9 @@
-import Search from "@/pages/Search";
-import SearchResults from "@/pages/SearchResults";
+import Landing from "@/pages/Landing";
 
 export default function Home() {
   return (
     <main>
-      {/* <Search /> */}
-      <SearchResults />
+      <Landing />
     </main>
   );
 }
