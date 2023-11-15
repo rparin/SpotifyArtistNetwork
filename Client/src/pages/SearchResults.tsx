@@ -26,7 +26,7 @@ export default function SearchResults() {
         <h1 className="text-2xl">{APP_NAME}</h1>
         <Searchbox placeholder={SEARCH_PLACEHOLDER} size="md" />
       </div>
-      <div className="mt-10 flex flex-wrap justify-center gap-3 mx-12">
+      <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12">
         <ArtistCard
           name={artistName}
           genres={genres}
