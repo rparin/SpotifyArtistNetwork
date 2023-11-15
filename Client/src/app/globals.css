@@ -133,7 +133,7 @@ small {
   -webkit-mask: linear-gradient(
     90deg,
     transparent,
-    white 50%,
+    white 30%,
     white 80%,
     transparent
   );
