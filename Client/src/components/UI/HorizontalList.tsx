@@ -1,13 +1,16 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function HorizontalList({
   items,
   hScrollAmt = 40,
+  className,
 }: {
   items: Array<string>;
   hScrollAmt?: number;
+  className?: string;
 }) {
   const ref = useRef<HTMLUListElement>(null);
   const [arrows, setArrows] = useState({ left: false, right: true });
@@ -74,7 +77,11 @@ export default function HorizontalList({
   }, []);
 
   return (
-    <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
+    <div
+      className={cn(
+        "relative no-scrollbar w-full px-4 overflow-y-hidden group",
+        className
+      )}>
       <button
         onClick={() => hScroll(-hScrollAmt)}
         className="absolute top-[-2px] left-[-0.12rem] invisible group-hover:visible">
