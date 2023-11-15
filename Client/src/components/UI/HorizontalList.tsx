@@ -17,7 +17,9 @@ export default function HorizontalList({
 
   const genres = items.map((item, index) => {
     return (
-      <li key={index} className="bg-white px-3 rounded-xl">
+      <li
+        key={index}
+        className={cn("bg-white dark:bg-black px-3 rounded-xl", className)}>
         {item}
       </li>
     );
@@ -77,11 +79,7 @@ export default function HorizontalList({
   }, []);
 
   return (
-    <div
-      className={cn(
-        "relative no-scrollbar w-full px-4 overflow-y-hidden group",
-        className
-      )}>
+    <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
       <button
         onClick={() => hScroll(-hScrollAmt)}
         className="absolute top-[-2px] left-[-0.12rem] invisible group-hover:visible">
@@ -94,7 +92,7 @@ export default function HorizontalList({
       </button>
       <ul
         ref={ref}
-        className="flex gap-2 px-3 text-black text-sm overflow-x-scroll no-scrollbar whitespace-nowrap horizontal-mask">
+        className="flex gap-2 px-3 dark:text-white text-black text-sm overflow-x-scroll no-scrollbar whitespace-nowrap horizontal-mask">
         {genres}
       </ul>
     </div>
