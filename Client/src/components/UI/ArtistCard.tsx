@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import HorizontalList from "./HorizontalList";
 
 export type artistCardType = {
   name: string;
@@ -12,14 +13,6 @@ export type artistCardType = {
 };
 
 export default function ArtistCard(props: artistCardType) {
-  const genres = props.genres.map((genre, index) => {
-    return (
-      <li key={index} className="bg-white px-3 rounded-xl">
-        {genre}
-      </li>
-    );
-  });
-
   return (
     <section className="w-full max-w-[15rem]">
       {/* Artist Music Info */}
@@ -32,9 +25,7 @@ export default function ArtistCard(props: artistCardType) {
           alt={props.alt}
         />
         <h2 className="text-3xl font-medium">{props.name}</h2>
-        <ul className="flex gap-2 px-5 w-full h-auto overflow-x-scroll whitespace-nowrap no-scrollbar text-black text-sm horizontal-mask">
-          {genres}
-        </ul>
+        <HorizontalList items={props.genres} />
       </article>
 
       {/* Artist Social Info */}
