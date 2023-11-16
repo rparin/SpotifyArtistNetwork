@@ -1,9 +1,9 @@
-import SearchResult from "@/pages/SearchResults";
+import SearchResults from "@/pages/SearchResults";
 
 export default function searchRoute() {
   return (
     <main>
-      <SearchResult />
+      <SearchResults />
     </main>
   );
 }
