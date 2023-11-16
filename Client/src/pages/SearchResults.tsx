@@ -4,7 +4,7 @@ import { SEARCH_PLACEHOLDER } from "@/constants";
 import ArtistCard from "@/components/UI/ArtistCard";
 import Link from "next/link";
 
-export default function SearchResults() {
+export default function SearchResults(props: { query?: string }) {
   const artistName = "Aimer";
   const aImage =
     "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314";
@@ -28,7 +28,11 @@ export default function SearchResults() {
         <Link href={"/"}>
           <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
         </Link>
-        <Searchbox placeholder={SEARCH_PLACEHOLDER} size="md" />
+        <Searchbox
+          placeholder={SEARCH_PLACEHOLDER}
+          size="md"
+          inputOnLoad={props.query}
+        />
       </div>
       <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12">
         <ArtistCard
