@@ -67,26 +67,29 @@ const Searchbox = ({
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
 
-  //Update Search values on searchbox use
+  //Search values for searchbox use
   const router = useRouter();
 
-  //Update search values on page load
+  //Search values for page load
   const ref = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
   const query = searchParams?.get("q");
 
+  // Input query value into searchbox on page load
   useEffect(() => {
     if (ref.current && query) {
       ref.current.value = query;
     }
   }, []);
 
+  // Set search value on input
   const handleInputChange = (event: {
     target: EventTarget & HTMLInputElement;
   }) => {
     setSearch(event.target.value);
   };
 
+  // Set query param and go to search page
   const handleClick = () => {
     if (searchValue == "" || prevValue == searchValue) return;
     router.push(`/search?q=${searchValue}`);
