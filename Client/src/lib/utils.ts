@@ -11,3 +11,19 @@ export type Img = {
   alt: string;
   invert?: boolean;
 };
+
+export interface Dictionary<T> {
+  [Key: string]: T;
+}
+
+export interface Node {
+  id: string;
+  spotify_id: string;
+  img: string;
+  size: number;
+}
+
+export interface ClientToken {
+  access_token: string;
+  obtained_at: number;
+}
