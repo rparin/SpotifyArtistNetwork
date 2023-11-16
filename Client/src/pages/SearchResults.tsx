@@ -26,7 +26,7 @@ export default function SearchResults(props: { query?: string }) {
     <>
       <div className="flex flex-col md:flex-row text-center items-center gap-5 pt-10 md:pt-5 px-5">
         <Link href={"/"}>
-          <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
+          <h1 className="text-3xl lg:text-4xl">{APP_NAME}</h1>
         </Link>
         <Searchbox
           placeholder={SEARCH_PLACEHOLDER}
