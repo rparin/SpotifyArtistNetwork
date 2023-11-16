@@ -1,15 +1,19 @@
 const Urls = {
-  api: "https://api.spotify.com",
+  api: "https://api.spotify.com/v1",
   accounts: "https://accounts.spotify.com",
   host: "http://localhost:8080",
 };
 
 function getArtists(id) {
-  return `${Urls.api}/v1/artists/${id}`;
+  return `${Urls.api}/artists/${id}`;
 }
 
 function getRelatedArtists(id) {
-  return `${Urls.api}/v1/artists/${id}/related-artists`;
+  return `${Urls.api}/artists/${id}/related-artists`;
+}
+
+function searchArtist(artist) {
+  return `${Urls.api}/search?q=${artist}&type=artist`;
 }
 
 const HeaderContent = {
@@ -39,6 +43,7 @@ const Endpoints = {
   token: `${Urls.accounts}/api/token`,
   getArtists: getArtists,
   getRelatedArtists: getRelatedArtists,
+  searchArtist: searchArtist,
 };
 
 const Headers = {
