@@ -1,7 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const searchVariants = cva(
   "rounded-[7rem] w-full px-4 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
@@ -47,27 +50,72 @@ const searchIconVariants = cva(
 );
 
 export interface SearchProps
-  extends React.HtmlHTMLAttributes<HTMLDivElement>,
+  extends React.HtmlHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof searchVariants>,
     VariantProps<typeof sizeVariants> {
   placeholder?: string;
 }
 
-const Searchbox = React.forwardRef<HTMLDivElement, SearchProps>(
-  ({ className, variant, size, placeholder, ...props }, ref) => {
-    return (
-      <div ref={ref} className={cn(sizeVariants({ size }))}>
-        <input
-          className={cn(searchVariants({ variant }), className)}
-          type="text"
-          placeholder={placeholder}
-        />
+const Searchbox = ({
+  className,
+  variant,
+  size,
+  placeholder,
+  ...props
+}: SearchProps) => {
+  // Hold search values
+  const [searchValue, setSearch] = useState("");
+  const [prevValue, setPrev] = useState("");
 
+  //Update Search values on searchbox use
+  const router = useRouter();
+
+  //Update search values on page load
+  const ref = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+  const query = searchParams?.get("q");
+
+  useEffect(() => {
+    if (ref.current && query) {
+      ref.current.value = query;
+    }
+  }, []);
+
+  const handleInputChange = (event: {
+    target: EventTarget & HTMLInputElement;
+  }) => {
+    setSearch(event.target.value);
+  };
+
+  const handleClick = () => {
+    if (searchValue == "" || prevValue == searchValue) return;
+    router.push(`/search?q=${searchValue}`);
+    setPrev(searchValue);
+  };
+
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === "Enter") {
+      handleClick();
+    }
+  };
+
+  return (
+    <div className={cn(sizeVariants({ size }))}>
+      <input
+        ref={ref}
+        className={cn(searchVariants({ variant }), className)}
+        type="text"
+        placeholder={placeholder}
+        onKeyDown={handleKeyDown}
+        onChange={handleInputChange}
+        {...props}
+      />
+
+      <button onClick={handleClick}>
         <Search className={searchIconVariants({ variant })} />
-      </div>
-    );
-  }
-);
+      </button>
+    </div>
+  );
+};
 
-Searchbox.displayName = "Searchbox";
 export { Searchbox };
