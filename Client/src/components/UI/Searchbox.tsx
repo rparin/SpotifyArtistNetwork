@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 const searchVariants = cva(
   "rounded-[7rem] w-full px-4 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
@@ -54,6 +53,8 @@ export interface SearchProps
     VariantProps<typeof searchVariants>,
     VariantProps<typeof sizeVariants> {
   placeholder?: string;
+  inputOnLoad?: string | undefined | null;
+  route?: string;
 }
 
 const Searchbox = ({
@@ -61,24 +62,24 @@ const Searchbox = ({
   variant,
   size,
   placeholder,
+  inputOnLoad,
+  route = "/search",
   ...props
 }: SearchProps) => {
   // Hold search values
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
 
-  //Search values for searchbox use
+  //Values for page load
+  const ref = useRef<HTMLInputElement>(null);
+
+  // Values for search use
   const router = useRouter();
 
-  //Search values for page load
-  const ref = useRef<HTMLInputElement>(null);
-  const searchParams = useSearchParams();
-  const query = searchParams?.get("q");
-
-  // Input query value into searchbox on page load
+  // Input value into searchbox on page load
   useEffect(() => {
-    if (ref.current && query) {
-      ref.current.value = query;
+    if (ref.current && inputOnLoad) {
+      ref.current.value = inputOnLoad;
     }
   }, []);
 
@@ -92,7 +93,7 @@ const Searchbox = ({
   // Set query param and go to search page
   const handleClick = () => {
     if (searchValue == "" || prevValue == searchValue) return;
-    router.push(`/search?q=${searchValue}`);
+    router.push(`${route}?q=${searchValue}`);
     setPrev(searchValue);
   };
 
