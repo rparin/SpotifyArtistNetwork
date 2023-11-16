@@ -12,7 +12,7 @@ export type artistCardType = {
   url: string;
 };
 
-export default function ArtistCard(props: artistCardType) {
+export default function ResultArtistCard(props: artistCardType) {
   return (
     <section className="relative  w-full max-w-[13rem] lg:max-w-[15rem] hover:mb-0 hover:bg-blue-950/20 dark:hover:bg-slate-400/20 rounded-md">
       {/* Artist Music Info */}

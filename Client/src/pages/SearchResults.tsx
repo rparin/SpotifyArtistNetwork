@@ -1,7 +1,7 @@
 import { Searchbox } from "@/components/UI/Searchbox";
 import { APP_NAME } from "@/constants";
 import { SEARCH_PLACEHOLDER } from "@/constants";
-import ArtistCard from "@/components/ResultArtistCard";
+import ResultArtistCard from "@/components/ResultArtistCard";
 import Link from "next/link";
 
 export default function SearchResults(props: { query?: string }) {
@@ -35,7 +35,7 @@ export default function SearchResults(props: { query?: string }) {
         />
       </div>
       <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12">
-        <ArtistCard
+        <ResultArtistCard
           name={artistName}
           genres={genres}
           followers={followers}
