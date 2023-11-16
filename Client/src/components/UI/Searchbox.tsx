@@ -81,6 +81,10 @@ const Searchbox = ({
     if (ref.current && inputOnLoad) {
       ref.current.value = inputOnLoad;
     }
+
+    if (ref.current) {
+      ref.current.focus();
+    }
   }, []);
 
   // Set search value on input
