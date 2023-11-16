@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
-import HorizontalList from "./HorizontalList";
+import HorizontalList from "./UI/HorizontalList";
 
 export type artistCardType = {
   name: string;

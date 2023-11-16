@@ -1,7 +1,7 @@
 import { Searchbox } from "@/components/UI/Searchbox";
 import { APP_NAME } from "@/constants";
 import { SEARCH_PLACEHOLDER } from "@/constants";
-import ArtistCard from "@/components/UI/ArtistCard";
+import ArtistCard from "@/components/ResultArtistCard";
 import Link from "next/link";
 
 export default function SearchResults(props: { query?: string }) {
