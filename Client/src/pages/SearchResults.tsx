@@ -2,6 +2,7 @@ import { Searchbox } from "@/components/UI/Searchbox";
 import { APP_NAME } from "@/constants";
 import { SEARCH_PLACEHOLDER } from "@/constants";
 import ArtistCard from "@/components/UI/ArtistCard";
+import Link from "next/link";
 
 export default function SearchResults() {
   const artistName = "Aimer";
@@ -20,10 +21,13 @@ export default function SearchResults() {
     "Genre6",
     "Genre7",
   ];
+
   return (
     <>
       <div className="flex flex-col md:flex-row text-center items-center gap-5 pt-10 md:pt-5 px-5">
-        <h1 className="text-2xl">{APP_NAME}</h1>
+        <Link href={"/"}>
+          <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
+        </Link>
         <Searchbox placeholder={SEARCH_PLACEHOLDER} size="md" />
       </div>
       <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12">
