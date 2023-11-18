@@ -16,7 +16,7 @@ export default function HorizontalList({
 }) {
   const ref = useRef<HTMLUListElement>(null);
   const [arrows, setArrows] = useState({ left: false, right: true });
-  const centerGenre = items.length == 1 ? "justify-center" : "";
+  const centerGenre = items.length == 1 ? "pl-3 justify-center" : "";
 
   const genres = items.map((item, index) => {
     return (
