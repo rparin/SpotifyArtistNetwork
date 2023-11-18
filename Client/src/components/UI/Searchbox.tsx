@@ -25,7 +25,7 @@ const sizeVariants = cva("relative h-10 flex justify-start", {
     size: {
       default: "w-5/6 md:w-9/12 lg:w-4/12",
       sm: "",
-      md: "w-[90%] md:w-[50%]",
+      md: "w-[70%] md:w-[40%]",
     },
   },
   defaultVariants: {
