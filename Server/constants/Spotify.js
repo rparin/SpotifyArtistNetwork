@@ -39,6 +39,7 @@ function getBearerHeader(tokenType, authToken) {
 
 const Endpoints = {
   authCallback: `${Urls.host}/api/spotify/authCallback`,
+  authHome: `${Urls.host}/api/home`,
   auth: `${Urls.accounts}/authorize?`,
   token: `${Urls.accounts}/api/token`,
   getArtists: getArtists,
