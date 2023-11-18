@@ -16,6 +16,7 @@ export default function HorizontalList({
 }) {
   const ref = useRef<HTMLUListElement>(null);
   const [arrows, setArrows] = useState({ left: false, right: true });
+  const centerGenre = items.length == 1 ? "justify-center" : "";
 
   const genres = items.map((item, index) => {
     return (
@@ -80,14 +81,10 @@ export default function HorizontalList({
     };
   }, []);
 
-  return (
-    <>
-      {/* No Genres */}
-      {items.length == 0 ? (
-        <span className="py-3"></span>
-      ) : (
-        // Display genre list
-        <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
+  const getButtons = () => {
+    if (items.length > 1) {
+      return (
+        <>
           <button
             onClick={() => hScroll(-hScrollAmt)}
             className="absolute top-[-2px] left-[-0.12rem] invisible group-hover:visible">
@@ -98,13 +95,33 @@ export default function HorizontalList({
             className="absolute top-[-2px] right-[-0.12rem] invisible group-hover:visible">
             {arrows.right && <ChevronRight />}
           </button>
-          <ul
-            ref={ref}
-            className="flex gap-2 px-3 dark:text-white text-black text-sm overflow-x-scroll no-scrollbar whitespace-nowrap horizontal-mask">
-            {genres}
-          </ul>
-        </div>
-      )}
-    </>
-  );
+        </>
+      );
+    }
+  };
+
+  const getGenreTags = () => {
+    // No genres to show
+    if (items.length == 0) {
+      return <span className="py-3"></span>;
+    }
+
+    // Display list of genres
+    return (
+      <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
+        {/* Display arrow buttons if more than 1 genre */}
+        getButtons()
+        <ul
+          ref={ref}
+          className={
+            "flex gap-2 px-3 pl-7 dark:text-white text-black text-sm overflow-x-scroll no-scrollbar whitespace-nowrap horizontal-mask " +
+            centerGenre
+          }>
+          {genres}
+        </ul>
+      </div>
+    );
+  };
+
+  return <>{getGenreTags()}</>;
 }
