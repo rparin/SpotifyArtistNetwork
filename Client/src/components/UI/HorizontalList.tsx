@@ -84,7 +84,7 @@ export default function HorizontalList({
     <>
       {/* No Genres */}
       {items.length == 0 ? (
-        <span className="py-3 block bg-white"></span>
+        <span className="py-3"></span>
       ) : (
         // Display genre list
         <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
