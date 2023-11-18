@@ -110,7 +110,7 @@ export default function HorizontalList({
     return (
       <div className="relative no-scrollbar w-full px-4 overflow-y-hidden group">
         {/* Display arrow buttons if more than 1 genre */}
-        getButtons()
+        {getButtons()}
         <ul
           ref={ref}
           className={
