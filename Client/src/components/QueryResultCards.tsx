@@ -24,8 +24,7 @@ export default function QueryResultCards(props: { query?: string }) {
       const cToken = await getToken();
       const res = await fetchSearchResults(props.query, cToken);
       const cards = res.data.artists.items.map((item: any, index: any) => {
-        let bakImage =
-          "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314";
+        let bakImage = "./noImage.png";
         if (item?.images[0]?.url) {
           bakImage = item.images[0].url;
         }
