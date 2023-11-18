@@ -1,9 +1,14 @@
 import { FOOTER_LOGIN_TEXT, FOOTER_SEARCH_TEXT, CR } from "@/constants";
 import { ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export default function Footer() {
+export default function Footer(props: { className?: string }) {
   return (
-    <div className="bg-black text-white absolute bottom-0 left-0 right-0 mx-auto flex flex-col items-center gap-2 py-3">
+    <div
+      className={cn(
+        "bg-black text-white mx-auto flex flex-col items-center gap-2 py-3 w-full",
+        props.className
+      )}>
       <section className="flex gap-5 text-sm">
         <a
           href=""
