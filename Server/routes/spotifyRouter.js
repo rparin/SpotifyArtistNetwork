@@ -2,6 +2,7 @@ const express = require("express");
 const SpotifyAPI = require("../helpers/SpotifyAPI");
 const router = express.Router();
 const qs = require("querystring");
+const SPOTIFY = require("../constants/Spotify.js");
 
 //Import Env Variables
 require("dotenv").config();
@@ -21,7 +22,7 @@ router.get("/askAuth", async (req, res) => {
 router.get("/authCallback", async (req, res) => {
   var code = req.query.code || null;
   var state = req.query.state || null;
-  var redirect_uri = "http://localhost:8080/api/home";
+  var redirect_uri = SPOTIFY.Endpoints.authHome;
 
   if (state === null) {
     res.redirect(

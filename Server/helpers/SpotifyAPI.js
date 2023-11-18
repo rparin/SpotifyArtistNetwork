@@ -2,7 +2,7 @@ const axios = require("axios");
 const qs = require("querystring");
 const crypto = require("crypto");
 const createNode = require("../lib/Node.js");
-const Spotify = require("../constants/Spotify.js");
+const SPOTIFY = require("../constants/Spotify.js");
 
 class SpotifyAPI {
   constructor(client_id, client_secret) {
@@ -16,30 +16,30 @@ class SpotifyAPI {
 
   getAuthEndpoint() {
     const state = crypto
-      .randomBytes(Spotify.Variables.randomBytes)
+      .randomBytes(SPOTIFY.Variables.randomBytes)
       .toString("hex");
     const querystring = qs.stringify({
       response_type: "code",
       client_id: this._client_id,
-      scope: Spotify.Variables.scope,
-      redirect_uri: Spotify.Endpoints.authCallback,
+      scope: SPOTIFY.Variables.scope,
+      redirect_uri: SPOTIFY.Endpoints.authCallback,
       state: state,
     });
-    return `${Spotify.Endpoints.auth}${querystring}`;
+    return `${SPOTIFY.Endpoints.auth}${querystring}`;
   }
 
   async _getToken(data) {
     return await axios.post(
-      Spotify.Endpoints.token,
+      SPOTIFY.Endpoints.token,
       data,
-      Spotify.Headers.basic(this._auth_token)
+      SPOTIFY.Headers.basic(this._auth_token)
     );
   }
 
   async getClientAuthToken() {
     try {
       const data = qs.stringify({
-        grant_type: Spotify.Grants.clientCred,
+        grant_type: SPOTIFY.Grants.clientCred,
       });
       const res = await this._getToken(data);
       return res.data.access_token;
@@ -52,8 +52,8 @@ class SpotifyAPI {
     try {
       const data = qs.stringify({
         code: code,
-        redirect_uri: Spotify.Endpoints.authCallback,
-        grant_type: Spotify.Grants.authCode,
+        redirect_uri: SPOTIFY.Endpoints.authCallback,
+        grant_type: SPOTIFY.Grants.authCode,
       });
       const res = await this._getToken(data);
       return res.data;
@@ -65,7 +65,7 @@ class SpotifyAPI {
   async refreshToken(refresh_token) {
     try {
       const data = qs.stringify({
-        grant_type: Spotify.Grants.refreshToken,
+        grant_type: SPOTIFY.Grants.refreshToken,
         refresh_token: refresh_token,
       });
       const res = await this._getToken(data);
@@ -82,8 +82,8 @@ class SpotifyAPI {
   async searchArtist(artist, accessToken) {
     try {
       const res = await axios.get(
-        Spotify.Endpoints.searchArtist(artist),
-        Spotify.Headers.bearer("Bearer", accessToken)
+        SPOTIFY.Endpoints.searchArtist(artist),
+        SPOTIFY.Headers.bearer("Bearer", accessToken)
       );
       return { error: false, data: res.data };
     } catch (error) {
@@ -95,8 +95,8 @@ class SpotifyAPI {
   async getRelatedArtists(id, accessToken) {
     try {
       const res = await axios.get(
-        Spotify.Endpoints.getRelatedArtists(id),
-        Spotify.Headers.bearer("Bearer", accessToken)
+        SPOTIFY.Endpoints.getRelatedArtists(id),
+        SPOTIFY.Headers.bearer("Bearer", accessToken)
       );
       return { error: false, data: res.data };
     } catch (error) {
@@ -108,8 +108,8 @@ class SpotifyAPI {
   async getArtistInfo(id, accessToken) {
     try {
       const res = await axios.get(
-        Spotify.Endpoints.getArtists(id),
-        Spotify.Headers.bearer("Bearer", accessToken)
+        SPOTIFY.Endpoints.getArtists(id),
+        SPOTIFY.Headers.bearer("Bearer", accessToken)
       );
       return { error: false, data: res.data };
     } catch (error) {
@@ -130,7 +130,7 @@ class SpotifyAPI {
       nameNodes.add(info.name);
 
       if (depth > 0) {
-        await this.delay(Spotify.Variables.delay);
+        await this.delay(SPOTIFY.Variables.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
 
         if (!related.error) {
