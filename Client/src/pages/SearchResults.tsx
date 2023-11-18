@@ -17,7 +17,7 @@ export default function SearchResults(props: { query?: string }) {
           inputOnLoad={props.query}
         />
       </div>
-      <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12">
+      <div className="mt-10 flex flex-wrap justify-center items-center gap-3 mx-12 mb-10">
         <QueryResultCards query={props.query} />
       </div>
     </>
