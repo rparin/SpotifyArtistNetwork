@@ -10,6 +10,7 @@ export type artistCardType = {
   followers: string;
   pop: string;
   url: string;
+  id: string;
 };
 
 export default function ResultArtistCard(props: artistCardType) {
@@ -18,14 +19,17 @@ export default function ResultArtistCard(props: artistCardType) {
       {/* Artist Music Info */}
       <article className="rounded-t-md flex flex-col text-center items-center py-3 gap-2 backdrop-blur-md">
         <Image
-          className="lg:h-32 lg:w-32 object-cover rounded-[50%]"
+          className="h-28 w-28 lg:h-32 lg:w-32 object-cover rounded-[50%]"
           width={100}
           height={100}
           src={props.img}
           alt={props.alt}
         />
-        <h2 className="text-2xl lg:text-3xl font-medium">{props.name}</h2>
+        <h2 className="text-2xl lg:text-3xl font-medium line-clamp-1">
+          {props.name}
+        </h2>
         <HorizontalList
+          id={props.id}
           items={props.genres}
           className="dark:bg-slate-500/80 bg-slate-200/40"
         />
