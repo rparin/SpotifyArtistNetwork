@@ -27,3 +27,22 @@ export interface ClientToken {
   access_token: string;
   obtained_at: number;
 }
+
+export const checkClientToken = async (cToken: ClientToken | undefined) => {
+  let curDate = new Date().getTime();
+  if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
+    try {
+      const res = await fetch("http://localhost:8080/api/spotify/cAuthToken");
+      const data = await res.json();
+      return {
+        access_token: data.access_token,
+        obtained_at: new Date().getTime(),
+      };
+    } catch (error) {
+      console.error("Error fetching client token:", error);
+      return undefined;
+    }
+  }
+
+  return cToken;
+};
