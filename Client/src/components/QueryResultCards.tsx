@@ -1,18 +1,17 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, JSX } from "react";
-import { ResultArtistCard, artistCardType } from "./ResultArtistCard";
+import { ResultArtistCard } from "./ResultArtistCard";
 import { useLocalStorage } from "@/hooks/LocalStorage";
 import { checkClientToken } from "@/lib/utils";
-import {
-  fetchSearchResults,
-  fetchNextPageSearchResults,
-} from "@/lib/API/Spotify/SpotifyAPI";
+import { fetchSearchResults } from "@/lib/API/Spotify/SpotifyAPI";
 
 export default function QueryResultCards(props: { query?: string }) {
   const { getItem, setItem, removeItem } = useLocalStorage("clientToken");
-  const [searchResult, setSearchResult] = useState<null | any>(null);
-  const [nextPage, setNextPage] = useState<null | string>(null);
+  const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
+  const [nextPage, setNextPage] = useState<null | string | undefined>(
+    undefined
+  );
   const [loading, setLoading] = useState(false);
 
   const parseNextPage = (nextPage: string) => {
@@ -29,7 +28,7 @@ export default function QueryResultCards(props: { query?: string }) {
     return getItem().access_token;
   };
 
-  const setPage = (page: string | null) => {
+  const setPageHelper = (page: string | null) => {
     if (page) {
       setNextPage(parseNextPage(page));
     } else {
@@ -37,52 +36,51 @@ export default function QueryResultCards(props: { query?: string }) {
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      if (!props.query) return;
-      const cToken = await getToken();
-      const res = await fetchSearchResults(props.query, cToken);
-      setLoading(false);
-      if (res.error) return;
-      setPage(res.data.artists.next);
-      setSearchResult(res.data.artists.items);
+  const setResultHelper = (result: JSX.Element[]) => {
+    if (searchResult.length == 0) {
+      setSearchResult(result);
+    } else {
+      setSearchResult((prev: JSX.Element[]) => [...prev, ...result]);
     }
+  };
 
+  async function fetchData() {
+    setLoading(true);
+    if (!props.query) return;
+    const cToken = await getToken();
+    const res = await fetchSearchResults(props.query, nextPage, cToken);
+    if (res.error) return;
+    setLoading(false);
+    setResultHelper(res.data.artists.items);
+    setPageHelper(res.data.artists.next);
+  }
+
+  useEffect(() => {
     fetchData();
-  }, [props.query]);
+  }, []);
 
   const observer = useRef<any>();
   const lastArtistCardRef = useCallback(
     (node: HTMLElement) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
-      async function fetchData() {
-        const cToken = await getToken();
-        if (!nextPage) return;
-        const res = await fetchNextPageSearchResults(nextPage, cToken);
-        if (res.error) return;
-        setSearchResult((prev: any) => [...prev, ...res.data.artists.items]);
-        setPage(res.data.artists.next);
-      }
-
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          setLoading(true);
-          fetchData();
-          setLoading(false);
+          if (nextPage != null) {
+            fetchData();
+          }
         }
       });
       if (node) observer.current.observe(node);
     },
-    [loading, nextPage]
+    [loading]
   );
 
   const getArtistCards = () => {
     if (!searchResult) return;
     const idSet = new Set();
     const cards: JSX.Element[] = [];
-    searchResult.map((item: any, index: any) => {
+    searchResult.map((item: any, index: number) => {
       let bakImage = "./noImage.png";
       if (item?.images[0]?.url) {
         bakImage = item.images[0].url;
