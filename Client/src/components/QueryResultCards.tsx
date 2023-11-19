@@ -65,7 +65,7 @@ export default function QueryResultCards(props: { query?: string }) {
     }
   }, [props.query]);
 
-  const observer = useRef<any>();
+  const observer = useRef<IntersectionObserver | null>(null);
   const lastArtistCardRef = useCallback(
     (node: HTMLElement) => {
       if (loading) return;
