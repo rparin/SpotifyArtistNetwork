@@ -47,15 +47,13 @@ router.get("/rAuthToken/:authToken", async (req, res) => {
   res.json(await spotifyAPI.refreshToken(req.params.authToken));
 });
 
-router.get("/search/:artist/:authToken", async (req, res) => {
+router.get("/search/:artist/:page/:authToken", async (req, res) => {
   res.json(
-    await spotifyAPI.searchArtist(req.params.artist, req.params.authToken)
-  );
-});
-
-router.get("/search/page/:query/:authToken", async (req, res) => {
-  res.json(
-    await spotifyAPI.searchArtistPage(req.params.query, req.params.authToken)
+    await spotifyAPI.searchArtist(
+      req.params.artist,
+      req.params.page,
+      req.params.authToken
+    )
   );
 });
 
