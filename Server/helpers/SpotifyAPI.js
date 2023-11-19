@@ -92,6 +92,19 @@ class SpotifyAPI {
     }
   }
 
+  async searchArtistPage(query, accessToken) {
+    try {
+      const res = await axios.get(
+        `https://api.spotify.com/v1/search?${query}`,
+        SPOTIFY.Headers.bearer("Bearer", accessToken)
+      );
+      return { error: false, data: res.data };
+    } catch (error) {
+      console.log(error);
+      return { error: true, status: error.response.status };
+    }
+  }
+
   async getRelatedArtists(id, accessToken) {
     try {
       const res = await axios.get(
