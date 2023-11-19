@@ -12,7 +12,7 @@ export default function QueryResultCards(props: { query?: string }) {
   const [nextPage, setNextPage] = useState<null | string | undefined>(
     undefined
   );
-  const [loading, setLoading] = useState(false);
+  const [isloading, setisLoading] = useState(false);
 
   const parseNextPage = (nextPage: string) => {
     const searchParams = new URLSearchParams(nextPage);
@@ -49,12 +49,12 @@ export default function QueryResultCards(props: { query?: string }) {
     nextPage: null | string | undefined,
     newResult: boolean
   ) {
-    setLoading(true);
+    setisLoading(true);
     if (!props.query) return;
     const cToken = await getToken();
     const res = await fetchSearchResults(query, nextPage, cToken);
     if (res.error) return;
-    setLoading(false);
+    setisLoading(false);
     setResultHelper(res.data.artists.items, newResult);
     setPageHelper(res.data.artists.next);
   }
@@ -68,7 +68,7 @@ export default function QueryResultCards(props: { query?: string }) {
   const observer = useRef<IntersectionObserver | null>(null);
   const lastArtistCardRef = useCallback(
     (node: HTMLElement) => {
-      if (loading) return;
+      if (isloading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
@@ -79,7 +79,7 @@ export default function QueryResultCards(props: { query?: string }) {
       });
       if (node) observer.current.observe(node);
     },
-    [loading]
+    [isloading]
   );
 
   const getArtistCards = () => {
