@@ -36,28 +36,34 @@ export default function QueryResultCards(props: { query?: string }) {
     }
   };
 
-  const setResultHelper = (result: JSX.Element[]) => {
-    if (searchResult.length == 0) {
+  const setResultHelper = (result: JSX.Element[], newResult: boolean) => {
+    if (newResult) {
       setSearchResult(result);
     } else {
       setSearchResult((prev: JSX.Element[]) => [...prev, ...result]);
     }
   };
 
-  async function fetchData() {
+  async function fetchData(
+    query: string,
+    nextPage: null | string | undefined,
+    newResult: boolean
+  ) {
     setLoading(true);
     if (!props.query) return;
     const cToken = await getToken();
-    const res = await fetchSearchResults(props.query, nextPage, cToken);
+    const res = await fetchSearchResults(query, nextPage, cToken);
     if (res.error) return;
     setLoading(false);
-    setResultHelper(res.data.artists.items);
+    setResultHelper(res.data.artists.items, newResult);
     setPageHelper(res.data.artists.next);
   }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (props.query) {
+      fetchData(props.query, undefined, true);
+    }
+  }, [props.query]);
 
   const observer = useRef<any>();
   const lastArtistCardRef = useCallback(
@@ -66,8 +72,8 @@ export default function QueryResultCards(props: { query?: string }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          if (nextPage != null) {
-            fetchData();
+          if (nextPage != null && props.query) {
+            fetchData(props.query, nextPage, false);
           }
         }
       });
@@ -77,7 +83,6 @@ export default function QueryResultCards(props: { query?: string }) {
   );
 
   const getArtistCards = () => {
-    if (!searchResult) return;
     const idSet = new Set();
     const cards: JSX.Element[] = [];
     searchResult.map((item: any, index: number) => {
