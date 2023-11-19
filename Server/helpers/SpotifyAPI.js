@@ -79,10 +79,15 @@ class SpotifyAPI {
     }
   }
 
-  async searchArtist(artist, accessToken) {
+  async searchArtist(artist, page, accessToken) {
+    const endPoint =
+      page == "undefined"
+        ? SPOTIFY.Endpoints.searchArtist(artist)
+        : `https://api.spotify.com/v1/search?${page}`;
+
     try {
       const res = await axios.get(
-        SPOTIFY.Endpoints.searchArtist(artist),
+        endPoint,
         SPOTIFY.Headers.bearer("Bearer", accessToken)
       );
       return { error: false, data: res.data };
