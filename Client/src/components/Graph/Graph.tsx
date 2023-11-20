@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { Aimer1, Aimer2, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
@@ -73,10 +73,18 @@ const Graph = () => {
     [fgRef]
   );
 
+  useEffect(() => {
+    const item = window.localStorage.getItem("theme");
+    console.log(item);
+  }, []);
+
   return (
     <>
       <div className="relative">
         <ForceGraph3D
+          backgroundColor={"black"}
+          linkColor={() => "#1db954"}
+          linkOpacity={0.5}
           ref={fgRef}
           graphData={data}
           nodeLabel="id"
