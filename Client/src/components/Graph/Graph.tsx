@@ -5,6 +5,9 @@ import { Aimer1, Aimer2, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
 import { Node, ClientToken } from "@/lib/utils";
 
+import { effect } from "@preact/signals-core";
+import { signalTheme } from "../UI/ThemeToggle";
+
 const Graph = () => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer1);
@@ -73,16 +76,19 @@ const Graph = () => {
     [fgRef]
   );
 
+  const [signalThemeState, setSignalThemeState] = useState<string>(
+    signalTheme.value
+  );
+
   useEffect(() => {
-    const item = window.localStorage.getItem("theme");
-    console.log(item);
+    return effect(() => setSignalThemeState(signalTheme.value));
   }, []);
 
   return (
     <>
-      <div className="relative">
+      <div className="relative bg-slate-200">
         <ForceGraph3D
-          backgroundColor={"black"}
+          backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
           linkColor={() => "#1db954"}
           linkOpacity={0.5}
           ref={fgRef}

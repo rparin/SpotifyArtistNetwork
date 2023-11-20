@@ -3,21 +3,34 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/UI/button";
-import { useThemeDetector } from "@/hooks/ThemeDetector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { signal } from "@preact/signals";
 
+export const signalTheme = signal("light");
 export function ThemeToggle({ className }: { className?: string | undefined }) {
   const { setTheme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(useThemeDetector());
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+
+  const setThemeHelper = (theme: "dark" | "light") => {
+    setTheme(theme);
+    signalTheme.value = theme;
+  };
 
   const changeTheme = () => {
     setIsDarkTheme(!isDarkTheme);
     if (isDarkTheme) {
-      setTheme("dark");
+      setThemeHelper("dark");
     } else {
-      setTheme("light");
+      setThemeHelper("light");
     }
   };
+
+  useEffect(() => {
+    setThemeHelper("light");
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setThemeHelper("dark");
+    }
+  }, []);
 
   return (
     <Button
