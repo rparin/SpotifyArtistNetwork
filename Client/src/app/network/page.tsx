@@ -1,3 +1,4 @@
+import ForceGraph from "@/components/Graph/GraphWrapper";
 export default function networkRoute({
   searchParams,
 }: {
@@ -5,7 +6,7 @@ export default function networkRoute({
 }) {
   return (
     <main>
-      <div>id: {searchParams?.id}</div>
+      <ForceGraph />
     </main>
   );
 }

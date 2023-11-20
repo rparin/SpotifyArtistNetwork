@@ -1,13 +1,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Landing from "@/pages/Landing";
-
-export default function Home() {
+export default function NetworkLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="min-h-screen flex flex-col">
       <div className="flex-1">
         <Header />
-        <Landing />
+        {children}
       </div>
       {/* Display footer at the bottom */}
       <Footer />
