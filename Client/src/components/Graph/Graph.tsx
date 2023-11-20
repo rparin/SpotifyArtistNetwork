@@ -81,12 +81,13 @@ const Graph = () => {
   );
 
   useEffect(() => {
+    console.log(signalTheme);
     return effect(() => setSignalThemeState(signalTheme.value));
   }, []);
 
   return (
     <>
-      <div className="relative bg-slate-200">
+      <div className="relative">
         <ForceGraph3D
           backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
           linkColor={() => "#1db954"}
