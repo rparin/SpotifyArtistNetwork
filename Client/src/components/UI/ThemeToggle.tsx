@@ -3,34 +3,32 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/UI/button";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { signal } from "@preact/signals";
 
 export const signalTheme = signal("light");
 export function ThemeToggle({ className }: { className?: string | undefined }) {
   const { setTheme } = useTheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
 
-  const setThemeHelper = (theme: "dark" | "light") => {
+  const setThemeHelper = (theme: "dark" | "light" | string) => {
     setTheme(theme);
     signalTheme.value = theme;
   };
 
   const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-    if (isDarkTheme) {
-      setThemeHelper("dark");
-    } else {
-      setThemeHelper("light");
-    }
+    const savedTheme = window.localStorage.getItem("theme");
+    setThemeHelper(savedTheme == "dark" ? "light" : "dark");
   };
 
   useEffect(() => {
-    setThemeHelper("light");
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setThemeHelper("dark");
+    const savedTheme = window.localStorage.getItem("theme");
+    if (savedTheme) {
+      setThemeHelper(savedTheme);
+    } else {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setThemeHelper(isDark ? "dark" : "light");
     }
-  }, []);
+  });
 
   return (
     <Button
