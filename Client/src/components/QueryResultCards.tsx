@@ -58,7 +58,7 @@ export default function QueryResultCards(props: { query?: string }) {
       cToken?.access_token,
       controller
     );
-    if (res.error) return;
+    if (res.error || !res) return;
     setIsLoading(false);
     setResultHelper(res.data.artists.items, newResult);
     setPageHelper(res.data.artists.next);
