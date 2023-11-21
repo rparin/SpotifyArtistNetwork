@@ -13,6 +13,7 @@ export default function QueryResultCards(props: { query?: string }) {
     undefined
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [axiosController, setAxiosController] = useState<AbortController>();
 
   const parseNextPage = (nextPage: string) => {
     const searchParams = new URLSearchParams(nextPage);
@@ -49,10 +50,12 @@ export default function QueryResultCards(props: { query?: string }) {
     nextPage: null | string | undefined,
     newResult: boolean
   ) {
-    setIsLoading(true);
     if (!props.query) return;
+    const controller = new AbortController();
+    setAxiosController(controller);
+    setIsLoading(true);
     const cToken = await getToken();
-    const res = await fetchSearchResults(query, nextPage, cToken);
+    const res = await fetchSearchResults(query, nextPage, cToken, controller);
     if (res.error) return;
     setIsLoading(false);
     setResultHelper(res.data.artists.items, newResult);
@@ -63,6 +66,9 @@ export default function QueryResultCards(props: { query?: string }) {
     if (props.query) {
       fetchData(props.query, undefined, true);
     }
+    return () => {
+      axiosController?.abort();
+    };
   }, [props.query]);
 
   const observer = useRef<IntersectionObserver | null>(null);
