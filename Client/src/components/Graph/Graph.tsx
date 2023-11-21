@@ -20,18 +20,13 @@ const Graph = () => {
     signalTheme.value
   );
 
-  const getData = async (axiosController: AbortController) => {
+  const getData = async () => {
     const aId = "0bAsR2unSRpn6BQPEnNlZm";
     const depth = "2";
     const cToken = await checkClientToken(accessToken);
     setAccessToken(cToken);
     if (!cToken) return;
-    const res = await fetchArtistNetwork(
-      aId,
-      depth,
-      cToken.access_token,
-      axiosController
-    );
+    const res = await fetchArtistNetwork(aId, depth, cToken.access_token);
     if (res.error || !res) return;
     setData(res.relatedArtists);
   };
@@ -60,11 +55,7 @@ const Graph = () => {
   );
 
   useEffect(() => {
-    const controller = new AbortController();
-    // getData(controller);
-    return () => {
-      controller.abort();
-    };
+    // getData();
   }, []);
 
   useEffect(() => {
