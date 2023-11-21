@@ -38,7 +38,7 @@ const searchIconVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background",
+        default: "bg-white dark:bg-background",
         secondary: "invert bg-white dark:bg-black",
       },
     },
