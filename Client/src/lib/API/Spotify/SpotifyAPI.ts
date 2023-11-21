@@ -8,13 +8,11 @@ export interface ClientToken {
 export const fetchSearchResults = async (
   artist: string,
   page: string | null | undefined,
-  accessToken: string,
-  controller: AbortController
+  accessToken: string
 ) => {
   try {
     const res = await spotifyAPI.get(
-      `/api/spotify/search/${artist}/${page}/${accessToken}`,
-      { signal: controller.signal }
+      `/api/spotify/search/${artist}/${page}/${accessToken}`
     );
     return res.data;
   } catch (error) {
@@ -40,13 +38,11 @@ export const checkClientToken = async (cToken: ClientToken | null) => {
 export const fetchArtistNetwork = async (
   id: string,
   depth: string,
-  accessToken: string,
-  controller: AbortController
+  accessToken: string
 ) => {
   try {
     const res = await spotifyAPI.get(
-      `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`,
-      { signal: controller.signal }
+      `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
     );
     return res.data;
   } catch (error) {
