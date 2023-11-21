@@ -12,7 +12,7 @@ import {
   ClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
 
-const Graph = () => {
+const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer1);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
@@ -21,12 +21,12 @@ const Graph = () => {
   );
 
   const getData = async () => {
-    const aId = "0bAsR2unSRpn6BQPEnNlZm";
+    if (!props.id) return;
     const depth = "2";
     const cToken = await checkClientToken(accessToken);
     setAccessToken(cToken);
     if (!cToken) return;
-    const res = await fetchArtistNetwork(aId, depth, cToken.access_token);
+    const res = await fetchArtistNetwork(props.id, depth, cToken.access_token);
     if (res.error || !res) return;
     setData(res.relatedArtists);
   };
