@@ -2,31 +2,26 @@
 
 import { useEffect, useState, useRef, useCallback, JSX } from "react";
 import { ResultArtistCard } from "./ResultArtistCard";
-import { useLocalStorage } from "@/hooks/LocalStorage";
-import { checkClientToken } from "@/lib/utils";
-import { fetchSearchResults } from "@/lib/API/Spotify/SpotifyAPI";
+import {
+  fetchSearchResults,
+  checkClientToken,
+  ClientToken,
+} from "@/lib/API/Spotify/SpotifyAPI";
 
 export default function QueryResultCards(props: { query?: string }) {
-  const { getItem, setItem, removeItem } = useLocalStorage("clientToken");
   const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
   const [nextPage, setNextPage] = useState<null | string | undefined>(
     undefined
   );
   const [isLoading, setIsLoading] = useState(false);
   const [axiosController, setAxiosController] = useState<AbortController>();
+  const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
 
   const parseNextPage = (nextPage: string) => {
     const searchParams = new URLSearchParams(nextPage);
     return `query=${props.query}&type=artist&offset=${searchParams.get(
       "offset"
     )}&limit=${searchParams.get("limit")}`;
-  };
-
-  const getToken = async () => {
-    await checkClientToken(getItem()).then((data) => {
-      setItem(data);
-    });
-    return getItem().access_token;
   };
 
   const setPageHelper = (page: string | null) => {
@@ -54,8 +49,16 @@ export default function QueryResultCards(props: { query?: string }) {
     const controller = new AbortController();
     setAxiosController(controller);
     setIsLoading(true);
-    const cToken = await getToken();
-    const res = await fetchSearchResults(query, nextPage, cToken, controller);
+    const cToken = await checkClientToken(accessToken);
+    console.log(cToken);
+    setAccessToken(cToken);
+    if (!cToken) return;
+    const res = await fetchSearchResults(
+      query,
+      nextPage,
+      cToken?.access_token,
+      controller
+    );
     if (res.error) return;
     setIsLoading(false);
     setResultHelper(res.data.artists.items, newResult);
