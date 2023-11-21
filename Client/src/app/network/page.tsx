@@ -1,4 +1,4 @@
-import ForceGraph from "@/components/Graph/GraphWrapper";
+import Network from "@/pages/Network";
 export default function networkRoute({
   searchParams,
 }: {
@@ -6,7 +6,10 @@ export default function networkRoute({
 }) {
   return (
     <main>
-      <ForceGraph />
+      <Network
+        query={searchParams?.q as string}
+        id={searchParams?.id as string}
+      />
     </main>
   );
 }

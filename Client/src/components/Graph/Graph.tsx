@@ -116,11 +116,11 @@ const Graph = () => {
         />
       </div>
 
-      <button
+      {/* <button
         className="absolute top-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={getData}>
         Get Artists
-      </button>
+      </button> */}
     </>
   );
 };
