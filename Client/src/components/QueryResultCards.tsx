@@ -50,7 +50,6 @@ export default function QueryResultCards(props: { query?: string }) {
     setAxiosController(controller);
     setIsLoading(true);
     const cToken = await checkClientToken(accessToken);
-    console.log(cToken);
     setAccessToken(cToken);
     if (!cToken) return;
     const res = await fetchSearchResults(
