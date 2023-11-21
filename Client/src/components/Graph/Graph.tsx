@@ -98,7 +98,7 @@ const Graph = () => {
           // nodeAutoColorBy="group"
           onNodeClick={handleClick}
           nodeThreeObject={(node: Node | any) => {
-            const nodeImg = node.img ? node.img : "/src.jpg";
+            const nodeImg = node.img ? node.img : "/noImage.jpg";
             const imgTexture = new THREE.TextureLoader().load(nodeImg);
             const mask = new THREE.TextureLoader().load("/mask.png");
             imgTexture.colorSpace = THREE.SRGBColorSpace;
