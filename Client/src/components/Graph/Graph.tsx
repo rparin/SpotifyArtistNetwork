@@ -3,54 +3,37 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { Aimer1, Aimer2, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
-import { Node, ClientToken } from "@/lib/utils";
-
+import { Node } from "@/lib/utils";
 import { effect } from "@preact/signals-core";
 import { signalTheme } from "../UI/ThemeToggle";
+import {
+  fetchArtistNetwork,
+  checkClientToken,
+  ClientToken,
+} from "@/lib/API/Spotify/SpotifyAPI";
 
 const Graph = () => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer1);
-  const [authToken, setAuthToken] = useState<ClientToken | undefined>(
-    undefined
+  const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
+  const [signalThemeState, setSignalThemeState] = useState<string>(
+    signalTheme.value
   );
 
-  const checkClientToken = async (cToken: ClientToken | undefined) => {
-    let curDate = new Date().getTime();
-    if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
-      try {
-        const res = await fetch("http://localhost:8080/api/spotify/cAuthToken");
-        const data = await res.json();
-        return {
-          access_token: data.access_token,
-          obtained_at: new Date().getTime(),
-        };
-      } catch (error) {
-        console.error("Error fetching client token:", error);
-        return undefined;
-      }
-    }
-
-    return cToken;
-  };
-
-  const getData = async () => {
+  const getData = async (axiosController: AbortController) => {
     const aId = "0bAsR2unSRpn6BQPEnNlZm";
-    const depth = 2;
-    const cTokenObj = await checkClientToken(authToken);
-
-    // handle undefined / error
-    setAuthToken(cTokenObj);
-    fetch(
-      `http://localhost:8080/api/spotify/relatedMap/${aId}/${depth}/${cTokenObj?.access_token}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.relatedArtists);
-      })
-      .catch((error) => {
-        console.error("Error fetching related artists:", error);
-      });
+    const depth = "2";
+    const cToken = await checkClientToken(accessToken);
+    setAccessToken(cToken);
+    if (!cToken) return;
+    const res = await fetchArtistNetwork(
+      aId,
+      depth,
+      cToken.access_token,
+      axiosController
+    );
+    if (res.error || !res) return;
+    setData(res.relatedArtists);
   };
 
   const nodeVal = (node: Node) => {
@@ -76,12 +59,15 @@ const Graph = () => {
     [fgRef]
   );
 
-  const [signalThemeState, setSignalThemeState] = useState<string>(
-    signalTheme.value
-  );
+  useEffect(() => {
+    const controller = new AbortController();
+    // getData(controller);
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   useEffect(() => {
-    console.log(signalTheme);
     return effect(() => setSignalThemeState(signalTheme.value));
   }, []);
 
@@ -115,12 +101,6 @@ const Graph = () => {
           nodeThreeObjectExtend={false}
         />
       </div>
-
-      {/* <button
-        className="absolute top-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={getData}>
-        Get Artists
-      </button> */}
     </>
   );
 };
