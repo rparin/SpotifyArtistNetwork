@@ -1,7 +1,8 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import HorizontalList from "./UI/HorizontalList";
-import * as React from "react";
+import React from "react";
+import formatNumber from "@/lib/utils";
 
 export interface artistCardType extends React.HtmlHTMLAttributes<HTMLElement> {
   name: string;
@@ -21,17 +22,21 @@ const ResultArtistCard = React.forwardRef<HTMLElement, artistCardType>(
         ref={ref}
         className="relative  w-full max-w-[13rem] lg:max-w-[15rem] hover:mb-0 hover:bg-blue-950/20 dark:hover:bg-slate-400/20 rounded-md">
         {/* Artist Music Info */}
-        <article className="rounded-t-md flex flex-col text-center items-center py-3 gap-2 backdrop-blur-md">
-          <Image
-            className="h-28 w-28 lg:h-32 lg:w-32 object-cover rounded-[50%]"
-            width={100}
-            height={100}
-            src={img}
-            alt={alt}
-          />
-          <h2 className="text-2xl lg:text-3xl font-medium line-clamp-1">
-            {name}
-          </h2>
+        <article className="rounded-t-md flex flex-col py-3 gap-2 backdrop-blur-md">
+          <a
+            href={`/network?id=${id}`}
+            className="flex flex-col text-center items-center">
+            <Image
+              className="h-28 w-28 lg:h-32 lg:w-32 object-cover rounded-[50%]"
+              width={100}
+              height={100}
+              src={img}
+              alt={alt}
+            />
+            <h2 className="text-2xl lg:text-3xl font-medium line-clamp-1">
+              {name}
+            </h2>
+          </a>
           <HorizontalList
             id={id}
             items={genres}
@@ -40,15 +45,21 @@ const ResultArtistCard = React.forwardRef<HTMLElement, artistCardType>(
         </article>
 
         {/* Artist Social Info */}
-        <article className="grid grid-cols-2 gap-1 backdrop-blur-md">
-          <div className="bg-slate-200/40 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
-            <h3 className="text-sm lg:text-base font-normal">Followers</h3>
-            <p className="font-medium text-sm lg:text-base">{followers}</p>
-          </div>
-          <div className="bg-slate-200/40 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
-            <h3 className="text-sm lg:text-base font-normal">Popularity</h3>
-            <p className="font-medium text-sm lg:text-base">{pop}</p>
-          </div>
+        <article>
+          <a
+            href={`/network?id=${id}`}
+            className="grid grid-cols-2 gap-1 backdrop-blur-md">
+            <div className="bg-slate-200/40 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+              <h3 className="text-sm lg:text-base font-normal">Followers</h3>
+              <p className="font-medium text-sm lg:text-base">
+                {formatNumber(parseInt(followers))}
+              </p>
+            </div>
+            <div className="bg-slate-200/40 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
+              <h3 className="text-sm lg:text-base font-normal">Popularity</h3>
+              <p className="font-medium text-sm lg:text-base">{pop}</p>
+            </div>
+          </a>
         </article>
 
         {/* Spotify Link to Artist */}
