@@ -7,7 +7,10 @@ import Link from "next/link";
 export default function Network(props: { query?: string; id?: string }) {
   return (
     <>
-      <div className="absolute top-7 flex flex-col gap-3 w-full z-40 items-center">
+      <h1 className="absolute pt-5 pl-5 z-50 text-3xl invisible md:visible">
+        {props.query} Network
+      </h1>
+      <div className="absolute top-20 md:top-7 flex flex-col gap-3 w-full z-40 items-center">
         <Link href={"/"}>
           <h1 className="text-xl lg:text-2xl">{APP_NAME}</h1>
         </Link>
@@ -18,7 +21,7 @@ export default function Network(props: { query?: string; id?: string }) {
           inputOnLoad={props.query}
         />
       </div>
-      <ForceGraph />
+      <ForceGraph query={props.query} id={props.id} />
     </>
   );
 }
