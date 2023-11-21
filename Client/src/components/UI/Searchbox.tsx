@@ -11,7 +11,7 @@ const searchVariants = cva(
     variants: {
       variant: {
         default: "outline outline-black outline-2 dark:outline-white",
-        secondary: "bg-black dark:bg-white",
+        secondary: "bg-black dark:bg-white text-white dark:text-black",
       },
     },
     defaultVariants: {
@@ -24,7 +24,7 @@ const sizeVariants = cva("relative h-10 flex justify-start", {
   variants: {
     size: {
       default: "w-5/6 md:w-9/12 lg:w-4/12",
-      sm: "",
+      sm: "w-[60%] md:w-[50%] lg:w-[30%]",
       md: "w-[80%] md:w-[50%] lg:w-[40%]",
     },
   },
