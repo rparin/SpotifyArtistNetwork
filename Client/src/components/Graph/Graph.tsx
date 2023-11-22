@@ -72,7 +72,6 @@ const Graph = (props: { query?: string; id?: string }) => {
           ref={fgRef}
           graphData={data}
           nodeLabel="id"
-          // nodeAutoColorBy="group"
           onNodeClick={handleClick}
           nodeThreeObject={(node: Node | any) => {
             const nodeImg = node.img ? node.img : "/noImage.jpg";
