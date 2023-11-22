@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import { Aimer1, Aimer2, Aimer3 } from "../../../public/data/Aimer";
+import { Aimer, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
 import { Node } from "@/lib/utils";
 import { effect } from "@preact/signals-core";
@@ -14,7 +14,7 @@ import {
 
 const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [data, setData] = useState(Aimer1);
+  const [data, setData] = useState(Aimer3);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
   const [signalThemeState, setSignalThemeState] = useState<string>(
     signalTheme.value
@@ -37,6 +37,7 @@ const Graph = (props: { query?: string; id?: string }) => {
 
   const handleClick = useCallback(
     (node: Node | any) => {
+      console.log(node);
       const distance = 70;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
@@ -56,6 +57,7 @@ const Graph = (props: { query?: string; id?: string }) => {
 
   useEffect(() => {
     // getData();
+    // console.log(data.nodes); //contains position of node
   }, []);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const Graph = (props: { query?: string; id?: string }) => {
           linkOpacity={0.5}
           ref={fgRef}
           graphData={data}
-          nodeLabel="id"
+          nodeLabel="name"
           onNodeClick={handleClick}
           nodeThreeObject={(node: Node | any) => {
             const nodeImg = node.img ? node.img : "/noImage.jpg";
