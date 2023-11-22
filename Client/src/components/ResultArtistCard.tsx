@@ -45,7 +45,6 @@ const ResultArtistCard = React.forwardRef<HTMLElement, artistCardType>(
 
         {/* Artist Social Info */}
         <article>
-          <button></button>
           <a href={netLink} className="grid grid-cols-2 gap-1 backdrop-blur-md">
             <div className="bg-slate-200/40 dark:bg-slate-600/60 flex flex-col justify-center items-center text-center py-2">
               <h3 className="text-sm lg:text-base font-normal">Followers</h3>
