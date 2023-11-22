@@ -137,7 +137,7 @@ class SpotifyAPI {
 
   async getArtistRelatedMap(id, depth, access_token) {
     const relatedMap = { nodes: [], links: [] };
-    const nameNodes = new Set();
+    const idNodes = new Set();
 
     const getArtist = async (info, depth) => {
       if (depth != 0) {
@@ -145,7 +145,7 @@ class SpotifyAPI {
       }
 
       relatedMap.nodes.push(createNode(info));
-      nameNodes.add(info.name);
+      idNodes.add(info.id);
 
       if (depth > 0) {
         await this.delay(SPOTIFY.Variables.delay);
@@ -155,8 +155,8 @@ class SpotifyAPI {
           related = related.data;
           for (var i = 0; i < related.artists.length; i++) {
             const data = related.artists[i];
-            relatedMap.links.push({ source: info.name, target: data.name });
-            if (!nameNodes.has(data.name)) {
+            relatedMap.links.push({ source: info.id, target: data.id });
+            if (!idNodes.has(data.id)) {
               await getArtist(data, depth - 1);
             }
           }
