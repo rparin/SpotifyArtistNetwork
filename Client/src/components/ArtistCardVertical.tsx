@@ -15,7 +15,7 @@ export interface artistCardType extends React.HtmlHTMLAttributes<HTMLElement> {
   id: string;
 }
 
-const ResultArtistCard = React.forwardRef<HTMLElement, artistCardType>(
+const ArtistCardVertical = React.forwardRef<HTMLElement, artistCardType>(
   ({ id, name, img, alt, genres, followers, pop, url }, ref) => {
     const netLink = `/network?id=${id}&q=${name}`;
     return (
@@ -83,6 +83,6 @@ const ResultArtistCard = React.forwardRef<HTMLElement, artistCardType>(
   }
 );
 
-ResultArtistCard.displayName = "ResultArtistCard";
+ArtistCardVertical.displayName = "ResultArtistCard";
 
-export { ResultArtistCard };
+export { ArtistCardVertical };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, JSX } from "react";
-import { ResultArtistCard } from "./ResultArtistCard";
+import { ArtistCardVertical } from "./ArtistCardVertical";
 import {
   fetchSearchResults,
   checkClientToken,
@@ -89,7 +89,7 @@ export default function QueryResultCards(props: { query?: string }) {
       }
       if (!idSet.has(item.id)) {
         cards.push(
-          <ResultArtistCard
+          <ArtistCardVertical
             ref={searchResult.length === index + 1 ? lastArtistCardRef : null}
             key={`${item.id}`}
             id={item.id}
