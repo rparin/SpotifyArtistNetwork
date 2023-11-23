@@ -7,6 +7,7 @@ import {
   checkClientToken,
   ClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
+import { NO_IMAGE } from "@/constants";
 
 export default function QueryResultCards(props: { query?: string }) {
   const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
@@ -83,7 +84,7 @@ export default function QueryResultCards(props: { query?: string }) {
     const idSet = new Set();
     const cards: JSX.Element[] = [];
     searchResult.map((item: any, index: number) => {
-      let bakImage = "./noImage.png";
+      let bakImage = NO_IMAGE;
       if (item?.images[0]?.url) {
         bakImage = item.images[0].url;
       }

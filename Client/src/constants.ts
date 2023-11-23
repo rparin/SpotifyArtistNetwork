@@ -12,6 +12,8 @@ const CR = "©️ 2023. Developed by Ralph Parin.";
 const GRAPH_INSTRUCTIONS =
   "Left-click: rotate, Mouse-wheel/Middle-click: zoom, Right-click:pan";
 
+const NO_IMAGE = "/assets/noImage.png";
+
 export {
   APP_NAME,
   MY_NETWORK_BTN_TEXT,
@@ -21,4 +23,5 @@ export {
   FOOTER_LOGIN_TEXT,
   CR,
   GRAPH_INSTRUCTIONS,
+  NO_IMAGE,
 };
