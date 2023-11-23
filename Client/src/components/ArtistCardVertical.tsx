@@ -83,6 +83,6 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, artistCardType>(
   }
 );
 
-ArtistCardVertical.displayName = "ResultArtistCard";
+ArtistCardVertical.displayName = "ArtistCardVertical";
 
 export { ArtistCardVertical };

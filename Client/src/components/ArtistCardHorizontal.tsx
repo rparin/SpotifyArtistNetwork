@@ -18,16 +18,16 @@ export interface artistCardType extends React.HtmlHTMLAttributes<HTMLElement> {
 const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
   ({ id, name, img, alt, genres, followers, pop, url }, ref) => {
     return (
-      <section ref={ref} className="relative w-80 rounded-md">
-        <article className="rounded-md pt-2 flex gap-2 backdrop-blur-md px-2">
+      <section ref={ref} className="relative w-96 rounded-md">
+        <article className="flex items-center rounded-md py-2 gap-2 backdrop-blur-md px-2">
           <Image
-            className="h-24 w-24 object-cover rounded-[50%]"
+            className=" h-24 w-24 object-cover rounded-[50%]"
             width={100}
             height={100}
             src={img}
             alt={alt}
           />
-          <div className="flex flex-col gap-1 w-52">
+          <div className="flex flex-col gap-1 w-64">
             <h2 className="flex text-xl font-medium line-clamp-1 justify-center">
               {name}
             </h2>
@@ -43,16 +43,19 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
                 <p className="font-medium text-xs">{pop}</p>
               </div>
             </div>
-            <HorizontalList
-              id={id}
-              items={genres}
-              className="dark:bg-slate-500/80 bg-slate-200/40 text-xs"
-            />
+            {genres.length > 0 && (
+              <HorizontalList
+                id={id}
+                items={genres}
+                className="dark:bg-slate-500/80 bg-slate-200/40 text-xs"
+              />
+            )}
+
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex gap-1 text-xs justify-center items-center text-center w-full rounded-br-md bg-[#1DB954] horizontal-mask-left">
+              className="flex gap-1 text-xs justify-center items-center text-center w-full rounded-br-md bg-[#1DB954] horizontal-mask">
               Spotify
               <ExternalLink className="w-auto h-[.7rem] mb-2" />
             </a>
@@ -70,6 +73,6 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
   }
 );
 
-ArtistCardHorizontal.displayName = "ResultArtistCard";
+ArtistCardHorizontal.displayName = "ArtistCardHorizontal";
 
 export { ArtistCardHorizontal };
