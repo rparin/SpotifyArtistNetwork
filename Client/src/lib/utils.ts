@@ -16,13 +16,6 @@ export interface Dictionary<T> {
   [Key: string]: T;
 }
 
-export interface Node {
-  id: string;
-  spotify_id: string;
-  img: string;
-  size: number;
-}
-
 export default function formatNumber(num: number) {
   const precision = 2;
   const map = [
