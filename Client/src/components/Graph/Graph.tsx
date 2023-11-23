@@ -11,6 +11,7 @@ import {
   checkClientToken,
   ClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
+import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 
 const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -92,6 +93,29 @@ const Graph = (props: { query?: string; id?: string }) => {
           }}
           nodeThreeObjectExtend={false}
         />
+
+        <div className="absolute z-40 bottom-24 flex justify-center w-full">
+          <ArtistCardHorizontal
+            name={"Aimer"}
+            img={
+              "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314"
+            }
+            alt={"Artist profile Image"}
+            genres={[
+              "Anime",
+              "Anime Rock",
+              "J-Pixie",
+              "J-Pop",
+              "Genre5",
+              "Genre6",
+              "Genre7",
+            ]}
+            followers={"3817"}
+            pop={"97"}
+            url={"https://open.spotify.com/artist/0bAsR2unSRpn6BQPEnNlZm"}
+            id={"0bAsR2unSRpn6BQPEnNlZm"}
+          />
+        </div>
       </div>
     </>
   );
