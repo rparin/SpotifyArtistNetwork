@@ -14,7 +14,7 @@ import {
 
 const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [data, setData] = useState(Aimer3);
+  const [data, setData] = useState(Aimer);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
   const [signalThemeState, setSignalThemeState] = useState<string>(
     signalTheme.value

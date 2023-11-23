@@ -140,6 +140,12 @@ small {
   mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
 }
 
+/* Horizontal fade in and out */
+.horizontal-mask-left {
+  -webkit-mask: linear-gradient(90deg, transparent, white 30%);
+  mask: linear-gradient(90deg, transparent, white 30%);
+}
+
 .scene-tooltip {
   color: #1db954 !important;
   border-radius: 3rem;

@@ -13,7 +13,7 @@ export default function NetworkLayout({
       {children}
 
       <div className="flex flex-col w-full text-center justify-center absolute bottom-0">
-        <p className="text-xs dark:opacity-50 text-black dark:text-white">
+        <p className="text-[0.7rem] sm:text-xs dark:opacity-50 text-black dark:text-white">
           {GRAPH_INSTRUCTIONS}
         </p>
         <Footer />
