@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { NO_IMAGE } from "@/constants";
 
 export interface Node {
   id: string;
@@ -11,9 +12,13 @@ export interface Node {
   url: string;
 }
 
+export const IMAGES = {
+  mask: "/assets/graph/mask.png",
+};
+
 const getMaterial = (img: string) => {
   const imgTexture = new THREE.TextureLoader().load(img);
-  const mask = new THREE.TextureLoader().load("/mask.png");
+  const mask = new THREE.TextureLoader().load(IMAGES.mask);
   imgTexture.colorSpace = THREE.SRGBColorSpace;
   const material = new THREE.SpriteMaterial({
     map: imgTexture,
@@ -26,7 +31,7 @@ const getMaterial = (img: string) => {
 export const getMatObj = (obj: any) => {
   const materials: any = {};
   obj.map((node: any) => {
-    const nodeImg = node.img ? node.img : "/noImage.jpg";
+    const nodeImg = node.img ? node.img : NO_IMAGE;
     const mat = getMaterial(nodeImg);
     materials[node.id] = mat;
   });
