@@ -28,7 +28,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
             alt={alt}
           />
           <div className="flex flex-col gap-1 w-64">
-            <h2 className="flex text-xl font-medium line-clamp-1 justify-center">
+            <h2 className="flex text-xl font-medium line-clamp-1 justify-center text-center">
               {name}
             </h2>
             <div className="grid grid-cols-2 gap-1">
