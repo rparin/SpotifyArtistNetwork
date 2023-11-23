@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { Aimer, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
-import { Node } from "@/lib/utils";
 import { effect } from "@preact/signals-core";
 import { signalTheme } from "../UI/ThemeToggle";
 import {
@@ -12,14 +11,17 @@ import {
   ClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
+import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
 
 const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
+  const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const [signalThemeState, setSignalThemeState] = useState<string>(
     signalTheme.value
   );
+  const [imgMaterial, setImgMaterial] = useState<any>(null);
 
   const getData = async () => {
     if (!props.id) return;
@@ -32,13 +34,8 @@ const Graph = (props: { query?: string; id?: string }) => {
     setData(res.relatedArtists);
   };
 
-  const nodeVal = (node: Node) => {
-    return (node.size + 2) | 2;
-  };
-
   const handleClick = useCallback(
     (node: Node | any) => {
-      console.log(node);
       const distance = 70;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
@@ -56,9 +53,21 @@ const Graph = (props: { query?: string; id?: string }) => {
     [fgRef]
   );
 
+  const handleHover = useCallback((node: Node | any) => {
+    if (node?.id) {
+      if (artistPreview && node.id == artistPreview.id) {
+        return;
+      }
+      setArtistPreview(getNodePreview(node));
+    }
+  }, []);
+
   useEffect(() => {
+    if (data?.nodes) {
+      setImgMaterial(getMatObj(data.nodes));
+    }
+
     // getData();
-    // console.log(data.nodes); //contains position of node
   }, []);
 
   useEffect(() => {
@@ -76,46 +85,29 @@ const Graph = (props: { query?: string; id?: string }) => {
           graphData={data}
           nodeLabel="name"
           onNodeClick={handleClick}
+          onNodeHover={handleHover}
           nodeThreeObject={(node: Node | any) => {
-            const nodeImg = node.img ? node.img : "/noImage.jpg";
-            const imgTexture = new THREE.TextureLoader().load(nodeImg);
-            const mask = new THREE.TextureLoader().load("/mask.png");
-            imgTexture.colorSpace = THREE.SRGBColorSpace;
-            const material = new THREE.SpriteMaterial({
-              map: imgTexture,
-              alphaMap: mask,
-              transparent: true,
-            });
-            const sphere = new THREE.Sprite(material);
+            const sphere = new THREE.Sprite(imgMaterial[node.id]);
             const size = 10 + nodeVal(node);
             sphere.scale.set(size, size, 1);
             return sphere;
           }}
           nodeThreeObjectExtend={false}
         />
-
-        <div className="absolute z-40 bottom-24 flex justify-center w-full">
-          <ArtistCardHorizontal
-            name={"Aimer"}
-            img={
-              "https://i.scdn.co/image/ab6761610000e5eb71d0bf45b169d9f431a72314"
-            }
-            alt={"Artist profile Image"}
-            genres={[
-              "Anime",
-              "Anime Rock",
-              "J-Pixie",
-              "J-Pop",
-              "Genre5",
-              "Genre6",
-              "Genre7",
-            ]}
-            followers={"3817"}
-            pop={"97"}
-            url={"https://open.spotify.com/artist/0bAsR2unSRpn6BQPEnNlZm"}
-            id={"0bAsR2unSRpn6BQPEnNlZm"}
-          />
-        </div>
+        {artistPreview && (
+          <div className="absolute z-40 bottom-24 flex justify-center w-full">
+            <ArtistCardHorizontal
+              name={artistPreview.name}
+              img={artistPreview.img}
+              alt={"Artist profile Image"}
+              genres={artistPreview.genres}
+              followers={artistPreview.followers}
+              pop={artistPreview.pop}
+              url={artistPreview.url}
+              id={artistPreview.id}
+            />
+          </div>
+        )}
       </div>
     </>
   );
