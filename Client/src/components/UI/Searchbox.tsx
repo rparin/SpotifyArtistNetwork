@@ -109,7 +109,12 @@ const Searchbox = ({
 
   // Set query param and go to search page
   const handleClick = () => {
-    if (searchValue == "" || prevValue == searchValue) return;
+    if (searchValue == "" || prevValue == searchValue) {
+      if (ref.current) {
+        ref.current.focus();
+      }
+      return;
+    }
     router.push(`${route}?q=${searchValue}`);
     setHelper(setPrev, searchValue);
   };
