@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const searchVariants = cva(
@@ -70,18 +70,30 @@ const Searchbox = ({
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
 
+  const setHelper = (setFunc: (arg0: string) => void, val: string) => {
+    setFunc(val.toLowerCase());
+  };
+
   //Values for page load
   const ref = useRef<HTMLInputElement>(null);
 
   // Values for search use
   const router = useRouter();
 
+  const changeInput = (val: string, prev: string = searchValue) => {
+    if (ref.current) {
+      ref.current.value = val;
+      ref.current.focus();
+    }
+    setHelper(setPrev, prev);
+    setHelper(setSearch, val);
+  };
+
   // Input value into searchbox on page load
   useEffect(() => {
-    if (ref.current && inputOnLoad) {
-      ref.current.value = inputOnLoad;
+    if (inputOnLoad) {
+      changeInput(inputOnLoad, inputOnLoad);
     }
-
     if (ref.current) {
       ref.current.focus();
     }
@@ -91,20 +103,35 @@ const Searchbox = ({
   const handleInputChange = (event: {
     target: EventTarget & HTMLInputElement;
   }) => {
-    setSearch(event.target.value);
+    setHelper(setSearch, event.target.value);
   };
 
   // Set query param and go to search page
   const handleClick = () => {
     if (searchValue == "" || prevValue == searchValue) return;
     router.push(`${route}?q=${searchValue}`);
-    setPrev(searchValue);
+    setHelper(setPrev, searchValue);
   };
 
   const handleKeyDown = (event: { key: string }) => {
     if (event.key === "Enter") {
       handleClick();
     }
+  };
+
+  const getButton = () => {
+    if (prevValue == searchValue && searchValue != "") {
+      return (
+        <button onClick={() => changeInput("")}>
+          <X className={searchIconVariants({ variant })} />
+        </button>
+      );
+    }
+    return (
+      <button onClick={handleClick}>
+        <Search className={searchIconVariants({ variant })} />
+      </button>
+    );
   };
 
   return (
@@ -119,9 +146,7 @@ const Searchbox = ({
         {...props}
       />
 
-      <button onClick={handleClick}>
-        <Search className={searchIconVariants({ variant })} />
-      </button>
+      {getButton()}
     </div>
   );
 };
