@@ -93,6 +93,7 @@ const Searchbox = ({
   useEffect(() => {
     if (inputOnLoad) {
       changeInput(inputOnLoad, inputOnLoad);
+      return;
     }
     if (ref.current) {
       ref.current.focus();
