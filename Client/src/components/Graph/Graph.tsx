@@ -1,5 +1,11 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+} from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { Aimer, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
@@ -22,6 +28,14 @@ const Graph = (props: { query?: string; id?: string }) => {
     signalTheme.value
   );
   const [imgMaterial, setImgMaterial] = useState<any>(null);
+  const [winSize, setWinSize] = useState<any>({
+    width: undefined,
+    height: undefined,
+  });
+
+  const updateSize = () => {
+    setWinSize({ width: window.innerWidth, height: window.innerHeight });
+  };
 
   const getData = async () => {
     if (!props.id) return;
@@ -32,6 +46,7 @@ const Graph = (props: { query?: string; id?: string }) => {
     const res = await fetchArtistNetwork(props.id, depth, cToken.access_token);
     if (res.error || !res) return;
     setData(res.relatedArtists);
+    // setImgMaterial(getMatObj(data.nodes));
   };
 
   const handleClick = useCallback(
@@ -63,21 +78,25 @@ const Graph = (props: { query?: string; id?: string }) => {
   }, []);
 
   useEffect(() => {
+    window.addEventListener("resize", updateSize);
+    // getData();
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
     }
 
-    // getData();
-  }, []);
-
-  useEffect(() => {
-    return effect(() => setSignalThemeState(signalTheme.value));
+    return () => {
+      window.removeEventListener("resize", updateSize);
+      effect(() => setSignalThemeState(signalTheme.value));
+    };
   }, []);
 
   return (
     <>
       <div className="relative">
         <ForceGraph3D
+          width={winSize.width}
+          height={winSize.height}
+          showNavInfo={false}
           backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
           linkColor={() => "#1db954"}
           linkOpacity={0.5}
@@ -99,7 +118,7 @@ const Graph = (props: { query?: string; id?: string }) => {
             <ArtistCardHorizontal
               name={artistPreview.name}
               img={artistPreview.img}
-              alt={"Artist profile Image"}
+              alt={`${artistPreview.name} profile picture`}
               genres={artistPreview.genres}
               followers={artistPreview.followers}
               pop={artistPreview.pop}
