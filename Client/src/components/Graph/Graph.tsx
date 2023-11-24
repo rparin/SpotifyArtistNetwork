@@ -46,7 +46,7 @@ const Graph = (props: { query?: string; id?: string }) => {
     const res = await fetchArtistNetwork(props.id, depth, cToken.access_token);
     if (res.error || !res) return;
     setData(res.relatedArtists);
-    // setImgMaterial(getMatObj(data.nodes));
+    setImgMaterial(getMatObj(res.relatedArtists.nodes));
   };
 
   const handleClick = useCallback(
