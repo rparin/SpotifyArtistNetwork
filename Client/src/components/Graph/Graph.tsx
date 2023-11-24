@@ -34,6 +34,7 @@ const Graph = (props: { query?: string; id?: string }) => {
   });
 
   const updateSize = () => {
+    fgRef?.current?.zoomToFit(10);
     setWinSize({ width: window.innerWidth, height: window.innerHeight });
   };
 
