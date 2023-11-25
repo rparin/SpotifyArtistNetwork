@@ -70,7 +70,7 @@ const Graph = (props: { query?: string; id?: string }) => {
 
       return camIntervalId;
     }
-  }, []);
+  }, [fgRef]);
 
   const getData = async () => {
     if (!props.id) return;
