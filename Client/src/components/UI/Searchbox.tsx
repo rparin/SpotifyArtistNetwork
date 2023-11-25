@@ -55,6 +55,7 @@ export interface SearchProps
   placeholder?: string;
   inputOnLoad?: string | undefined | null;
   route?: string;
+  focus?: boolean;
 }
 
 const Searchbox = ({
@@ -64,6 +65,7 @@ const Searchbox = ({
   placeholder,
   inputOnLoad,
   route = "/search",
+  focus = false,
   ...props
 }: SearchProps) => {
   // Hold search values
@@ -83,7 +85,7 @@ const Searchbox = ({
   const changeInput = (val: string, prev: string = searchValue) => {
     if (ref.current) {
       ref.current.value = val;
-      ref.current.focus();
+      if (focus) ref.current.focus();
     }
     setHelper(setPrev, prev);
     setHelper(setSearch, val);
