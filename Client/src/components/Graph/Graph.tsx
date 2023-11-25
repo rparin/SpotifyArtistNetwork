@@ -48,7 +48,7 @@ const Graph = (props: { query?: string; id?: string }) => {
           ],
         };
       });
-    }, 1000);
+    }, 500);
   }, []);
 
   const camIntervalFunc = useCallback(() => {
@@ -98,7 +98,7 @@ const Graph = (props: { query?: string; id?: string }) => {
       setImgMaterial(getMatObj(data.nodes));
     }
     await delay(6000);
-    // setLoading(false);
+    setLoading(false);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
   };
