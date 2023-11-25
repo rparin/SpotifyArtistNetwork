@@ -30,7 +30,7 @@ const Graph = (props: { query?: string; id?: string }) => {
     width: undefined,
     height: undefined,
   });
-  const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
+  const [nodeHighlight, setNodeHighlight] = useState<string>("");
 
   const updateSize = async () => {
     setWinSize({ width: window.innerWidth, height: window.innerHeight });
@@ -131,7 +131,7 @@ const Graph = (props: { query?: string; id?: string }) => {
         return;
       }
       setArtistPreview(getNodePreview(node));
-      setHighlightNodes(new Set([node.id]));
+      setNodeHighlight(node.id);
     }
   }, []);
 
@@ -179,7 +179,7 @@ const Graph = (props: { query?: string; id?: string }) => {
               return sphere;
             }
             let sphere = new THREE.Sprite(imgMaterial[node.id]);
-            if (highlightNodes.has(node.id)) {
+            if (node.id == nodeHighlight) {
               sphere = new THREE.Sprite(imgMaterialOutline[node.id]);
             }
             const size = 10 + nodeVal(node);
