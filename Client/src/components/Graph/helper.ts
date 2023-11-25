@@ -44,7 +44,7 @@ export const nodeVal = (node: Node) => {
 };
 
 export const getNodePreview = (node: Node) => {
-  const nodeImg = node.img ? node.img : "/noImage.jpg";
+  const nodeImg = node.img ? node.img : NO_IMAGE;
   return {
     name: node.name,
     img: nodeImg,
