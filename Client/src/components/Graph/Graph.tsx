@@ -25,10 +25,12 @@ const Graph = (props: { query?: string; id?: string }) => {
     signalTheme.value
   );
   const [imgMaterial, setImgMaterial] = useState<any>(null);
+  const [imgMaterialOutline, setImgMaterialOutline] = useState<any>(null);
   const [winSize, setWinSize] = useState<any>({
     width: undefined,
     height: undefined,
   });
+  const [highlightNodes, setHighlightNodes] = useState<any>(new Set());
 
   const updateSize = async () => {
     setWinSize({ width: window.innerWidth, height: window.innerHeight });
@@ -92,15 +94,16 @@ const Graph = (props: { query?: string; id?: string }) => {
   };
 
   const testData = async () => {
-    const loadIntervalId = loadIntervalFunc();
-    const camIntervalId = camIntervalFunc();
+    // const loadIntervalId = loadIntervalFunc();
+    // const camIntervalId = camIntervalFunc();
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
+      setImgMaterialOutline(getMatObj(data.nodes, true));
     }
-    await delay(6000);
+    // await delay(6000);
     setLoading(false);
-    clearInterval(loadIntervalId);
-    clearInterval(camIntervalId);
+    // clearInterval(loadIntervalId);
+    // clearInterval(camIntervalId);
   };
 
   const handleClick = useCallback(
@@ -128,6 +131,7 @@ const Graph = (props: { query?: string; id?: string }) => {
         return;
       }
       setArtistPreview(getNodePreview(node));
+      setHighlightNodes(new Set([node.id]));
     }
   }, []);
 
@@ -174,7 +178,10 @@ const Graph = (props: { query?: string; id?: string }) => {
               const sphere = new THREE.Mesh(geometry, material);
               return sphere;
             }
-            const sphere = new THREE.Sprite(imgMaterial[node.id]);
+            let sphere = new THREE.Sprite(imgMaterial[node.id]);
+            if (highlightNodes.has(node.id)) {
+              sphere = new THREE.Sprite(imgMaterialOutline[node.id]);
+            }
             const size = 10 + nodeVal(node);
             sphere.scale.set(size, size, 1);
             return sphere;

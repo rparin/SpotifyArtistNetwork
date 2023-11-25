@@ -17,9 +17,11 @@ export const IMAGES = {
   maskOutline: "/assets/graph/mask-outline.png",
 };
 
-const getMaterial = (img: string) => {
+const getMaterial = (img: string, outline: boolean = false) => {
   const imgTexture = new THREE.TextureLoader().load(img);
-  const mask = new THREE.TextureLoader().load(IMAGES.mask);
+  const mask = new THREE.TextureLoader().load(
+    outline ? IMAGES.maskOutline : IMAGES.mask
+  );
   imgTexture.colorSpace = THREE.SRGBColorSpace;
   const material = new THREE.SpriteMaterial({
     map: imgTexture,
@@ -29,11 +31,11 @@ const getMaterial = (img: string) => {
   return material;
 };
 
-export const getMatObj = (obj: any) => {
+export const getMatObj = (obj: any, outline: boolean = false) => {
   const materials: any = {};
   obj.map((node: any) => {
     const nodeImg = node.img ? node.img : NO_IMAGE;
-    const mat = getMaterial(nodeImg);
+    const mat = getMaterial(nodeImg, outline);
     materials[node.id] = mat;
   });
   return materials;
