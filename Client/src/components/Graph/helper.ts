@@ -14,6 +14,7 @@ export interface Node {
 
 export const IMAGES = {
   mask: "/assets/graph/mask.png",
+  maskOutline: "/assets/graph/mask-outline.png",
 };
 
 const getMaterial = (img: string) => {
