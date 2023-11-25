@@ -147,7 +147,7 @@ const Graph = (props: { query?: string; id?: string }) => {
       <div className="relative">
         {loading && (
           <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen ">
-            <h1 className="text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
+            <h1 className="select-none text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
               Loading...
             </h1>
           </div>
