@@ -37,19 +37,21 @@ const Graph = (props: { query?: string; id?: string }) => {
   };
 
   const loadIntervalFunc = useCallback(() => {
-    setLoadData(({ nodes, links }): any => {
-      const id = nodes.length;
-      return {
-        nodes: [...nodes, { id }],
-        links: [
-          ...links,
-          { source: id, target: Math.round(Math.random() * (id - 1)) },
-        ],
-      };
-    });
+    return setInterval(() => {
+      setLoadData(({ nodes, links }): any => {
+        const id = nodes.length;
+        return {
+          nodes: [...nodes, { id }],
+          links: [
+            ...links,
+            { source: id, target: Math.round(Math.random() * (id - 1)) },
+          ],
+        };
+      });
+    }, 1000);
   }, []);
 
-  const camIntervalFunc = () => {
+  const camIntervalFunc = useCallback(() => {
     const distance = 400;
     if (fgRef.current) {
       fgRef.current.cameraPosition({ z: distance });
@@ -68,11 +70,11 @@ const Graph = (props: { query?: string; id?: string }) => {
 
       return camIntervalId;
     }
-  };
+  }, []);
 
   const getData = async () => {
     if (!props.id) return;
-    const loadIntervalId = setInterval(loadIntervalFunc, 1000);
+    const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
     const depth = "2";
     const cToken = await checkClientToken(accessToken);
@@ -90,13 +92,13 @@ const Graph = (props: { query?: string; id?: string }) => {
   };
 
   const testData = async () => {
-    const loadIntervalId = setInterval(loadIntervalFunc, 1000);
+    const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
     }
     await delay(6000);
-    setLoading(false);
+    // setLoading(false);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
   };
