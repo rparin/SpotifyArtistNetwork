@@ -8,7 +8,7 @@ export default function Network(props: { query?: string; id?: string }) {
   return (
     <>
       <Link
-        className="absolute ml-5 p-2 rounded-3xl md:rounded-none md:ml-0 md:px-5 z-50 mt-6 md:mt-3 bg-primary text-primary-foreground md:text-primary md:bg-background"
+        className="absolute ml-5 p-2 rounded-3xl md:rounded-none md:ml-0 md:px-5 z-50 mt-6 md:mt-3 bg-primary text-primary-foreground md:text-primary md:bg-transparent"
         href={"/"}>
         <h1 className="text-lg hidden md:block py-2">{APP_NAME}</h1>
         <Home className="md:hidden" />
