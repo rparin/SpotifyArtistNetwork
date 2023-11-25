@@ -64,7 +64,7 @@ const Graph = (props: { query?: string; id?: string }) => {
             x: distance * Math.sin(angle),
             z: distance * Math.cos(angle),
           });
-          angle += Math.PI / 300;
+          angle += Math.PI / 200;
         }
       }, 10);
 
