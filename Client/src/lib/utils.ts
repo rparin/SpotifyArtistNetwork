@@ -34,3 +34,7 @@ export default function formatNumber(num: number) {
 
   return num;
 }
+
+export function delay(delay: number) {
+  return new Promise((res) => setTimeout(res, delay));
+}

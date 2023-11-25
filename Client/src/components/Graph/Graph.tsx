@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { Aimer, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
@@ -18,10 +12,13 @@ import {
 } from "@/lib/API/Spotify/SpotifyAPI";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
+import { delay } from "@/lib/utils";
 
 const Graph = (props: { query?: string; id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer);
+  const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
+  const [loading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const [signalThemeState, setSignalThemeState] = useState<string>(
@@ -33,13 +30,50 @@ const Graph = (props: { query?: string; id?: string }) => {
     height: undefined,
   });
 
-  const updateSize = () => {
+  const updateSize = async () => {
     setWinSize({ width: window.innerWidth, height: window.innerHeight });
+    await delay(200); //for 1 sec delay
     fgRef?.current?.zoomToFit(200);
+  };
+
+  const loadIntervalFunc = useCallback(() => {
+    setLoadData(({ nodes, links }): any => {
+      const id = nodes.length;
+      return {
+        nodes: [...nodes, { id }],
+        links: [
+          ...links,
+          { source: id, target: Math.round(Math.random() * (id - 1)) },
+        ],
+      };
+    });
+  }, []);
+
+  const camIntervalFunc = () => {
+    const distance = 400;
+    if (fgRef.current) {
+      fgRef.current.cameraPosition({ z: distance });
+
+      // camera orbit
+      let angle = 0;
+      const camIntervalId = setInterval(() => {
+        if (fgRef.current) {
+          fgRef.current.cameraPosition({
+            x: distance * Math.sin(angle),
+            z: distance * Math.cos(angle),
+          });
+          angle += Math.PI / 300;
+        }
+      }, 10);
+
+      return camIntervalId;
+    }
   };
 
   const getData = async () => {
     if (!props.id) return;
+    const loadIntervalId = setInterval(loadIntervalFunc, 1000);
+    const camIntervalId = camIntervalFunc();
     const depth = "2";
     const cToken = await checkClientToken(accessToken);
     setAccessToken(cToken);
@@ -48,6 +82,23 @@ const Graph = (props: { query?: string; id?: string }) => {
     if (res.error || !res) return;
     setData(res.relatedArtists);
     setImgMaterial(getMatObj(res.relatedArtists.nodes));
+    setLoading(false);
+    clearInterval(loadIntervalId);
+    clearInterval(camIntervalId);
+    await delay(1000);
+    fgRef?.current?.zoomToFit(200);
+  };
+
+  const testData = async () => {
+    const loadIntervalId = setInterval(loadIntervalFunc, 1000);
+    const camIntervalId = camIntervalFunc();
+    if (data?.nodes) {
+      setImgMaterial(getMatObj(data.nodes));
+    }
+    await delay(6000);
+    setLoading(false);
+    clearInterval(loadIntervalId);
+    clearInterval(camIntervalId);
   };
 
   const handleClick = useCallback(
@@ -81,9 +132,7 @@ const Graph = (props: { query?: string; id?: string }) => {
   useEffect(() => {
     window.addEventListener("resize", updateSize);
     // getData();
-    if (data?.nodes) {
-      setImgMaterial(getMatObj(data.nodes));
-    }
+    testData();
 
     return () => {
       window.removeEventListener("resize", updateSize);
@@ -94,6 +143,13 @@ const Graph = (props: { query?: string; id?: string }) => {
   return (
     <>
       <div className="relative">
+        {loading && (
+          <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen">
+            <h1 className="text-2xl bg-teal-600/75 px-5 py-2 rounded-lg">
+              Loading...
+            </h1>
+          </div>
+        )}
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
@@ -102,11 +158,20 @@ const Graph = (props: { query?: string; id?: string }) => {
           linkColor={() => "#1db954"}
           linkOpacity={0.5}
           ref={fgRef}
-          graphData={data}
+          graphData={loading ? loadData : data}
           nodeLabel="name"
-          onNodeClick={handleClick}
-          onNodeHover={handleHover}
+          onNodeClick={loading ? () => {} : handleClick}
+          onNodeHover={loading ? () => {} : handleHover}
           nodeThreeObject={(node: Node | any) => {
+            if (loading) {
+              const geometry = new THREE.SphereGeometry(7, 10, 10);
+              // const clr = Math.random() * 0xffffff;
+              const material = new THREE.MeshBasicMaterial({
+                color: signalThemeState == "dark" ? 0xffffff : 0x000000,
+              });
+              const sphere = new THREE.Mesh(geometry, material);
+              return sphere;
+            }
             const sphere = new THREE.Sprite(imgMaterial[node.id]);
             const size = 10 + nodeVal(node);
             sphere.scale.set(size, size, 1);

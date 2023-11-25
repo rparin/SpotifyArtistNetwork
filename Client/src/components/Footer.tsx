@@ -6,7 +6,7 @@ export default function Footer(props: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-black text-white mx-auto flex flex-col items-center gap-2 py-3 w-full",
+        "bg-black text-white mx-auto flex flex-col items-center gap-2 py-3 w-full z-50",
         props.className
       )}>
       <section className="flex gap-5 text-sm">
