@@ -108,7 +108,7 @@ const Graph = (props: { query?: string; id?: string }) => {
 
   const handleClick = useCallback(
     (node: Node | any) => {
-      const distance = 70;
+      const distance = 130;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
         fgRef.current.cameraPosition(
