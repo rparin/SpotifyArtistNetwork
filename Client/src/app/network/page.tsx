@@ -7,7 +7,7 @@ export default function networkRoute({
   return (
     <main>
       <Network
-        query={searchParams?.q as string}
+        network={searchParams?.network as string}
         id={searchParams?.id as string}
       />
     </main>
