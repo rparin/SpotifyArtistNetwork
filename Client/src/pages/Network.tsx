@@ -1,10 +1,9 @@
 import ForceGraph from "@/components/Graph/GraphWrapper";
-import { Searchbox } from "@/components/UI/Searchbox";
-import { SEARCH_PLACEHOLDER, APP_NAME } from "@/constants";
+import { APP_NAME } from "@/constants";
 import Link from "next/link";
 import { Home } from "lucide-react";
 
-export default function Network(props: { query?: string; id?: string }) {
+export default function Network(props: { network?: string; id?: string }) {
   return (
     <>
       <Link
@@ -14,15 +13,9 @@ export default function Network(props: { query?: string; id?: string }) {
         <Home className="md:hidden" />
       </Link>
       <div className="flex flex-col w-full items-center absolute top-16 md:top-7 gap-1 z-40">
-        <h1 className="text-xl line-clamp-1">{`${props.query} Network`}</h1>
-        <Searchbox
-          placeholder={SEARCH_PLACEHOLDER}
-          variant={"secondary"}
-          size="sm"
-          inputOnLoad={props.query}
-        />
+        <h1 className="text-xl line-clamp-1">{`${props.network} Network`}</h1>
       </div>
-      <ForceGraph query={props.query} id={props.id} />
+      <ForceGraph id={props.id} />
     </>
   );
 }
