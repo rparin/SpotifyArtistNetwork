@@ -106,9 +106,9 @@ const Graph = (props: { query?: string; id?: string }) => {
     // clearInterval(camIntervalId);
   };
 
-  const handleClick = useCallback(
+  const zoomToNode = useCallback(
     (node: Node | any) => {
-      const distance = 130;
+      const distance = 50;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
         fgRef.current.cameraPosition(
@@ -121,9 +121,16 @@ const Graph = (props: { query?: string; id?: string }) => {
           2000
         );
       }
+      setNodeHighlight(node.id);
     },
     [fgRef]
   );
+
+  const getNode = (nodes: any) => {
+    if (nodes) {
+      return nodes[33];
+    }
+  };
 
   const handleHover = useCallback((node: Node | any) => {
     if (node?.id) {
@@ -156,6 +163,16 @@ const Graph = (props: { query?: string; id?: string }) => {
             </h1>
           </div>
         )}
+        <button
+          className="absolute bottom-0 z-[100] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            const node = getNode(data?.nodes);
+            if (node) {
+              zoomToNode(node);
+            }
+          }}>
+          Zoom to node
+        </button>
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
@@ -166,7 +183,7 @@ const Graph = (props: { query?: string; id?: string }) => {
           ref={fgRef}
           graphData={loading ? loadData : data}
           nodeLabel="name"
-          onNodeClick={loading ? () => {} : handleClick}
+          onNodeClick={loading ? () => {} : zoomToNode}
           onNodeHover={loading ? () => {} : handleHover}
           nodeThreeObject={(node: Node | any) => {
             if (loading) {
@@ -188,6 +205,7 @@ const Graph = (props: { query?: string; id?: string }) => {
           }}
           nodeThreeObjectExtend={false}
         />
+
         {artistPreview && (
           <div className="absolute z-40 bottom-24 flex justify-center w-full">
             <ArtistCardHorizontal
