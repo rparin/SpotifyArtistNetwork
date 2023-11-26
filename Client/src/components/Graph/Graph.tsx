@@ -14,6 +14,7 @@ import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import Image from "next/image";
 
 const Graph = (props: { id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -88,6 +89,7 @@ const Graph = (props: { id?: string }) => {
     if (res.error || !res) return;
     setData(res.relatedArtists);
     setImgMaterial(getMatObj(res.relatedArtists.nodes));
+    setSearchItems(res.relatedArtists.nodes);
     setLoading(false);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
@@ -101,36 +103,12 @@ const Graph = (props: { id?: string }) => {
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
       setImgMaterialOutline(getMatObj(data.nodes, true));
+      setSearchItems(data.nodes);
     }
     // await delay(6000);
     setLoading(false);
     // clearInterval(loadIntervalId);
     // clearInterval(camIntervalId);
-
-    const items = [
-      {
-        id: 0,
-        name: "Cobol",
-      },
-      {
-        id: 1,
-        name: "JavaScript",
-      },
-      {
-        id: 2,
-        name: "Basic",
-      },
-      {
-        id: 3,
-        name: "PHP",
-      },
-      {
-        id: 4,
-        name: "Java",
-      },
-    ];
-
-    setSearchItems(items);
   };
 
   const zoomToNode = useCallback(
@@ -152,12 +130,6 @@ const Graph = (props: { id?: string }) => {
     },
     [fgRef]
   );
-
-  const getNode = (nodes: any) => {
-    if (nodes) {
-      return nodes[33];
-    }
-  };
 
   const handleHover = useCallback((node: Node | any) => {
     if (node?.id) {
@@ -181,15 +153,22 @@ const Graph = (props: { id?: string }) => {
   }, []);
 
   const handleOnSelect = (item: any) => {
-    console.log(item);
+    zoomToNode(item);
   };
 
   const formatResult = (item: any) => {
     return (
       <>
-        <span>
-          id: {item.id}, name: {item.name}
-        </span>
+        <div className="flex gap-3">
+          <Image
+            className="h-7 w-7 object-cover rounded-[50%]"
+            width={100}
+            height={100}
+            src={item.img}
+            alt={`${item.name} Spotify profile pic`}
+          />
+          {item.name}
+        </div>
       </>
     );
   };
@@ -198,31 +177,21 @@ const Graph = (props: { id?: string }) => {
     <>
       <div className="relative">
         {loading && (
-          <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen ">
+          <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen">
             <h1 className="select-none text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
               Loading...
             </h1>
           </div>
         )}
-        <div className="flex justify-center">
+        <div className="absolute top-14  left-0 right-0 m-auto z-[100] w-[60%] md:w-[40%] lg:w-[30%]">
           <ReactSearchAutocomplete
-            className="absolute top-14 z-[100] w-[60%] md:w-[40%] lg:w-[30%]"
             items={searchItems}
             onSelect={handleOnSelect}
             formatResult={formatResult}
+            placeholder="Enter artist name"
             autoFocus
           />
         </div>
-        <button
-          className="absolute bottom-0 z-[100] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            const node = getNode(data?.nodes);
-            if (node) {
-              zoomToNode(node);
-            }
-          }}>
-          Zoom to node
-        </button>
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
@@ -238,7 +207,6 @@ const Graph = (props: { id?: string }) => {
           nodeThreeObject={(node: Node | any) => {
             if (loading) {
               const geometry = new THREE.SphereGeometry(7, 10, 10);
-              // const clr = Math.random() * 0xffffff;
               const material = new THREE.MeshBasicMaterial({
                 color: signalThemeState == "dark" ? 0xffffff : 0x000000,
               });
@@ -257,7 +225,7 @@ const Graph = (props: { id?: string }) => {
         />
 
         {artistPreview && (
-          <div className="absolute z-40 bottom-36 mb-2 flex justify-center w-full">
+          <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
             <ArtistCardHorizontal
               name={artistPreview.name}
               img={artistPreview.img}
