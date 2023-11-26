@@ -89,6 +89,7 @@ const Graph = (props: { id?: string }) => {
     if (res.error || !res) return;
     setData(res.relatedArtists);
     setImgMaterial(getMatObj(res.relatedArtists.nodes));
+    setImgMaterialOutline(getMatObj(res.relatedArtists.nodes, true));
     setSearchItems(res.relatedArtists.nodes);
     setLoading(false);
     clearInterval(loadIntervalId);
@@ -98,17 +99,17 @@ const Graph = (props: { id?: string }) => {
   };
 
   const testData = async () => {
-    // const loadIntervalId = loadIntervalFunc();
-    // const camIntervalId = camIntervalFunc();
+    const loadIntervalId = loadIntervalFunc();
+    const camIntervalId = camIntervalFunc();
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
       setImgMaterialOutline(getMatObj(data.nodes, true));
       setSearchItems(data.nodes);
     }
-    // await delay(6000);
+    await delay(6000);
     setLoading(false);
-    // clearInterval(loadIntervalId);
-    // clearInterval(camIntervalId);
+    clearInterval(loadIntervalId);
+    clearInterval(camIntervalId);
   };
 
   const zoomToNode = useCallback(
