@@ -13,8 +13,9 @@ import {
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
 import { delay } from "@/lib/utils";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
-const Graph = (props: { query?: string; id?: string }) => {
+const Graph = (props: { id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const [data, setData] = useState(Aimer);
   const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
@@ -31,6 +32,7 @@ const Graph = (props: { query?: string; id?: string }) => {
     height: undefined,
   });
   const [nodeHighlight, setNodeHighlight] = useState<string>("");
+  const [searchItems, setSearchItems] = useState<any>();
 
   const updateSize = async () => {
     setWinSize({ width: window.innerWidth, height: window.innerHeight });
@@ -104,6 +106,31 @@ const Graph = (props: { query?: string; id?: string }) => {
     setLoading(false);
     // clearInterval(loadIntervalId);
     // clearInterval(camIntervalId);
+
+    const items = [
+      {
+        id: 0,
+        name: "Cobol",
+      },
+      {
+        id: 1,
+        name: "JavaScript",
+      },
+      {
+        id: 2,
+        name: "Basic",
+      },
+      {
+        id: 3,
+        name: "PHP",
+      },
+      {
+        id: 4,
+        name: "Java",
+      },
+    ];
+
+    setSearchItems(items);
   };
 
   const zoomToNode = useCallback(
@@ -153,6 +180,20 @@ const Graph = (props: { query?: string; id?: string }) => {
     };
   }, []);
 
+  const handleOnSelect = (item: any) => {
+    console.log(item);
+  };
+
+  const formatResult = (item: any) => {
+    return (
+      <>
+        <span>
+          id: {item.id}, name: {item.name}
+        </span>
+      </>
+    );
+  };
+
   return (
     <>
       <div className="relative">
@@ -163,6 +204,15 @@ const Graph = (props: { query?: string; id?: string }) => {
             </h1>
           </div>
         )}
+        <div className="flex justify-center">
+          <ReactSearchAutocomplete
+            className="absolute top-14 z-[100] w-[60%] md:w-[40%] lg:w-[30%]"
+            items={searchItems}
+            onSelect={handleOnSelect}
+            formatResult={formatResult}
+            autoFocus
+          />
+        </div>
         <button
           className="absolute bottom-0 z-[100] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => {
@@ -207,7 +257,7 @@ const Graph = (props: { query?: string; id?: string }) => {
         />
 
         {artistPreview && (
-          <div className="absolute z-40 bottom-24 flex justify-center w-full">
+          <div className="absolute z-40 bottom-36 mb-2 flex justify-center w-full">
             <ArtistCardHorizontal
               name={artistPreview.name}
               img={artistPreview.img}
