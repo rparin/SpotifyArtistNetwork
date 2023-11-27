@@ -184,13 +184,12 @@ const Graph = (props: { id?: string }) => {
             </h1>
           </div>
         )}
-        <div className="absolute top-14  left-0 right-0 m-auto z-[100] w-[60%] md:w-[40%] lg:w-[30%]">
+        <div className="absolute top-14 left-0 right-0 m-auto z-30 w-[60%] md:w-[40%] lg:w-[30%]">
           <ReactSearchAutocomplete
             items={searchItems}
             onSelect={handleOnSelect}
             formatResult={formatResult}
             placeholder="Enter artist name"
-            autoFocus
           />
         </div>
         <ForceGraph3D
