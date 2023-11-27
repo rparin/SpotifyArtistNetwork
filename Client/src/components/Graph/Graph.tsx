@@ -15,6 +15,7 @@ import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Image from "next/image";
+import { RefreshCw } from "lucide-react";
 
 const Graph = (props: { id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -27,17 +28,18 @@ const Graph = (props: { id?: string }) => {
     signalTheme.value
   );
   const [imgMaterial, setImgMaterial] = useState<any>(null);
-  const [imgMaterialOutline, setImgMaterialOutline] = useState<any>(null);
   const [winSize, setWinSize] = useState<any>({
     width: undefined,
     height: undefined,
   });
-  const [nodeHighlight, setNodeHighlight] = useState<string>("");
   const [searchItems, setSearchItems] = useState<any>();
 
   const updateSize = async () => {
-    setWinSize({ width: window.innerWidth, height: window.innerHeight });
-    await delay(200); //for 1 sec delay
+    setWinSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+    await delay(200);
     fgRef?.current?.zoomToFit(200);
   };
 
@@ -89,7 +91,6 @@ const Graph = (props: { id?: string }) => {
     if (res.error || !res) return;
     setData(res.relatedArtists);
     setImgMaterial(getMatObj(res.relatedArtists.nodes));
-    setImgMaterialOutline(getMatObj(res.relatedArtists.nodes, true));
     setSearchItems(res.relatedArtists.nodes);
     setLoading(false);
     clearInterval(loadIntervalId);
@@ -103,13 +104,26 @@ const Graph = (props: { id?: string }) => {
     const camIntervalId = camIntervalFunc();
     if (data?.nodes) {
       setImgMaterial(getMatObj(data.nodes));
-      setImgMaterialOutline(getMatObj(data.nodes, true));
       setSearchItems(data.nodes);
     }
-    await delay(6000);
+    await delay(2000);
     setLoading(false);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
+  };
+
+  const refreshGraph = async () => {
+    setLoadData({ nodes: [{ id: 0 }], links: [] });
+    const loadIntervalId = loadIntervalFunc();
+    const camIntervalId = camIntervalFunc();
+    setLoading(true);
+    setArtistPreview(null);
+    await delay(1000);
+    setLoading(false);
+    clearInterval(loadIntervalId);
+    clearInterval(camIntervalId);
+    await delay(1000);
+    updateSize();
   };
 
   const zoomToNode = useCallback(
@@ -127,7 +141,6 @@ const Graph = (props: { id?: string }) => {
           2000
         );
       }
-      setNodeHighlight(node.id);
     },
     [fgRef]
   );
@@ -138,7 +151,6 @@ const Graph = (props: { id?: string }) => {
         return;
       }
       setArtistPreview(getNodePreview(node));
-      setNodeHighlight(node.id);
     }
   }, []);
 
@@ -153,8 +165,10 @@ const Graph = (props: { id?: string }) => {
     };
   }, []);
 
-  const handleOnSelect = (item: any) => {
+  const handleOnSelect = async (item: any) => {
     zoomToNode(item);
+    await delay(2100);
+    setArtistPreview(getNodePreview(item));
   };
 
   const formatResult = (item: any) => {
@@ -184,14 +198,22 @@ const Graph = (props: { id?: string }) => {
             </h1>
           </div>
         )}
-        <div className="absolute top-14 left-0 right-0 m-auto z-30 w-[60%] md:w-[40%] lg:w-[30%]">
-          <ReactSearchAutocomplete
-            items={searchItems}
-            onSelect={handleOnSelect}
-            formatResult={formatResult}
-            placeholder="Enter artist name"
-          />
+        <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
+          <div className="relative flex w-full justify-center gap-2">
+            <ReactSearchAutocomplete
+              className="w-[60%] md:w-[40%] lg:w-[30%]"
+              items={searchItems}
+              onSelect={handleOnSelect}
+              formatResult={formatResult}
+              placeholder="Enter artist name"
+            />
+            <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
+              <RefreshCw onClick={refreshGraph} />
+              <span className="sr-only">Reload graph</span>
+            </div>
+          </div>
         </div>
+
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
@@ -214,9 +236,6 @@ const Graph = (props: { id?: string }) => {
               return sphere;
             }
             let sphere = new THREE.Sprite(imgMaterial[node.id]);
-            if (node.id == nodeHighlight) {
-              sphere = new THREE.Sprite(imgMaterialOutline[node.id]);
-            }
             const size = 10 + nodeVal(node);
             sphere.scale.set(size, size, 1);
             return sphere;
