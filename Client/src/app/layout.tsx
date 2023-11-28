@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ReactQueryProvider } from "./ReactQueryProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -23,7 +24,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
