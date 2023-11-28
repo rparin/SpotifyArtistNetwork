@@ -1,5 +1,6 @@
 "use client";
 
+import { NO_IMAGE } from "@/constants";
 import { useEffect, useState, useRef, useCallback, JSX } from "react";
 import { ArtistCardVertical } from "./ArtistCardVertical";
 import {
@@ -7,14 +8,13 @@ import {
   checkClientToken,
   ClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
-import { NO_IMAGE } from "@/constants";
+// import { useQuery } from "@tanstack/react-query";
 
 export default function QueryResultCards(props: { query?: string }) {
   const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
   const [nextPage, setNextPage] = useState<null | string | undefined>(
     undefined
   );
-  const [isLoading, setIsLoading] = useState(false);
   const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
 
   const parseNextPage = (nextPage: string) => {
@@ -40,28 +40,48 @@ export default function QueryResultCards(props: { query?: string }) {
     }
   };
 
+  // const {
+  //   isLoading: isLoading,
+  //   isError: cIsError,
+  //   error: cError,
+  // } = useQuery({
+  //   enabled: !props?.query,
+  //   queryKey: ["query", props.query],
+  //   queryFn: async () => {
+  //     const cToken = await checkClientToken(accessToken);
+  //     setAccessToken(cToken);
+  //   },
+  // });
+
+  // const {isLoading, isError, error} = useQuery({
+  //   enabled: !props?.query,
+  //   queryKey: ["query",props.query],
+  //   queryFn: async () => {
+  //     const cToken = await checkClientToken(accessToken);
+  //     setAccessToken(cToken);
+  //   },
+  // })
+
   async function fetchData(
     query: string,
     nextPage: null | string | undefined,
     newResult: boolean
   ) {
     if (!props.query) return;
-    setIsLoading(true);
     const cToken = await checkClientToken(accessToken);
     setAccessToken(cToken);
     if (!cToken) return;
     const res = await fetchSearchResults(query, nextPage, cToken?.access_token);
     if (!res || res.error) return;
-    setIsLoading(false);
     setResultHelper(res.data.artists.items, newResult);
     setPageHelper(res.data.artists.next);
   }
 
-  useEffect(() => {
-    if (props.query) {
-      fetchData(props.query, undefined, true);
-    }
-  }, [props.query]);
+  // useEffect(() => {
+  //   if (props.query) {
+  //     fetchData(props.query, undefined, true);
+  //   }
+  // }, [props.query]);
 
   const observer = useRef<IntersectionObserver | null>(null);
   const lastArtistCardRef = useCallback(
@@ -109,5 +129,11 @@ export default function QueryResultCards(props: { query?: string }) {
     return cards;
   };
 
-  return <>{getArtistCards()}</>;
+  return (
+    <>
+      {isLoading}
+      {accessToken}
+      {/* {getArtistCards()} */}
+    </>
+  );
 }
