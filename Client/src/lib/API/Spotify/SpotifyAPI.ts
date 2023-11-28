@@ -10,14 +10,10 @@ export const fetchSearchResults = async (
   page: string | null | undefined,
   accessToken: string
 ) => {
-  try {
-    const res = await spotifyAPI.get(
-      `/api/spotify/search/${artist}/${page}/${accessToken}`
-    );
-    return res.data;
-  } catch (error) {
-    return null;
-  }
+  const res = await spotifyAPI.get(
+    `/api/spotify/search/${artist}/${page}/${accessToken}`
+  );
+  return res.data;
 };
 
 export const checkClientToken = async (cToken: ClientToken | null) => {
