@@ -80,16 +80,10 @@ class SpotifyAPI {
         ? SPOTIFY.Endpoints.searchArtist(artist)
         : `https://api.spotify.com/v1/search?${page}`;
 
-    try {
-      const res = await axios.get(
-        endPoint,
-        SPOTIFY.Headers.bearer("Bearer", accessToken)
-      );
-      return { error: false, data: res.data };
-    } catch (error) {
-      console.log(error);
-      return { error: true, status: error.response.status };
-    }
+    return await axios.get(
+      endPoint,
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
   }
 
   async searchArtistPage(query, accessToken) {
