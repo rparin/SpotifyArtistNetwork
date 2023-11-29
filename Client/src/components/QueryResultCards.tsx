@@ -1,62 +1,45 @@
 "use client";
 
 import { NO_IMAGE } from "@/constants";
-import { useState, useRef, useCallback, JSX } from "react";
+import { useState, useRef, useCallback, JSX, useEffect, use } from "react";
 import { ArtistCardVertical } from "./ArtistCardVertical";
 import {
   fetchSearchResults,
-  checkClientToken,
-  ClientToken,
+  getClientToken,
 } from "@/lib/API/Spotify/SpotifyAPI";
 import { useQuery } from "@tanstack/react-query";
 
 export default function QueryResultCards(props: { query?: string }) {
   const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
-  const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
-  const [initialSearch, setInitialSearch] = useState(true);
   const [nextPage, setNextPage] = useState<null | string | undefined>(
     undefined
   );
 
-  const parseNextPage = (nextPage: string) => {
-    const searchParams = new URLSearchParams(nextPage);
-    return `query=${props.query}&type=artist&offset=${searchParams.get(
-      "offset"
-    )}&limit=${searchParams.get("limit")}`;
-  };
-
-  const setPageHelper = (page: string | null) => {
-    if (page) {
-      setNextPage(parseNextPage(page));
-    } else {
-      setNextPage(null);
-    }
-  };
-
-  const setResultHelper = (result: JSX.Element[], newResult: boolean) => {
-    if (newResult) {
-      setSearchResult(result);
-    } else {
-      setSearchResult((prev: JSX.Element[]) => [...prev, ...result]);
-    }
-  };
+  const {
+    data: cToken,
+    isLoading: iscTokenLoading,
+    isError: iscTokenError,
+    error: ctokenError,
+  } = useQuery({
+    enabled: props?.query != undefined,
+    queryKey: ["cToken"],
+    queryFn: getClientToken,
+    refetchOnWindowFocus: true,
+    refetchInterval: 3000000, //50 minutes
+    staleTime: 3000000, //50 minutes
+  });
 
   const { data, isLoading, isError, error, refetch } = useQuery({
-    enabled: props?.query != undefined,
-    queryKey: ["query", props.query],
+    enabled: !!cToken,
+    queryKey: ["query", props.query, nextPage],
     queryFn: async () => {
-      if (nextPage === null) return null;
-      const cToken = await checkClientToken(accessToken);
-      setAccessToken(cToken);
       const res = await fetchSearchResults(
         props.query as string,
         nextPage,
-        cToken?.access_token
+        cToken
       );
-      setResultHelper(res.data.artists.items, initialSearch);
-      setPageHelper(res.data.artists.next);
-      if (initialSearch) setInitialSearch(false);
-      return res;
+      console.log(res);
+      return res.artists.items;
     },
   });
 
@@ -67,7 +50,9 @@ export default function QueryResultCards(props: { query?: string }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          refetch();
+          if (cToken != undefined && props?.query != undefined) {
+            console.log("here");
+          }
         }
       });
       if (node) observer.current.observe(node);
@@ -78,7 +63,7 @@ export default function QueryResultCards(props: { query?: string }) {
   const getArtistCards = () => {
     const idSet = new Set();
     const cards: JSX.Element[] = [];
-    searchResult.map((item: any, index: number) => {
+    data.map((item: any, index: number) => {
       let bakImage = NO_IMAGE;
       if (item?.images[0]?.url) {
         bakImage = item.images[0].url;
@@ -86,7 +71,7 @@ export default function QueryResultCards(props: { query?: string }) {
       if (!idSet.has(item.id)) {
         cards.push(
           <ArtistCardVertical
-            ref={searchResult.length === index + 1 ? lastArtistCardRef : null}
+            ref={data.length === index + 1 ? lastArtistCardRef : null}
             key={`${item.id}`}
             id={item.id}
             name={item.name}
@@ -104,13 +89,25 @@ export default function QueryResultCards(props: { query?: string }) {
     return cards;
   };
 
-  return (
-    <>
-      {isLoading && initialSearch && (
-        <p className="text-xl font-semibold">Loading results...</p>
-      )}
+  if (iscTokenLoading || isLoading) {
+    return <p className="text-xl font-semibold">Loading results...</p>;
+  }
 
-      {getArtistCards()}
-    </>
-  );
+  if (iscTokenError) {
+    return (
+      <p className="text-xl font-semibold">
+        Authentication Error: {ctokenError.message}
+      </p>
+    );
+  }
+
+  if (isError) {
+    return (
+      <p className="text-xl font-semibold">
+        Error getting artists: {error.message}
+      </p>
+    );
+  }
+
+  return <>{getArtistCards()}</>;
 }
