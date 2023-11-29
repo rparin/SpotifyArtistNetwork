@@ -12,7 +12,10 @@ const { CLIENT_ID, CLIENT_SECRET } = process.env;
 const spotifyAPI = new SpotifyAPI(CLIENT_ID, CLIENT_SECRET);
 
 router.get("/cAuthToken", async (req, res) => {
-  res.json({ access_token: await spotifyAPI.getClientAuthToken() });
+  const response = await spotifyAPI.getClientAuthToken();
+  res
+    .status(response.status)
+    .json(response.status == 200 ? response.data.access_token : null);
 });
 
 router.get("/askAuth", async (req, res) => {

@@ -37,15 +37,10 @@ class SpotifyAPI {
   }
 
   async getClientAuthToken() {
-    try {
-      const data = qs.stringify({
-        grant_type: SPOTIFY.Grants.clientCred,
-      });
-      const res = await this._getToken(data);
-      return res.data.access_token;
-    } catch (error) {
-      return { error: true, status: error.response.status };
-    }
+    const data = qs.stringify({
+      grant_type: SPOTIFY.Grants.clientCred,
+    });
+    return await this._getToken(data);
   }
 
   async getUserAuthToken(code) {
