@@ -16,11 +16,16 @@ export const fetchSearchResults = async (
   return res.data;
 };
 
+export const getClientToken = async () => {
+  const res = await spotifyAPI.get("/api/spotify/cAuthToken");
+  return res.data;
+};
+
 export const checkClientToken = async (cToken: ClientToken | null) => {
   let curDate = new Date().getTime();
   //Get new token after 40 minutes
   if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
-    const res = await spotifyAPI.get("/api/spotify/cAuthToken");
+    const res = await getClientToken();
     if (res.data.error) return null;
     return {
       access_token: res.data.access_token,
@@ -36,12 +41,8 @@ export const fetchArtistNetwork = async (
   depth: string,
   accessToken: string
 ) => {
-  try {
-    const res = await spotifyAPI.get(
-      `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
-    );
-    return res.data;
-  } catch (error) {
-    return null;
-  }
+  const res = await spotifyAPI.get(
+    `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
+  );
+  return res.data;
 };
