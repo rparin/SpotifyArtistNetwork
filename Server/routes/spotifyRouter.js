@@ -51,13 +51,14 @@ router.get("/rAuthToken/:authToken", async (req, res) => {
 });
 
 router.get("/search/:artist/:page/:authToken", async (req, res) => {
-  res.json(
-    await spotifyAPI.searchArtist(
-      req.params.artist,
-      req.params.page,
-      req.params.authToken
-    )
+  const response = await spotifyAPI.searchArtist(
+    req.params.artist,
+    req.params.page,
+    req.params.authToken
   );
+  res
+    .status(response.status)
+    .json(response.status == 200 ? response.data : null);
 });
 
 router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
