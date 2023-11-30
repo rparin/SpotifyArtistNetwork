@@ -62,12 +62,12 @@ router.get("/search/:artist/:page/:authToken", async (req, res) => {
 });
 
 router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
-  const id = req.params.id;
-  const depth = req.params.depth;
-  const authToken = req.params.authToken;
-  res.json({
-    relatedArtists: await spotifyAPI.getArtistRelatedMap(id, depth, authToken),
-  });
+  const response = await spotifyAPI.getArtistRelatedMap(
+    req.params.id,
+    req.params.depth,
+    req.params.authToken
+  );
+  res.status(response.status).json(response.data);
 });
 
 module.exports = router;

@@ -87,41 +87,24 @@ class SpotifyAPI {
   }
 
   async searchArtistPage(query, accessToken) {
-    try {
-      const res = await axios.get(
-        `https://api.spotify.com/v1/search?${query}`,
-        SPOTIFY.Headers.bearer("Bearer", accessToken)
-      );
-      return { error: false, data: res.data };
-    } catch (error) {
-      console.log(error);
-      return { error: true, status: error.response.status };
-    }
+    return await axios.get(
+      `https://api.spotify.com/v1/search?${query}`,
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
   }
 
   async getRelatedArtists(id, accessToken) {
-    try {
-      const res = await axios.get(
-        SPOTIFY.Endpoints.getRelatedArtists(id),
-        SPOTIFY.Headers.bearer("Bearer", accessToken)
-      );
-      return { error: false, data: res.data };
-    } catch (error) {
-      console.log(error);
-      return { error: true, status: error.response.status };
-    }
+    return await axios.get(
+      SPOTIFY.Endpoints.getRelatedArtists(id),
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
   }
 
   async getArtistInfo(id, accessToken) {
-    try {
-      const res = await axios.get(
-        SPOTIFY.Endpoints.getArtists(id),
-        SPOTIFY.Headers.bearer("Bearer", accessToken)
-      );
-      return { error: false, data: res.data };
-    } catch (error) {
-      return { error: true, status: error.response.status };
-    }
+    return await axios.get(
+      SPOTIFY.Endpoints.getArtists(id),
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
   }
 
   async getArtistRelatedMap(id, depth, access_token) {
@@ -140,7 +123,7 @@ class SpotifyAPI {
         await this.delay(SPOTIFY.Variables.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
 
-        if (!related.error) {
+        if (related.status == 200) {
           related = related.data;
           for (var i = 0; i < related.artists.length; i++) {
             const data = related.artists[i];
@@ -153,11 +136,13 @@ class SpotifyAPI {
       }
     };
 
-    const fArtist = await this.getArtistInfo(id, access_token);
-    if (!fArtist.error) {
+    try {
+      const fArtist = await this.getArtistInfo(id, access_token);
       await getArtist(fArtist.data, depth);
-      return relatedMap;
-    } else return null;
+      return { data: relatedMap, status: 200 };
+    } catch (error) {
+      return { data: null, status: error.response.status };
+    }
   }
 }
 
