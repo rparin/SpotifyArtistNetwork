@@ -28,12 +28,7 @@ const Graph = (props: { id?: string }) => {
     height: undefined,
   });
 
-  const {
-    data: cToken,
-    isLoading: iscTokenLoading,
-    isError: iscTokenError,
-    error: cTokenError,
-  } = useSpotifyCToken(props.id);
+  const cTokenQuery = useSpotifyCToken(props?.id != undefined);
 
   const {
     data: graphData,
@@ -41,10 +36,10 @@ const Graph = (props: { id?: string }) => {
     isError: isGraphError,
     error: graphError,
   } = useQuery({
-    enabled: !!cToken,
+    enabled: !!cTokenQuery.data,
     queryKey: ["network", props.id],
     queryFn: async () => {
-      return fetchArtistNetwork(props.id as string, "2", cToken);
+      return fetchArtistNetwork(props.id as string, "2", cTokenQuery.data);
     },
     staleTime: 1800000, //cache network data for 30 minutes
   });
@@ -140,7 +135,7 @@ const Graph = (props: { id?: string }) => {
     const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
 
-    if (iscTokenLoading == isGraphLoading && !isGraphLoading) {
+    if (cTokenQuery.isLoading == isGraphLoading && !isGraphLoading) {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
       setImgMaterial(getMatObj(graphData.nodes));
@@ -153,7 +148,7 @@ const Graph = (props: { id?: string }) => {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
     };
-  }, [iscTokenLoading, isGraphLoading]);
+  }, [cTokenQuery.isLoading, isGraphLoading]);
 
   const handleOnSelect = async (item: any) => {
     zoomToNode(item);
@@ -180,7 +175,7 @@ const Graph = (props: { id?: string }) => {
 
   const isLoading = () => {
     if (reload) return true;
-    return iscTokenLoading || isGraphLoading;
+    return cTokenQuery.isLoading || isGraphLoading;
   };
 
   return (
