@@ -1,28 +1,23 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import { Aimer, Aimer3 } from "../../../public/data/Aimer";
 import * as THREE from "three";
 import { effect } from "@preact/signals-core";
 import { signalTheme } from "../UI/ThemeToggle";
-import {
-  fetchArtistNetwork,
-  checkClientToken,
-  ClientToken,
-} from "@/lib/API/Spotify/SpotifyAPI";
+import { fetchArtistNetwork } from "@/lib/API/Spotify/SpotifyAPI";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Image from "next/image";
 import { RefreshCw } from "lucide-react";
+import { useSpotifyCToken } from "@/hooks/useSpotifyCToken";
+import { useQuery } from "@tanstack/react-query";
 
 const Graph = (props: { id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [data, setData] = useState(Aimer);
   const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
-  const [loading, setLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
+  const [reload, setReload] = useState(false);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const [signalThemeState, setSignalThemeState] = useState<string>(
     signalTheme.value
@@ -32,7 +27,27 @@ const Graph = (props: { id?: string }) => {
     width: undefined,
     height: undefined,
   });
-  const [searchItems, setSearchItems] = useState<any>();
+
+  const {
+    data: cToken,
+    isLoading: iscTokenLoading,
+    isError: iscTokenError,
+    error: cTokenError,
+  } = useSpotifyCToken(props.id);
+
+  const {
+    data: graphData,
+    isLoading: isGraphLoading,
+    isError: isGraphError,
+    error: graphError,
+  } = useQuery({
+    enabled: !!cToken,
+    queryKey: ["network", props.id],
+    queryFn: async () => {
+      return fetchArtistNetwork(props.id as string, "2", cToken);
+    },
+    staleTime: 1800000, //cache network data for 30 minutes
+  });
 
   const updateSize = async () => {
     setWinSize({
@@ -79,49 +94,16 @@ const Graph = (props: { id?: string }) => {
     }
   }, [fgRef]);
 
-  const getData = async () => {
-    if (!props.id) return;
-    const loadIntervalId = loadIntervalFunc();
-    const camIntervalId = camIntervalFunc();
-    const depth = "2";
-    const cToken = await checkClientToken(accessToken);
-    setAccessToken(cToken);
-    if (!cToken) return;
-    const res = await fetchArtistNetwork(props.id, depth, cToken.access_token);
-    setData(res);
-    setImgMaterial(getMatObj(res.nodes));
-    setSearchItems(res.nodes);
-    setLoading(false);
-    clearInterval(loadIntervalId);
-    clearInterval(camIntervalId);
-    await delay(1000);
-    fgRef?.current?.zoomToFit(200);
-  };
-
-  const testData = async () => {
-    const loadIntervalId = loadIntervalFunc();
-    const camIntervalId = camIntervalFunc();
-    if (data?.nodes) {
-      setImgMaterial(getMatObj(data.nodes));
-      setSearchItems(data.nodes);
-    }
-    await delay(2000);
-    setLoading(false);
-    clearInterval(loadIntervalId);
-    clearInterval(camIntervalId);
-  };
-
   const refreshGraph = async () => {
     setLoadData({ nodes: [{ id: 0 }], links: [] });
     const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
-    setLoading(true);
+    setReload(true);
     setArtistPreview(null);
-    await delay(1000);
-    setLoading(false);
+    await delay(2000);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
-    await delay(1000);
+    setReload(false);
     updateSize();
   };
 
@@ -155,14 +137,23 @@ const Graph = (props: { id?: string }) => {
 
   useEffect(() => {
     window.addEventListener("resize", updateSize);
-    // getData();
-    testData();
+    const loadIntervalId = loadIntervalFunc();
+    const camIntervalId = camIntervalFunc();
+
+    if (iscTokenLoading == isGraphLoading && !isGraphLoading) {
+      clearInterval(loadIntervalId);
+      clearInterval(camIntervalId);
+      setImgMaterial(getMatObj(graphData.nodes));
+      updateSize();
+    }
 
     return () => {
       window.removeEventListener("resize", updateSize);
       effect(() => setSignalThemeState(signalTheme.value));
+      clearInterval(loadIntervalId);
+      clearInterval(camIntervalId);
     };
-  }, []);
+  }, [iscTokenLoading, isGraphLoading]);
 
   const handleOnSelect = async (item: any) => {
     zoomToNode(item);
@@ -187,31 +178,39 @@ const Graph = (props: { id?: string }) => {
     );
   };
 
+  const isLoading = () => {
+    if (reload) return true;
+    return iscTokenLoading || isGraphLoading;
+  };
+
   return (
     <>
       <div className="relative">
-        {loading && (
+        {isLoading() && (
           <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen">
             <h1 className="select-none text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
               Loading...
             </h1>
           </div>
         )}
-        <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
-          <div className="relative flex w-full justify-center gap-2">
-            <ReactSearchAutocomplete
-              className="w-[60%] md:w-[40%] lg:w-[30%]"
-              items={searchItems}
-              onSelect={handleOnSelect}
-              formatResult={formatResult}
-              placeholder="Enter artist name"
-            />
-            <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
-              <RefreshCw onClick={refreshGraph} />
-              <span className="sr-only">Reload graph</span>
+
+        {!isLoading() && (
+          <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
+            <div className="relative flex w-full justify-center gap-2">
+              <ReactSearchAutocomplete
+                className="w-[60%] md:w-[40%] lg:w-[30%]"
+                items={graphData?.nodes}
+                onSelect={handleOnSelect}
+                formatResult={formatResult}
+                placeholder="Enter artist name"
+              />
+              <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
+                <RefreshCw onClick={refreshGraph} />
+                <span className="sr-only">Reload graph</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <ForceGraph3D
           width={winSize.width}
@@ -221,12 +220,12 @@ const Graph = (props: { id?: string }) => {
           linkColor={() => "#1db954"}
           linkOpacity={0.5}
           ref={fgRef}
-          graphData={loading ? loadData : data}
+          graphData={isLoading() ? loadData : graphData}
           nodeLabel="name"
-          onNodeClick={loading ? () => {} : zoomToNode}
-          onNodeHover={loading ? () => {} : handleHover}
+          onNodeClick={isLoading() ? () => {} : zoomToNode}
+          onNodeHover={isLoading() ? () => {} : handleHover}
           nodeThreeObject={(node: Node | any) => {
-            if (loading) {
+            if (isLoading()) {
               const geometry = new THREE.SphereGeometry(7, 10, 10);
               const material = new THREE.MeshBasicMaterial({
                 color: signalThemeState == "dark" ? 0xffffff : 0x000000,
