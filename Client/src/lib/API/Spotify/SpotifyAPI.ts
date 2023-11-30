@@ -26,9 +26,9 @@ export const checkClientToken = async (cToken: ClientToken | null) => {
   //Get new token after 40 minutes
   if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
     const res = await getClientToken();
-    if (res.data.error) return null;
+    if (!res) return null;
     return {
-      access_token: res.data.access_token,
+      access_token: res,
       obtained_at: new Date().getTime(),
     };
   }

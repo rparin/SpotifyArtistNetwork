@@ -88,10 +88,9 @@ const Graph = (props: { id?: string }) => {
     setAccessToken(cToken);
     if (!cToken) return;
     const res = await fetchArtistNetwork(props.id, depth, cToken.access_token);
-    if (res.error || !res) return;
-    setData(res.relatedArtists);
-    setImgMaterial(getMatObj(res.relatedArtists.nodes));
-    setSearchItems(res.relatedArtists.nodes);
+    setData(res);
+    setImgMaterial(getMatObj(res.nodes));
+    setSearchItems(res.nodes);
     setLoading(false);
     clearInterval(loadIntervalId);
     clearInterval(camIntervalId);
