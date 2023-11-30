@@ -4,11 +4,8 @@ import { NO_IMAGE } from "@/constants";
 import { useRef, useCallback, JSX } from "react";
 import { useSpotifyCToken } from "@/hooks/useSpotifyCToken";
 import { ArtistCardVertical } from "./ArtistCardVertical";
-import {
-  fetchSearchResults,
-  getClientToken,
-} from "@/lib/API/Spotify/SpotifyAPI";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { fetchSearchResults } from "@/lib/API/Spotify/SpotifyAPI";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function QueryResultCards(props: { query?: string }) {
   const parseNextPage = (nextPage: string) => {
@@ -20,17 +17,7 @@ export default function QueryResultCards(props: { query?: string }) {
 
   const cTokenQuery = useSpotifyCToken(props?.query != undefined);
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-    isLoading,
-    isError,
-  } = useInfiniteQuery({
+  const searchQuery = useInfiniteQuery({
     enabled: !!cTokenQuery.data,
     queryKey: ["query", props.query],
     queryFn: (params: any) => {
@@ -52,21 +39,25 @@ export default function QueryResultCards(props: { query?: string }) {
   const observer = useRef<IntersectionObserver | null>(null);
   const lastArtistCardRef = useCallback(
     (node: HTMLElement) => {
-      if (isFetchingNextPage) return;
+      if (searchQuery.isFetchingNextPage) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          if ((props?.query != undefined, hasNextPage)) {
-            fetchNextPage();
+          if ((props?.query != undefined, searchQuery.hasNextPage)) {
+            searchQuery.fetchNextPage();
           }
         }
       });
       if (node) observer.current.observe(node);
     },
-    [isFetchingNextPage, fetchNextPage, hasNextPage]
+    [
+      searchQuery.isFetchingNextPage,
+      searchQuery.fetchNextPage,
+      searchQuery.hasNextPage,
+    ]
   );
 
-  const getArtistCards = () => {
+  const getArtistCards = (data: any) => {
     if (!data) return;
 
     //Spotify API may return duplicate artist for a query therefore use a set to maintain unique cards
@@ -108,7 +99,7 @@ export default function QueryResultCards(props: { query?: string }) {
     return cards;
   };
 
-  if (cTokenQuery.isLoading || isLoading) {
+  if (cTokenQuery.isLoading || searchQuery.isLoading) {
     return <p className="text-xl font-semibold">Loading results...</p>;
   }
 
@@ -120,13 +111,22 @@ export default function QueryResultCards(props: { query?: string }) {
     );
   }
 
-  if (isError) {
+  if (searchQuery.isError) {
     return (
       <p className="text-xl font-semibold">
-        Error getting artists: {error.message}
+        Error getting artists: {searchQuery.error.message}
       </p>
     );
   }
 
-  return <> {getArtistCards()} </>;
+  return (
+    <>
+      {getArtistCards(searchQuery.data)}
+      {searchQuery.isFetchingNextPage && (
+        <p className="text-xl font-semibold w-full text-center mt-3">
+          Loading more results...
+        </p>
+      )}
+    </>
+  );
 }
