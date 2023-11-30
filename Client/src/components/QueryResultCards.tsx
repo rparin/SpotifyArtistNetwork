@@ -1,7 +1,8 @@
 "use client";
 
 import { NO_IMAGE } from "@/constants";
-import { useState, useRef, useCallback, JSX, useEffect } from "react";
+import { useRef, useCallback, JSX } from "react";
+import { useSpotifyCToken } from "@/hooks/useSpotifyCToken";
 import { ArtistCardVertical } from "./ArtistCardVertical";
 import {
   fetchSearchResults,
@@ -17,19 +18,7 @@ export default function QueryResultCards(props: { query?: string }) {
     )}&limit=${searchParams.get("limit")}`;
   };
 
-  const {
-    data: cToken,
-    isLoading: iscTokenLoading,
-    isError: iscTokenError,
-    error: ctokenError,
-  } = useQuery({
-    enabled: props?.query != undefined,
-    queryKey: ["cToken"],
-    queryFn: getClientToken,
-    refetchOnWindowFocus: true,
-    refetchInterval: 3000000, //grab new token every 50 minutes
-    staleTime: 3000000, //cache token for 50 minutes
-  });
+  const cTokenQuery = useSpotifyCToken(props?.query != undefined);
 
   const {
     data,
@@ -42,13 +31,13 @@ export default function QueryResultCards(props: { query?: string }) {
     isLoading,
     isError,
   } = useInfiniteQuery({
-    enabled: !!cToken,
+    enabled: !!cTokenQuery.data,
     queryKey: ["query", props.query],
     queryFn: (params: any) => {
       return fetchSearchResults(
         props.query as string,
         params.pageParam,
-        cToken
+        cTokenQuery.data
       );
     },
     initialPageParam: undefined,
@@ -67,7 +56,7 @@ export default function QueryResultCards(props: { query?: string }) {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          if ((cToken != undefined && props?.query != undefined, hasNextPage)) {
+          if ((props?.query != undefined, hasNextPage)) {
             fetchNextPage();
           }
         }
@@ -119,14 +108,14 @@ export default function QueryResultCards(props: { query?: string }) {
     return cards;
   };
 
-  if (iscTokenLoading || isLoading) {
+  if (cTokenQuery.isLoading || isLoading) {
     return <p className="text-xl font-semibold">Loading results...</p>;
   }
 
-  if (iscTokenError) {
+  if (cTokenQuery.isError) {
     return (
       <p className="text-xl font-semibold">
-        Authentication Error: {ctokenError.message}
+        Authentication Error: {cTokenQuery.error.message}
       </p>
     );
   }
