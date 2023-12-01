@@ -13,7 +13,7 @@ export default function myNetworkRoute({
   if (error || !error) {
     return (
       <main className="flex flex-col justify-center items-center h-72">
-        <h2 className="flex flex-wrap gap-2 text-lg md:text-xl font-semibold justify-center text-center mt-3">
+        <h2 className="flex flex-wrap gap-2 text-base font-semibold justify-center text-center mt-3">
           <span>Authorization Error...</span>
           <span>Going back to the home page in:</span>
           {<CountdownNavigateTo href={"/"} countdown={5000} />}
