@@ -2,7 +2,7 @@ const Urls = {
   api: "https://api.spotify.com/v1",
   accounts: "https://accounts.spotify.com",
   host: "http://localhost:8080",
-  authRedirect: "http://localhost:3000",
+  authRedirect: "http://localhost:3000/mynetwork",
 };
 
 function getArtists(id) {
