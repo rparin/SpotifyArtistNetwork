@@ -30,12 +30,7 @@ const Graph = (props: { id?: string }) => {
 
   const cTokenQuery = useSpotifyCToken(props?.id != undefined);
 
-  const {
-    data: graphData,
-    isLoading: isGraphLoading,
-    isError: isGraphError,
-    error: graphError,
-  } = useQuery({
+  const networkQuery = useQuery({
     enabled: !!cTokenQuery.data,
     queryKey: ["network", props.id],
     queryFn: async () => {
@@ -135,10 +130,10 @@ const Graph = (props: { id?: string }) => {
     const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
 
-    if (cTokenQuery.isLoading == isGraphLoading && !isGraphLoading) {
+    if (!(cTokenQuery.isLoading || networkQuery.isLoading)) {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
-      setImgMaterial(getMatObj(graphData.nodes));
+      setImgMaterial(getMatObj(networkQuery.data.nodes));
       updateSize();
     }
 
@@ -148,7 +143,7 @@ const Graph = (props: { id?: string }) => {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
     };
-  }, [cTokenQuery.isLoading, isGraphLoading]);
+  }, [cTokenQuery.isLoading, networkQuery.isLoading]);
 
   const handleOnSelect = async (item: any) => {
     zoomToNode(item);
@@ -175,7 +170,7 @@ const Graph = (props: { id?: string }) => {
 
   const isLoading = () => {
     if (reload) return true;
-    return cTokenQuery.isLoading || isGraphLoading;
+    return cTokenQuery.isLoading || networkQuery.isLoading;
   };
 
   return (
@@ -194,7 +189,7 @@ const Graph = (props: { id?: string }) => {
             <div className="relative flex w-full justify-center gap-2">
               <ReactSearchAutocomplete
                 className="w-[60%] md:w-[40%] lg:w-[30%]"
-                items={graphData?.nodes}
+                items={networkQuery.data?.nodes}
                 onSelect={handleOnSelect}
                 formatResult={formatResult}
                 placeholder="Enter artist name"
@@ -215,7 +210,7 @@ const Graph = (props: { id?: string }) => {
           linkColor={() => "#1db954"}
           linkOpacity={0.5}
           ref={fgRef}
-          graphData={isLoading() ? loadData : graphData}
+          graphData={isLoading() ? loadData : networkQuery.data}
           nodeLabel="name"
           onNodeClick={isLoading() ? () => {} : zoomToNode}
           onNodeHover={isLoading() ? () => {} : handleHover}
