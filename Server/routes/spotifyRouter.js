@@ -25,7 +25,7 @@ router.get("/askAuth", async (req, res) => {
 router.get("/authCallback", async (req, res) => {
   var code = req.query.code || null;
   var state = req.query.state || null;
-  var redirect_uri = SPOTIFY.Endpoints.authHome;
+  var redirect_uri = SPOTIFY.Endpoints.authRedirect;
 
   if (state === null) {
     res.redirect(

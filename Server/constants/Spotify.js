@@ -2,6 +2,7 @@ const Urls = {
   api: "https://api.spotify.com/v1",
   accounts: "https://accounts.spotify.com",
   host: "http://localhost:8080",
+  authRedirect: "http://localhost:3000",
 };
 
 function getArtists(id) {
@@ -39,7 +40,7 @@ function getBearerHeader(tokenType, authToken) {
 
 const Endpoints = {
   authCallback: `${Urls.host}/api/spotify/authCallback`,
-  authHome: `${Urls.host}/api/home`,
+  authRedirect: `${Urls.authRedirect}`,
   auth: `${Urls.accounts}/authorize?`,
   token: `${Urls.accounts}/api/token`,
   getArtists: getArtists,
