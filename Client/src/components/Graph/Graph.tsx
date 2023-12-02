@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import * as THREE from "three";
 import { effect } from "@preact/signals-core";
-import { signalTheme } from "../UI/ThemeToggle";
+import { signalTheme } from "@/components/UI/ThemeToggle";
 import { fetchArtistNetwork } from "@/lib/API/Spotify/SpotifyAPI";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
 import { getMatObj, Node, nodeVal, getNodePreview } from "./helper";
