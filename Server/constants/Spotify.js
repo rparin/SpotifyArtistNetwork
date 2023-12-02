@@ -52,7 +52,7 @@ const Endpoints = {
   auth: `${Urls.accounts}/authorize?`,
   token: `${Urls.accounts}/api/token`,
   myInfo: `${Urls.api}/me`,
-  myFollowingArtists: `${Urls.api}/me/following?type=artist`,
+  myFollowingArtists: `${Urls.api}/me/following?type=artist&limit=50`,
   searchQuery: searchQuery,
   getArtists: getArtists,
   getRelatedArtists: getRelatedArtists,
