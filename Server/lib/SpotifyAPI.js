@@ -127,8 +127,6 @@ class SpotifyAPI {
     const userInfo = await this.getMyInfo(accessToken);
     const followingArtists = await this.getMyFollowingArtists(accessToken);
     if (followingArtists.status != 200 || userInfo.status != 200) {
-      console.log(userInfo.status);
-      console.log(followingArtists.status);
       return {
         status:
           userInfo.status != 200 ? userInfo.status : followingArtists.status,
