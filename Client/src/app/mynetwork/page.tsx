@@ -10,7 +10,7 @@ export default function myNetworkRoute({
   const error = searchParams?.error;
 
   //Reroute to home page
-  if (error || !error) {
+  if (error == "true" || !error) {
     return (
       <main className="flex flex-col justify-center items-center h-72">
         <h2 className="flex flex-wrap gap-2 text-base font-semibold justify-center text-center mt-3">
