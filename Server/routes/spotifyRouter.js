@@ -1,5 +1,5 @@
 const express = require("express");
-const SpotifyAPI = require("../helpers/SpotifyAPI");
+const SpotifyAPI = require("../lib/SpotifyAPI");
 const router = express.Router();
 const qs = require("querystring");
 const SPOTIFY = require("../constants/Spotify.js");
