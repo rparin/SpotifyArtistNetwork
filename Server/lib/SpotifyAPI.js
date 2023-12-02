@@ -78,7 +78,7 @@ class SpotifyAPI {
     const endPoint =
       page == "undefined"
         ? SPOTIFY.Endpoints.searchArtist(artist)
-        : `https://api.spotify.com/v1/search?${page}`;
+        : SPOTIFY.Endpoints.searchQuery(page);
 
     return await axios.get(
       endPoint,
@@ -88,7 +88,7 @@ class SpotifyAPI {
 
   async searchArtistPage(query, accessToken) {
     return await axios.get(
-      `https://api.spotify.com/v1/search?${query}`,
+      SPOTIFY.Endpoints.searchQuery(query),
       SPOTIFY.Headers.bearer("Bearer", accessToken)
     );
   }
