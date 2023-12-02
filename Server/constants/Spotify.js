@@ -47,11 +47,12 @@ const Endpoints = {
   authRedirect: `${Urls.authRedirect}`,
   auth: `${Urls.accounts}/authorize?`,
   token: `${Urls.accounts}/api/token`,
+  myInfo: `${Urls.api}/me`,
+  myFollowingArtists: `${Urls.api}/me/following?type=artist`,
   getArtists: getArtists,
   getRelatedArtists: getRelatedArtists,
   searchArtist: searchArtist,
   getUser: getUser,
-  myInfo: `${Urls.api}/me`,
 };
 
 const Headers = {

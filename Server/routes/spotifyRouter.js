@@ -90,4 +90,11 @@ router.get("/myInfo/:authToken", async (req, res) => {
     .json(response.status == 200 ? response.data : null);
 });
 
+router.get("/myFollowingArtists/:authToken", async (req, res) => {
+  const response = await spotifyAPI.getMyFollowingArtists(req.params.authToken);
+  res
+    .status(response.status)
+    .json(response.status == 200 ? response.data : null);
+});
+
 module.exports = router;

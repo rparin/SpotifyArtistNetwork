@@ -121,6 +121,13 @@ class SpotifyAPI {
     );
   }
 
+  async getMyFollowingArtists(accessToken) {
+    return await axios.get(
+      SPOTIFY.Endpoints.myFollowingArtists,
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
+  }
+
   async getArtistRelatedMap(id, depth, access_token) {
     const relatedMap = { nodes: [], links: [] };
     const idNodes = new Set();
