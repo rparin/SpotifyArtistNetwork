@@ -9,7 +9,10 @@ import { signalTheme } from "@/components/UI/ThemeToggle";
 
 export default function MyNetwork() {
   const fgRef = useRef<ForceGraphMethods>();
-  const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
+  const [loadData, setLoadData] = useState<any>({
+    nodes: [{ id: 0 }],
+    links: [],
+  });
   const [winSize, setWinSize] = useState<any>({
     width: undefined,
     height: undefined,
@@ -30,6 +33,50 @@ export default function MyNetwork() {
   useEffect(() => {
     window.addEventListener("resize", updateSize);
 
+    const data = {
+      nodes: [
+        {
+          id: "id1",
+          name: "name1",
+        },
+        {
+          id: "id2",
+          name: "name2",
+        },
+        {
+          id: "id3",
+          name: "name3",
+        },
+        {
+          id: "id4",
+          name: "name4",
+        },
+      ],
+      links: [
+        {
+          source: "id1",
+          target: "id2",
+          linkType: "main",
+        },
+        {
+          source: "id1",
+          target: "id3",
+          linkType: "related",
+        },
+        {
+          source: "id3",
+          target: "id4",
+          linkType: "main",
+        },
+        {
+          source: "id1",
+          target: "id4",
+          linkType: "related",
+        },
+      ],
+    };
+
+    setLoadData(data);
     return () => {
       window.removeEventListener("resize", updateSize);
       effect(() => setSignalThemeState(signalTheme.value));
@@ -43,11 +90,15 @@ export default function MyNetwork() {
         height={winSize.height}
         showNavInfo={false}
         backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
-        linkColor={() => "#1db954"}
+        linkColor={(node: Node | any) => {
+          return node.linkType == "main" ? "green" : "blue";
+        }}
+        // linkAutoColorBy="group"
+        linkWidth={0.5}
         linkOpacity={0.5}
         ref={fgRef}
         graphData={loadData}
-        nodeLabel="name"
+        nodeLabel="id"
         nodeThreeObject={(node: Node | any) => {
           const geometry = new THREE.SphereGeometry(7, 10, 10);
           const material = new THREE.MeshBasicMaterial({
