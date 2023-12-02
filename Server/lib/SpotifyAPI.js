@@ -1,7 +1,7 @@
 const axios = require("axios");
 const qs = require("querystring");
 const crypto = require("crypto");
-const createNode = require("../lib/Node.js");
+const createNode = require("./Node.js");
 const SPOTIFY = require("../constants/Spotify.js");
 
 class SpotifyAPI {
