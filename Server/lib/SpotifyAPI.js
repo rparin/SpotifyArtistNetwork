@@ -1,7 +1,7 @@
 const axios = require("axios");
 const qs = require("querystring");
 const crypto = require("crypto");
-const createNode = require("./Node.js");
+const { createArtistNode, createUserNode } = require("./Graph.js");
 const SPOTIFY = require("../constants/Spotify.js");
 
 class SpotifyAPI {
@@ -123,6 +123,32 @@ class SpotifyAPI {
     );
   }
 
+  async getMyArtistMap(accessToken) {
+    const userInfo = await this.getMyInfo(accessToken);
+    const followingArtists = await this.getMyFollowingArtists(accessToken);
+    if (followingArtists.status != 200 || userInfo.status != 200) {
+      console.log(userInfo.status);
+      console.log(followingArtists.status);
+      return {
+        status:
+          userInfo.status != 200 ? userInfo.status : followingArtists.status,
+      };
+    }
+
+    const followMap = { nodes: [], links: [] };
+    followMap.nodes.push(createUserNode(userInfo.data));
+    followingArtists.data.artists.items.map((item, _index) => {
+      followMap.nodes.push(createArtistNode(item));
+      followMap.links.push({
+        source: userInfo.data.id,
+        target: item.id,
+        linkType: "main",
+      });
+    });
+
+    return { data: followMap, status: 200 };
+  }
+
   async getArtistRelatedMap(id, depth, access_token) {
     const relatedMap = { nodes: [], links: [] };
     const idNodes = new Set();
@@ -132,7 +158,7 @@ class SpotifyAPI {
         console.log(info.id, info.name, depth);
       }
 
-      relatedMap.nodes.push(createNode(info));
+      relatedMap.nodes.push(createArtistNode(info));
       idNodes.add(info.id);
 
       if (depth > 0) {

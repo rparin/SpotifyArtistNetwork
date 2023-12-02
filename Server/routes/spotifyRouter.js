@@ -91,7 +91,7 @@ router.get("/myInfo/:authToken", async (req, res) => {
 });
 
 router.get("/myFollowingArtists/:authToken", async (req, res) => {
-  const response = await spotifyAPI.getMyFollowingArtists(req.params.authToken);
+  const response = await spotifyAPI.getMyArtistMap(req.params.authToken);
   res
     .status(response.status)
     .json(response.status == 200 ? response.data : null);
