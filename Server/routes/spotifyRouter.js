@@ -8,7 +8,7 @@ const SPOTIFY = require("../constants/Spotify.js");
 require("dotenv").config();
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
-//Create Helper Classes
+//Create Helper API Class
 const spotifyAPI = new SpotifyAPI(CLIENT_ID, CLIENT_SECRET);
 
 router.get("/cAuthToken", async (req, res) => {
@@ -40,8 +40,11 @@ router.get("/authCallback", async (req, res) => {
       res.redirect(`${redirect_uri}?error=true&status=${data.status}`);
     } else {
       res.redirect(
-        `${redirect_uri}?error=false&access_token=${data.access_token}&refresh_token=${data.refresh_token}&expires_in=${data.expires_in}&token_type=${data.token_type}`
+        `${redirect_uri}?error=false&access_token=${data.access_token}`
       );
+      // res.redirect(
+      //   `${redirect_uri}?error=false&access_token=${data.access_token}&refresh_token=${data.refresh_token}&expires_in=${data.expires_in}&token_type=${data.token_type}`
+      // );
     }
   }
 });
@@ -68,6 +71,23 @@ router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
     req.params.authToken
   );
   res.status(response.status).json(response.data);
+});
+
+router.get("/userInfo/:id/:authToken", async (req, res) => {
+  const response = await spotifyAPI.getUserInfo(
+    req.params.id,
+    req.params.authToken
+  );
+  res
+    .status(response.status)
+    .json(response.status == 200 ? response.data : null);
+});
+
+router.get("/myInfo/:authToken", async (req, res) => {
+  const response = await spotifyAPI.getMyInfo(req.params.authToken);
+  res
+    .status(response.status)
+    .json(response.status == 200 ? response.data : null);
 });
 
 module.exports = router;
