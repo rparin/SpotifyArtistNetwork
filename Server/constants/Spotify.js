@@ -5,6 +5,10 @@ const Urls = {
   authRedirect: "http://localhost:3000/mynetwork",
 };
 
+function getUser(id) {
+  return `${Urls.api}/users/${id}`;
+}
+
 function getArtists(id) {
   return `${Urls.api}/artists/${id}`;
 }
@@ -46,6 +50,8 @@ const Endpoints = {
   getArtists: getArtists,
   getRelatedArtists: getRelatedArtists,
   searchArtist: searchArtist,
+  getUser: getUser,
+  myInfo: `${Urls.api}/me`,
 };
 
 const Headers = {
@@ -62,7 +68,7 @@ const Grants = {
 const Variables = {
   delay: 1000,
   randomBytes: 20,
-  scope: "user-read-private user-read-email",
+  userScope: "user-follow-read user-top-read", //user-read-private user-read-email
 };
 
 module.exports = {
