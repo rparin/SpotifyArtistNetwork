@@ -21,6 +21,10 @@ function searchArtist(artist) {
   return `${Urls.api}/search?q=${artist}&type=artist`;
 }
 
+function searchQuery(query) {
+  return `${Urls.api}/search?${query}`;
+}
+
 const HeaderContent = {
   urlencoded: "application/x-www-form-urlencoded",
 };
@@ -49,6 +53,7 @@ const Endpoints = {
   token: `${Urls.accounts}/api/token`,
   myInfo: `${Urls.api}/me`,
   myFollowingArtists: `${Urls.api}/me/following?type=artist`,
+  searchQuery: searchQuery,
   getArtists: getArtists,
   getRelatedArtists: getRelatedArtists,
   searchArtist: searchArtist,
