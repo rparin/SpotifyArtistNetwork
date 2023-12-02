@@ -86,13 +86,6 @@ class SpotifyAPI {
     );
   }
 
-  async searchArtistPage(query, accessToken) {
-    return await axios.get(
-      SPOTIFY.Endpoints.searchQuery(query),
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
-    );
-  }
-
   async getRelatedArtists(id, accessToken) {
     return await axios.get(
       SPOTIFY.Endpoints.getRelatedArtists(id),
