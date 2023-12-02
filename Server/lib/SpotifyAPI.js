@@ -21,7 +21,7 @@ class SpotifyAPI {
     const querystring = qs.stringify({
       response_type: "code",
       client_id: this._client_id,
-      scope: SPOTIFY.Variables.scope,
+      scope: SPOTIFY.Variables.userScope,
       redirect_uri: SPOTIFY.Endpoints.authCallback,
       state: state,
     });
@@ -103,6 +103,20 @@ class SpotifyAPI {
   async getArtistInfo(id, accessToken) {
     return await axios.get(
       SPOTIFY.Endpoints.getArtists(id),
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
+  }
+
+  async getUserInfo(id, accessToken) {
+    return await axios.get(
+      SPOTIFY.Endpoints.getUser(id),
+      SPOTIFY.Headers.bearer("Bearer", accessToken)
+    );
+  }
+
+  async getMyInfo(accessToken) {
+    return await axios.get(
+      SPOTIFY.Endpoints.myInfo,
       SPOTIFY.Headers.bearer("Bearer", accessToken)
     );
   }
