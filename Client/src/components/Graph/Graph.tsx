@@ -13,6 +13,7 @@ import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { useSpotifyCToken } from "@/hooks/useSpotifyCToken";
 import { useQuery } from "@tanstack/react-query";
+import { div } from "three/examples/jsm/nodes/Nodes.js";
 
 const Graph = (props: { id?: string }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -133,8 +134,11 @@ const Graph = (props: { id?: string }) => {
     if (!(cTokenQuery.isLoading || networkQuery.isLoading)) {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
-      setImgMaterial(getMatObj(networkQuery.data.nodes));
-      updateSize();
+
+      if (!(cTokenQuery.isError || networkQuery.isError)) {
+        setImgMaterial(getMatObj(networkQuery.data.nodes));
+        updateSize();
+      }
     }
 
     return () => {
@@ -172,6 +176,19 @@ const Graph = (props: { id?: string }) => {
     if (reload) return true;
     return cTokenQuery.isLoading || networkQuery.isLoading;
   };
+
+  if (cTokenQuery.isError || networkQuery.isError) {
+    return (
+      <div className="flex h-screen justify-center text-center items-center">
+        <h2 className="flex flex-col text-base">
+          <span className="text-lg font-semibold">
+            Issue fetching artist network...
+          </span>
+          <span className="font-normal">Please try again at a later time</span>
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <>

@@ -164,16 +164,16 @@ class SpotifyAPI {
       if (depth > 0) {
         await this.delay(SPOTIFY.Variables.delay);
         let related = await this.getRelatedArtists(info.id, access_token);
-
         if (related.status == 200) {
-          related = related.data;
-          for (var i = 0; i < related.artists.length; i++) {
-            const data = related.artists[i];
+          for (var i = 0; i < related.data.artists.length; i++) {
+            const data = related.data.artists[i];
             relatedMap.links.push({ source: info.id, target: data.id });
             if (!idNodes.has(data.id)) {
               await getArtist(data, depth - 1);
             }
           }
+        } else {
+          throw new Error("Error fetching related artists");
         }
       }
     };
@@ -183,7 +183,7 @@ class SpotifyAPI {
       await getArtist(fArtist.data, depth);
       return { data: relatedMap, status: 200 };
     } catch (error) {
-      return { data: null, status: error.response.status };
+      return { data: null, status: 500 };
     }
   }
 }
