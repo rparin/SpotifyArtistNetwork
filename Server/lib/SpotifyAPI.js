@@ -36,6 +36,18 @@ class SpotifyAPI {
     );
   }
 
+  async _getRequestBearer(endpoint, accessToken) {
+    try {
+      const response = await axios.get(
+        endpoint,
+        SPOTIFY.Headers.bearer("Bearer", accessToken)
+      );
+      return response;
+    } catch (error) {
+      return { status: error.response.status };
+    }
+  }
+
   async getClientAuthToken() {
     const data = qs.stringify({
       grant_type: SPOTIFY.Grants.clientCred,
@@ -79,45 +91,35 @@ class SpotifyAPI {
       page == "undefined"
         ? SPOTIFY.Endpoints.searchArtist(artist)
         : SPOTIFY.Endpoints.searchQuery(page);
-
-    return await axios.get(
-      endPoint,
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
-    );
+    return this._getRequestBearer(endPoint, accessToken);
   }
 
   async getRelatedArtists(id, accessToken) {
-    return await axios.get(
+    return this._getRequestBearer(
       SPOTIFY.Endpoints.getRelatedArtists(id),
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
+      accessToken
     );
   }
 
   async getArtistInfo(id, accessToken) {
-    return await axios.get(
+    return this._getRequestBearer(
       SPOTIFY.Endpoints.getArtists(id),
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
+      accessToken
     );
   }
 
   async getUserInfo(id, accessToken) {
-    return await axios.get(
-      SPOTIFY.Endpoints.getUser(id),
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
-    );
+    return this._getRequestBearer(SPOTIFY.Endpoints.getUser(id), accessToken);
   }
 
   async getMyInfo(accessToken) {
-    return await axios.get(
-      SPOTIFY.Endpoints.myInfo,
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
-    );
+    return this._getRequestBearer(SPOTIFY.Endpoints.myInfo, accessToken);
   }
 
   async getMyFollowingArtists(accessToken) {
-    return await axios.get(
+    return this._getRequestBearer(
       SPOTIFY.Endpoints.myFollowingArtists,
-      SPOTIFY.Headers.bearer("Bearer", accessToken)
+      accessToken
     );
   }
 
