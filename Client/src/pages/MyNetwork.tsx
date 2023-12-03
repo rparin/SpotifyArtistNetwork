@@ -15,6 +15,8 @@ export default function MyNetwork(props: { accessToken: string }) {
     // window.history.replaceState({}, "Title", "/mynetwork");
   }, []);
 
+  return <LoadingForceGraph />;
+
   if (fArtistQuery.isLoading) {
     return <LoadingForceGraph />;
   }
