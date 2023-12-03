@@ -8,6 +8,7 @@ export default function myNetworkRoute({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const error = searchParams?.error;
+  const accessToken = searchParams?.access_token;
 
   //Reroute to home page
   if (error == "true" || !error) {
@@ -33,7 +34,7 @@ export default function myNetworkRoute({
 
   return (
     <main>
-      <MyNetwork />
+      <MyNetwork accessToken={accessToken as string} />
     </main>
   );
 }
