@@ -1,8 +1,27 @@
+"use client";
 import UserForceGraph from "@/components/UserGraph/UserGraphWrapper";
-export default function MyNetwork() {
-  return (
-    <div className="relative">
-      <UserForceGraph />
-    </div>
+import LoadingForceGraph from "@/components/LoadingGraph/LoadingGraphWrapper";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useGetFollowingArtists } from "@/lib/API/Spotify/SpotifyAPI";
+import GraphError from "@/components/GraphError";
+
+export default function MyNetwork(props: { accessToken: string }) {
+  const fArtistQuery = useGetFollowingArtists(
+    props.accessToken != undefined,
+    props.accessToken
   );
+
+  useEffect(() => {
+    // window.history.replaceState({}, "Title", "/mynetwork");
+  }, []);
+
+  if (fArtistQuery.isLoading) {
+    return <LoadingForceGraph />;
+  }
+
+  if (fArtistQuery.isError) {
+    return <GraphError errorMsg="Issue fetching network..." />;
+  }
+
+  return <UserForceGraph />;
 }
