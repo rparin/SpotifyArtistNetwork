@@ -115,8 +115,7 @@ const ArtistGraph = (props: { graphData: any }) => {
             placeholder="Enter artist name"
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
-            <RefreshCw onClick={refreshGraph} />
-            <span className="sr-only">Reload graph</span>
+            <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
           </div>
         </div>
       </div>
