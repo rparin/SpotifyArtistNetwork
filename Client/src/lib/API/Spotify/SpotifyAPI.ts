@@ -1,12 +1,7 @@
 import { spotifyAPI } from "./axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
-export interface ClientToken {
-  access_token: string;
-  obtained_at: number;
-}
-
-export const fetchSearchResults = async (
+const fetchSearchResults = async (
   artist: string,
   page: string | null | undefined,
   accessToken: string
@@ -17,19 +12,19 @@ export const fetchSearchResults = async (
   return res.data;
 };
 
-export const getClientToken = async () => {
+const getClientToken = async () => {
   const res = await spotifyAPI.get("/api/spotify/cAuthToken");
   return res.data;
 };
 
-export const getMyFollowingArtists = async (accessToken: string) => {
+const getMyFollowingArtists = async (accessToken: string) => {
   const res = await spotifyAPI.get(
     `/api/spotify/myFollowingArtists/${accessToken}`
   );
   return res.data;
 };
 
-export const fetchArtistNetwork = async (
+const fetchArtistNetwork = async (
   id: string,
   depth: string,
   accessToken: string
@@ -81,3 +76,29 @@ export const useGetNetworkQuery = (
     },
     staleTime: 1800000, //cache network data for 30 minutes
   });
+
+export const useGetSearchQuery = (
+  enabled: boolean,
+  query: string,
+  accessToken: string
+) => {
+  const parseNextPage = (nextPage: string) => {
+    const searchParams = new URLSearchParams(nextPage);
+    return `query=${query}&type=artist&offset=${searchParams.get(
+      "offset"
+    )}&limit=${searchParams.get("limit")}`;
+  };
+  return useInfiniteQuery({
+    enabled: enabled,
+    queryKey: ["query", query],
+    queryFn: (params: any) => {
+      return fetchSearchResults(query, params.pageParam, accessToken);
+    },
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage: any) => {
+      if (lastPage.artists.next == null) return null;
+      return parseNextPage(lastPage.artists.next);
+    },
+    staleTime: 600000, //cache search for 10 minutes
+  });
+};
