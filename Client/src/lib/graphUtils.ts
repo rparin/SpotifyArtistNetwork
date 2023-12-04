@@ -62,6 +62,17 @@ export function useImgMat(nodes: any) {
   return imgMaterial;
 }
 
+export function useReloadGraph(callback?: () => void) {
+  const [reload, setReload] = useState(false);
+  const refreshGraph = async () => {
+    setReload(true);
+    if (callback) callback();
+    await delay(2000);
+    setReload(false);
+  };
+  return { reload, refreshGraph };
+}
+
 export function getMaterial(img: string, outline: boolean = false) {
   const imgTexture = new THREE.TextureLoader().load(img);
   const mask = new THREE.TextureLoader().load(
