@@ -52,22 +52,6 @@ export function useUpdateSize(fgRef: any) {
   return { winSize, updateSize, clearSize };
 }
 
-export function getGraphSphere(color: THREE.ColorRepresentation | undefined) {
-  const geometry = new THREE.SphereGeometry(7, 10, 10);
-  const material = new THREE.MeshBasicMaterial({
-    color: color,
-  });
-  const sphere = new THREE.Mesh(geometry, material);
-  return sphere;
-}
-
-export function getArtistSphere(node: Node, material: THREE.SpriteMaterial) {
-  let sphere = new THREE.Sprite(material);
-  const size = 10 + nodeVal(node);
-  sphere.scale.set(size, size, 1);
-  return sphere;
-}
-
 export function getMaterial(img: string, outline: boolean = false) {
   const imgTexture = new THREE.TextureLoader().load(img);
   const mask = new THREE.TextureLoader().load(
@@ -109,21 +93,25 @@ export function getNodePreview(node: Node) {
   };
 }
 
-export function zoomToNode(
-  node: Node | any,
-  fgRef: any,
-  distance: number = 50
-) {
-  const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
-  if (fgRef.current) {
-    fgRef.current.cameraPosition(
-      {
-        x: node.x * distRatio,
-        y: node.y * distRatio,
-        z: node.z * distRatio,
-      },
-      node,
-      2000
-    );
-  }
+export function getGraphSphere(color: THREE.ColorRepresentation | undefined) {
+  const geometry = new THREE.SphereGeometry(7, 10, 10);
+  const material = new THREE.MeshBasicMaterial({
+    color: color,
+  });
+  const sphere = new THREE.Mesh(geometry, material);
+  return sphere;
+}
+
+export function getArtistSphere(node: Node, material: THREE.SpriteMaterial) {
+  let sphere = new THREE.Sprite(material);
+  const size = 10 + nodeVal(node);
+  sphere.scale.set(size, size, 1);
+  return sphere;
+}
+
+export function getLoadingArtistSphere(node: Node) {
+  let sphere = new THREE.Sprite(getMaterial(NO_IMAGE));
+  const size = 10 + nodeVal(node);
+  sphere.scale.set(size, size, 1);
+  return sphere;
 }
