@@ -13,7 +13,7 @@ export default function SearchLayout({
   return (
     <main className="min-h-screen flex flex-col">
       <div className="flex-1">
-        <div className="absolute z-50 flex w-full justify-between px-7 mt-4">
+        <div className="absolute z-50 flex w-full justify-between px-5 mt-5">
           <Link
             className="md:p-0 p-2 rounded-3xl md:rounded-none bg-primary text-primary-foreground md:text-primary md:bg-transparent"
             href={"/"}>
