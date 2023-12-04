@@ -10,7 +10,7 @@ import { getGraphSphere } from "@/lib/graphUtils";
 const LoadingGraph = () => {
   const fgRef = useRef<ForceGraphMethods>();
   const { signalThemeState } = useThemeState();
-  const { winSize } = useUpdateSize(fgRef);
+  const { winSize, updateSize } = useUpdateSize(fgRef);
   const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
 
   const loadIntervalFunc = useCallback(() => {
@@ -50,6 +50,7 @@ const LoadingGraph = () => {
   }, [fgRef]);
 
   useEffect(() => {
+    updateSize();
     const loadIntervalId = loadIntervalFunc();
     const camIntervalId = camIntervalFunc();
 

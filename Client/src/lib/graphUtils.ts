@@ -31,7 +31,6 @@ export function useUpdateSize(fgRef: any) {
       height: window.innerHeight,
     });
     await delay(200);
-    fgRef?.current?.zoomToFit(200);
   }
 
   async function clearSize() {
