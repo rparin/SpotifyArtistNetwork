@@ -26,6 +26,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   const [nodePreview, setNodePreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
   const [isClickedEnabled, setIsClickedEnabled] = useState(true);
+  const [isHoverEnabled, setIsHoverEnabled] = useState(true);
   const { reload, refreshGraph } = useReloadGraph(() => {
     setNodePreview(null);
   });
@@ -36,7 +37,8 @@ const ArtistGraph = (props: { graphData: any }) => {
   }, []);
 
   const zoomToNode = useCallback(
-    (node: Node | any) => {
+    async (node: Node | any) => {
+      setIsHoverEnabled(false);
       const distance = 50;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
@@ -50,6 +52,8 @@ const ArtistGraph = (props: { graphData: any }) => {
           2000
         );
       }
+      await delay(2000);
+      setIsHoverEnabled(true);
     },
     [fgRef]
   );
@@ -131,7 +135,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         graphData={gData}
         nodeLabel="name"
         onNodeClick={isClickedEnabled ? zoomToNode : undefined}
-        onNodeHover={handleHover}
+        onNodeHover={isHoverEnabled ? handleHover : undefined}
         nodeThreeObject={(node: Node | any) => {
           if (imgMaterial != null) {
             return getArtistSphere(node, imgMaterial[node.id]);
