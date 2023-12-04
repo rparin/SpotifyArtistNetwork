@@ -52,8 +52,9 @@ const ArtistGraph = (props: { graphData: any }) => {
           2000
         );
       }
-      await delay(4000);
+      await delay(3000);
       setIsHoverEnabled(true);
+      setNodePreview(getNodePreview(node));
     },
     [fgRef]
   );
@@ -70,7 +71,6 @@ const ArtistGraph = (props: { graphData: any }) => {
   const handleSearchSelect = async (item: any) => {
     zoomToNode(item);
     await delay(2100);
-    setNodePreview(getNodePreview(item));
   };
 
   const getPreview = () => {
