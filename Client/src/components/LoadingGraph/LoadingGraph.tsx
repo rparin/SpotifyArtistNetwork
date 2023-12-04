@@ -50,19 +50,19 @@ const LoadingGraph = () => {
   }, [fgRef]);
 
   useEffect(() => {
-    const loadIntervalId = loadIntervalFunc();
-    const camIntervalId = camIntervalFunc();
+    // const loadIntervalId = loadIntervalFunc();
+    // const camIntervalId = camIntervalFunc();
 
     const stopLoad = async () => {
       await delay(30000);
-      clearInterval(loadIntervalId);
+      // clearInterval(loadIntervalId);
     };
 
     stopLoad();
 
     return () => {
-      clearInterval(loadIntervalId);
-      clearInterval(camIntervalId);
+      // clearInterval(loadIntervalId);
+      // clearInterval(camIntervalId);
     };
   }, []);
 

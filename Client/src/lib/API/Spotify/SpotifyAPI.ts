@@ -29,21 +29,6 @@ export const getMyFollowingArtists = async (accessToken: string) => {
   return res.data;
 };
 
-export const checkClientToken = async (cToken: ClientToken | null) => {
-  let curDate = new Date().getTime();
-  //Get new token after 40 minutes
-  if (!cToken || curDate - cToken?.obtained_at >= 2400000) {
-    const res = await getClientToken();
-    if (!res) return null;
-    return {
-      access_token: res,
-      obtained_at: new Date().getTime(),
-    };
-  }
-
-  return cToken;
-};
-
 export const fetchArtistNetwork = async (
   id: string,
   depth: string,
@@ -81,3 +66,18 @@ export const useGetFollowingArtists = (
   });
   return cToken;
 };
+
+export const useGetNetworkQuery = (
+  enabled: boolean,
+  artistId: string,
+  depth: string,
+  accessToken: string
+) =>
+  useQuery({
+    enabled: enabled,
+    queryKey: ["network", artistId],
+    queryFn: async () => {
+      return fetchArtistNetwork(artistId, depth, accessToken);
+    },
+    staleTime: 1800000, //cache network data for 30 minutes
+  });
