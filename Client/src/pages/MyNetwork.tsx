@@ -1,5 +1,5 @@
 "use client";
-import UserForceGraph from "@/components/UserGraph/UserGraphWrapper";
+import UserForceGraph from "@/components/MyGraph/MyGraphWrapper";
 import LoadingForceGraph from "@/components/LoadingGraph/LoadingGraphWrapper";
 import React, { useEffect } from "react";
 import { useGetFollowingArtists } from "@/lib/API/Spotify/SpotifyAPI";

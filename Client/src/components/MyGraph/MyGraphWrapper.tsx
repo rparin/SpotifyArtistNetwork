@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-const UserForceGraph = dynamic(() => import("../UserGraph/UserGraph"), {
+const UserForceGraph = dynamic(() => import("./MyGraph"), {
   ssr: false,
 });
 
