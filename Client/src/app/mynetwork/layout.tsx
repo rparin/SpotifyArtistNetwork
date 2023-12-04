@@ -3,6 +3,7 @@ import { ThemeToggle } from "@/components/UI/ThemeToggle";
 import Footer from "@/components/Footer";
 import { Home } from "lucide-react";
 import Link from "next/link";
+import { GRAPH_INSTRUCTIONS } from "@/constants";
 
 export default function SearchLayout({
   children,
@@ -23,6 +24,9 @@ export default function SearchLayout({
         </div>
         {children}
       </div>
+      <p className="absolute z-50 bottom-[4.3rem] w-full text-xs flex justify-center text-center">
+        {GRAPH_INSTRUCTIONS}
+      </p>
       {/* Display footer at the bottom */}
       <Footer className="absolute z-50 bottom-0 w-full" />
     </main>
