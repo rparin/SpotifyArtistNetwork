@@ -1,5 +1,5 @@
 "use client";
-import MyNetworkGraph from "@/components/MyGraph/MyGraphWrapper";
+import ArtistGraph from "@/components/ArtistGraph/ArtistGraphWrapper";
 import LoadingForceGraph from "@/components/LoadingGraph/LoadingGraphWrapper";
 import React, { useEffect } from "react";
 import { useGetFollowingArtists } from "@/lib/API/Spotify/SpotifyAPI";
@@ -23,5 +23,5 @@ export default function MyNetwork(props: { accessToken: string }) {
     return <GraphError errorMsg="Issue fetching network..." />;
   }
 
-  return <MyNetworkGraph graphData={fArtistQuery.data} />;
+  return <ArtistGraph graphData={fArtistQuery.data} />;
 }
