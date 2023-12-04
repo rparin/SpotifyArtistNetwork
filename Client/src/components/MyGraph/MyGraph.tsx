@@ -80,7 +80,6 @@ const MyNetworkGraph = (props: { graphData: any }) => {
           return node.linkType == "main" ? "green" : "blue";
         }}
         onNodeClick={zoomToNode}
-        linkWidth={0.2}
         linkOpacity={0.5}
         graphData={props.graphData}
         nodeLabel="name"
