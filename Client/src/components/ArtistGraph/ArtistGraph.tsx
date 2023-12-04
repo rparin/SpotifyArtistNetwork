@@ -20,13 +20,19 @@ import {
 
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
+  const [gData, setGData] = useState<any | null>(null);
   const { signalThemeState } = useThemeState();
-  const { winSize } = useUpdateSize(fgRef);
+  const { winSize, updateSize } = useUpdateSize(fgRef);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
   const { reload, refreshGraph } = useReloadGraph(() => {
     setArtistPreview(null);
   });
+
+  useEffect(() => {
+    setGData(props.graphData);
+    updateSize();
+  }, []);
 
   const zoomToNode = useCallback(
     (node: Node | any) => {
@@ -72,7 +78,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   //   []
   // );
 
-  if (reload) {
+  if (reload || !gData) {
     return <LoadingForceGraph />;
   }
 
@@ -82,7 +88,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         <div className="relative flex w-full justify-center gap-2">
           <ReactSearchAutocomplete
             className="w-[60%] md:w-[40%] lg:w-[30%]"
-            items={props.graphData.nodes}
+            items={gData.nodes}
             onSelect={handleSearchSelect}
             formatResult={(item: any) => {
               return GraphSearchResult(item);
@@ -94,7 +100,6 @@ const ArtistGraph = (props: { graphData: any }) => {
           </div>
         </div>
       </div>
-
       <ForceGraph3D
         width={winSize.width}
         height={winSize.height}
@@ -103,7 +108,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         linkColor={() => "#1db954"}
         linkOpacity={0.5}
         ref={fgRef}
-        graphData={props.graphData}
+        graphData={gData}
         nodeLabel="name"
         onNodeClick={zoomToNode}
         onNodeHover={handleHover}
@@ -115,7 +120,6 @@ const ArtistGraph = (props: { graphData: any }) => {
         }}
         nodeThreeObjectExtend={false}
       />
-
       {artistPreview && (
         <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
           <ArtistCardHorizontal
