@@ -25,6 +25,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
+  const [isClickedEnabled, setIsClickedEnabled] = useState(true);
   const { reload, refreshGraph } = useReloadGraph(() => {
     setArtistPreview(null);
   });
@@ -84,16 +85,24 @@ const ArtistGraph = (props: { graphData: any }) => {
 
   return (
     <>
-      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
+      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[100]">
         <div className="relative flex w-full justify-center gap-2">
           <ReactSearchAutocomplete
-            className="w-[60%] md:w-[40%] lg:w-[30%]"
-            items={gData.nodes}
+            className="w-[60%] md:w-[40%] lg:w-[30%] z-[100]"
+            items={props.graphData.nodes}
             onSelect={handleSearchSelect}
             formatResult={(item: any) => {
               return GraphSearchResult(item);
             }}
             placeholder="Enter artist name"
+            showIcon={false}
+            maxResults={5}
+            onSearch={async () => {
+              setIsClickedEnabled(false);
+              await delay(2000);
+              setIsClickedEnabled(true);
+            }}
+            autoFocus={false}
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
             <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
@@ -110,7 +119,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         ref={fgRef}
         graphData={gData}
         nodeLabel="name"
-        onNodeClick={zoomToNode}
+        onNodeClick={isClickedEnabled ? zoomToNode : undefined}
         onNodeHover={handleHover}
         nodeThreeObject={(node: Node | any) => {
           if (imgMaterial != null) {
