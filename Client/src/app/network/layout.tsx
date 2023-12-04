@@ -8,16 +8,13 @@ export default function NetworkLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
-      <Header className="absolute top-0 right-0 z-50" />
-      {children}
-
-      <div className="flex flex-col w-full text-center justify-center absolute bottom-0">
-        <p className="text-[0.7rem] sm:text-xs dark:opacity-50 text-black dark:text-white">
-          {GRAPH_INSTRUCTIONS}
-        </p>
-        <Footer />
+    <main className="min-h-screen flex flex-col">
+      <div className="flex-1">
+        <Header className="absolute top-0 right-0 z-50 w-full" />
+        {children}
       </div>
+      {/* Display footer at the bottom */}
+      <Footer className="absolute z-50 bottom-0 w-full" />
     </main>
   );
 }

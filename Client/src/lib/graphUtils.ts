@@ -1,6 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { delay } from "@/lib/utils";
 import * as THREE from "three";
+import { NO_IMAGE } from "@/constants";
+
+export interface Node {
+  id: string;
+  name: string;
+  img: string;
+  followers: string;
+  pop: string;
+  genres: [];
+  size: number;
+  url: string;
+}
+
+export const IMAGES = {
+  mask: "/assets/graph/mask.png",
+  maskOutline: "/assets/graph/mask-outline.png",
+};
 
 export function useUpdateSize(fgRef: any) {
   const [winSize, setWinSize] = useState<any>({
@@ -17,13 +34,22 @@ export function useUpdateSize(fgRef: any) {
     fgRef?.current?.zoomToFit(200);
   }
 
+  async function clearSize() {
+    setWinSize({
+      width: undefined,
+      height: undefined,
+    });
+    await delay(200);
+    fgRef?.current?.zoomToFit(200);
+  }
+
   useEffect(() => {
     window.addEventListener("resize", updateSize);
     return () => {
       window.removeEventListener("resize", updateSize);
     };
   }, []);
-  return { winSize, updateSize };
+  return { winSize, updateSize, clearSize };
 }
 
 export function getGraphSphere(color: THREE.ColorRepresentation | undefined) {
@@ -33,4 +59,71 @@ export function getGraphSphere(color: THREE.ColorRepresentation | undefined) {
   });
   const sphere = new THREE.Mesh(geometry, material);
   return sphere;
+}
+
+export function getArtistSphere(node: Node, material: THREE.SpriteMaterial) {
+  let sphere = new THREE.Sprite(material);
+  const size = 10 + nodeVal(node);
+  sphere.scale.set(size, size, 1);
+  return sphere;
+}
+
+export function getMaterial(img: string, outline: boolean = false) {
+  const imgTexture = new THREE.TextureLoader().load(img);
+  const mask = new THREE.TextureLoader().load(
+    outline ? IMAGES.maskOutline : IMAGES.mask
+  );
+  imgTexture.colorSpace = THREE.SRGBColorSpace;
+  const material = new THREE.SpriteMaterial({
+    map: imgTexture,
+    alphaMap: mask,
+    transparent: true,
+  });
+  return material;
+}
+
+export function getMatObj(obj: any, outline: boolean = false) {
+  const materials: any = {};
+  obj.map((node: any) => {
+    const nodeImg = node.img ? node.img : NO_IMAGE;
+    const mat = getMaterial(nodeImg, outline);
+    materials[node.id] = mat;
+  });
+  return materials;
+}
+
+export function nodeVal(node: Node) {
+  return (node.size + 2) | 2;
+}
+
+export function getNodePreview(node: Node) {
+  const nodeImg = node.img ? node.img : NO_IMAGE;
+  return {
+    name: node.name,
+    img: nodeImg,
+    followers: node.followers,
+    alt: `${node.name} spotify profile Image`,
+    pop: node.pop,
+    genres: node.genres,
+    url: node.url,
+  };
+}
+
+export function zoomToNode(
+  node: Node | any,
+  fgRef: any,
+  distance: number = 50
+) {
+  const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+  if (fgRef.current) {
+    fgRef.current.cameraPosition(
+      {
+        x: node.x * distRatio,
+        y: node.y * distRatio,
+        z: node.z * distRatio,
+      },
+      node,
+      2000
+    );
+  }
 }
