@@ -1,7 +1,7 @@
 "use client";
 import UserForceGraph from "@/components/UserGraph/UserGraphWrapper";
 import LoadingForceGraph from "@/components/LoadingGraph/LoadingGraphWrapper";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useGetFollowingArtists } from "@/lib/API/Spotify/SpotifyAPI";
 import GraphError from "@/components/GraphError";
 
@@ -12,10 +12,8 @@ export default function MyNetwork(props: { accessToken: string }) {
   );
 
   useEffect(() => {
-    // window.history.replaceState({}, "Title", "/mynetwork");
+    window.history.replaceState({}, "Title", "/mynetwork");
   }, []);
-
-  return <LoadingForceGraph />;
 
   if (fArtistQuery.isLoading) {
     return <LoadingForceGraph />;
