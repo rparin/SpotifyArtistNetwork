@@ -72,6 +72,16 @@ const ArtistGraph = (props: { graphData: any }) => {
     setArtistPreview(getNodePreview(item));
   };
 
+  // const getArtistSphere = useCallback(
+  //   (node: Node, material: THREE.SpriteMaterial) => {
+  //     let sphere = new THREE.Sprite(material);
+  //     const size = 10 + nodeVal(node);
+  //     sphere.scale.set(size, size, 1);
+  //     return sphere;
+  //   },
+  //   []
+  // );
+
   const formatResult = (item: any) => {
     return (
       <>
