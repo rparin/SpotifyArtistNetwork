@@ -57,7 +57,7 @@ export function useImgMat(nodes: any) {
     if (nodes) {
       setImgMaterial(getMatObj(nodes));
     }
-  }, [nodes]);
+  }, []);
 
   return imgMaterial;
 }
