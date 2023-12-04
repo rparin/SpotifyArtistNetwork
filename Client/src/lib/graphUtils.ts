@@ -8,10 +8,11 @@ export interface Node {
   name: string;
   img: string;
   followers: string;
-  pop: string;
-  genres: [];
+  pop?: string;
+  genres?: [];
   size: number;
   url: string;
+  type: "user" | "artist";
 }
 
 export const IMAGES = {
@@ -103,14 +104,27 @@ export function nodeVal(node: Node) {
 
 export function getNodePreview(node: Node) {
   const nodeImg = node.img ? node.img : NO_IMAGE;
+  if (node.type == "artist") {
+    return {
+      name: node.name,
+      img: nodeImg,
+      followers: node.followers,
+      alt: `${node.name} spotify profile Image`,
+      pop: node.pop,
+      genres: node.genres,
+      url: node.url,
+      type: node.type,
+    };
+  }
+
+  //User Type
   return {
     name: node.name,
     img: nodeImg,
     followers: node.followers,
     alt: `${node.name} spotify profile Image`,
-    pop: node.pop,
-    genres: node.genres,
     url: node.url,
+    type: node.type,
   };
 }
 
