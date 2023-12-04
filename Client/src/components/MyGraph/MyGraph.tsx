@@ -1,70 +1,99 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import LoadingForceGraph from "../LoadingGraph/LoadingGraphWrapper";
+import GraphSearchResult from "../GraphSearchResult";
+import { RefreshCw } from "lucide-react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
+import { useThemeState } from "@/hooks/useThemeState";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { delay } from "@/lib/utils";
-import * as THREE from "three";
-import { effect } from "@preact/signals-core";
-import { signalTheme } from "@/components/UI/ThemeToggle";
+import {
+  useImgMat,
+  Node,
+  useUpdateSize,
+  useReloadGraph,
+  getArtistSphere,
+  getLoadingArtistSphere,
+} from "@/lib/graphUtils";
 
-const UserGraph = (props: { userData?: any }) => {
+const MyNetworkGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [loadData, setLoadData] = useState<any>({
-    nodes: [{ id: 0 }],
-    links: [],
-  });
-  const [winSize, setWinSize] = useState<any>({
-    width: undefined,
-    height: undefined,
-  });
-  const [signalThemeState, setSignalThemeState] = useState<string>(
-    signalTheme.value
+  const { signalThemeState } = useThemeState();
+  const { winSize } = useUpdateSize(fgRef);
+  const imgMaterial = useImgMat(props.graphData.nodes);
+  const { reload, refreshGraph } = useReloadGraph();
+
+  const zoomToNode = useCallback(
+    (node: Node | any) => {
+      const distance = 50;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+      if (fgRef.current) {
+        fgRef.current.cameraPosition(
+          {
+            x: node.x * distRatio,
+            y: node.y * distRatio,
+            z: node.z * distRatio,
+          },
+          node,
+          2000
+        );
+      }
+    },
+    [fgRef]
   );
 
-  const updateSize = async () => {
-    setWinSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-    // await delay(200);
-    // fgRef?.current?.zoomToFit(200);
+  const handleSearchSelect = async (item: any) => {
+    zoomToNode(item);
   };
 
-  useEffect(() => {
-    window.addEventListener("resize", updateSize);
-
-    return () => {
-      window.removeEventListener("resize", updateSize);
-      effect(() => setSignalThemeState(signalTheme.value));
-    };
-  }, []);
+  if (reload) {
+    return <LoadingForceGraph />;
+  }
 
   return (
-    <ForceGraph3D
-      width={winSize.width}
-      height={winSize.height}
-      showNavInfo={false}
-      backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
-      linkColor={(node: Node | any) => {
-        return node.linkType == "main" ? "green" : "blue";
-      }}
-      // linkAutoColorBy="group"
-      linkWidth={0.5}
-      linkOpacity={0.5}
-      ref={fgRef}
-      graphData={loadData}
-      nodeLabel="id"
-      nodeThreeObject={(node: Node | any) => {
-        const geometry = new THREE.SphereGeometry(7, 10, 10);
-        const material = new THREE.MeshBasicMaterial({
-          color: signalThemeState == "dark" ? 0xffffff : 0x000000,
-        });
-        const sphere = new THREE.Mesh(geometry, material);
-        return sphere;
-      }}
-      nodeThreeObjectExtend={false}
-    />
+    <>
+      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
+        <div className="relative flex w-full justify-center gap-2">
+          <ReactSearchAutocomplete
+            className="w-[60%] md:w-[40%] lg:w-[30%]"
+            items={props.graphData.nodes}
+            onSelect={handleSearchSelect}
+            formatResult={(item: any) => {
+              return GraphSearchResult(item);
+            }}
+            placeholder="Enter artist name"
+          />
+          <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
+            <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
+          </div>
+        </div>
+      </div>
+
+      <ForceGraph3D
+        ref={fgRef}
+        width={winSize.width}
+        height={winSize.height}
+        showNavInfo={false}
+        backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
+        linkColor={(node: Node | any) => {
+          return node.linkType == "main" ? "green" : "blue";
+        }}
+        onNodeClick={zoomToNode}
+        linkWidth={0.2}
+        linkOpacity={0.5}
+        graphData={props.graphData}
+        nodeLabel="name"
+        nodeThreeObject={(node: Node | any) => {
+          if (imgMaterial != null) {
+            return getArtistSphere(node, imgMaterial[node.id]);
+          }
+          return getLoadingArtistSphere(node);
+        }}
+        nodeThreeObjectExtend={false}
+      />
+    </>
   );
 };
 
-export default UserGraph;
+export default MyNetworkGraph;

@@ -2,9 +2,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
+import GraphSearchResult from "../GraphSearchResult";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import LoadingForceGraph from "../LoadingGraph/LoadingGraphWrapper";
 import { useThemeState } from "@/hooks/useThemeState";
@@ -12,6 +12,7 @@ import {
   useImgMat,
   Node,
   getNodePreview,
+  useReloadGraph,
   useUpdateSize,
   getArtistSphere,
   getLoadingArtistSphere,
@@ -21,16 +22,11 @@ const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const { signalThemeState } = useThemeState();
   const { winSize } = useUpdateSize(fgRef);
-  const [reload, setReload] = useState(false);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
-
-  const refreshGraph = async () => {
-    setReload(true);
+  const { reload, refreshGraph } = useReloadGraph(() => {
     setArtistPreview(null);
-    await delay(2000);
-    setReload(false);
-  };
+  });
 
   const zoomToNode = useCallback(
     (node: Node | any) => {
@@ -76,23 +72,6 @@ const ArtistGraph = (props: { graphData: any }) => {
   //   []
   // );
 
-  const formatResult = (item: any) => {
-    return (
-      <>
-        <div className="flex gap-3">
-          <Image
-            className="h-7 w-7 object-cover rounded-[50%]"
-            width={100}
-            height={100}
-            src={item.img}
-            alt={`${item.name} Spotify profile pic`}
-          />
-          {item.name}
-        </div>
-      </>
-    );
-  };
-
   if (reload) {
     return <LoadingForceGraph />;
   }
@@ -105,7 +84,9 @@ const ArtistGraph = (props: { graphData: any }) => {
             className="w-[60%] md:w-[40%] lg:w-[30%]"
             items={props.graphData.nodes}
             onSelect={handleSearchSelect}
-            formatResult={formatResult}
+            formatResult={(item: any) => {
+              return GraphSearchResult(item);
+            }}
             placeholder="Enter artist name"
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
