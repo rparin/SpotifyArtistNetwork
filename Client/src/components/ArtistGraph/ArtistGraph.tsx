@@ -52,7 +52,7 @@ const ArtistGraph = (props: { graphData: any }) => {
           2000
         );
       }
-      await delay(3000);
+      await delay(2500);
       setIsHoverEnabled(true);
       setNodePreview(getNodePreview(node));
     },
