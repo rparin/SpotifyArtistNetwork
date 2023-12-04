@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
-import GraphSearchResult from "../GraphSearchResult";
+import GraphSearchResult from "@/components/GraphSearchResult";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { RefreshCw } from "lucide-react";

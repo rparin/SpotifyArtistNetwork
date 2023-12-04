@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import LoadingForceGraph from "../LoadingGraph/LoadingGraphWrapper";
-import GraphSearchResult from "../GraphSearchResult";
+import LoadingForceGraph from "@/components/LoadingGraph/LoadingGraphWrapper";
+import GraphSearchResult from "@/components/GraphSearchResult";
 import { RefreshCw } from "lucide-react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { useThemeState } from "@/hooks/useThemeState";
@@ -23,6 +23,7 @@ const MyNetworkGraph = (props: { graphData: any }) => {
   const { winSize } = useUpdateSize(fgRef);
   const imgMaterial = useImgMat(props.graphData.nodes);
   const { reload, refreshGraph } = useReloadGraph();
+  const [isClickedEnabled, setIsClickedEnabled] = useState(true);
 
   const zoomToNode = useCallback(
     (node: Node | any) => {
@@ -45,6 +46,8 @@ const MyNetworkGraph = (props: { graphData: any }) => {
 
   const handleSearchSelect = async (item: any) => {
     zoomToNode(item);
+    await delay(2000);
+    setIsClickedEnabled(true);
   };
 
   if (reload) {
@@ -53,16 +56,24 @@ const MyNetworkGraph = (props: { graphData: any }) => {
 
   return (
     <>
-      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-30">
+      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[100]">
         <div className="relative flex w-full justify-center gap-2">
           <ReactSearchAutocomplete
-            className="w-[60%] md:w-[40%] lg:w-[30%]"
+            className="w-[60%] md:w-[40%] lg:w-[30%] z-[100]"
             items={props.graphData.nodes}
             onSelect={handleSearchSelect}
             formatResult={(item: any) => {
               return GraphSearchResult(item);
             }}
             placeholder="Enter artist name"
+            showIcon={false}
+            maxResults={5}
+            onSearch={async () => {
+              setIsClickedEnabled(false);
+              await delay(2000);
+              setIsClickedEnabled(true);
+            }}
+            autoFocus={false}
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
             <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
@@ -79,7 +90,7 @@ const MyNetworkGraph = (props: { graphData: any }) => {
         linkColor={(node: Node | any) => {
           return node.linkType == "main" ? "green" : "blue";
         }}
-        onNodeClick={zoomToNode}
+        onNodeClick={isClickedEnabled ? zoomToNode : undefined}
         linkOpacity={0.5}
         graphData={props.graphData}
         nodeLabel="name"
