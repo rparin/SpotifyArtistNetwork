@@ -9,7 +9,7 @@ import { RefreshCw } from "lucide-react";
 import LoadingForceGraph from "../LoadingGraph/LoadingGraphWrapper";
 import { useThemeState } from "@/hooks/useThemeState";
 import {
-  getMatObj,
+  useImgMat,
   Node,
   getNodePreview,
   useUpdateSize,
@@ -23,13 +23,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   const { winSize } = useUpdateSize(fgRef);
   const [reload, setReload] = useState(false);
   const [artistPreview, setArtistPreview] = useState<any | null>(null);
-  const [imgMaterial, setImgMaterial] = useState<any>(null);
-
-  useEffect(() => {
-    if (props.graphData.nodes) {
-      setImgMaterial(getMatObj(props.graphData.nodes));
-    }
-  }, [props.graphData.nodes]);
+  const imgMaterial = useImgMat(props.graphData.nodes);
 
   const refreshGraph = async () => {
     setReload(true);

@@ -30,7 +30,6 @@ export function useUpdateSize(fgRef: any) {
       width: window.innerWidth,
       height: window.innerHeight,
     });
-    await delay(200);
   }
 
   async function clearSize() {
@@ -49,6 +48,18 @@ export function useUpdateSize(fgRef: any) {
     };
   }, []);
   return { winSize, updateSize, clearSize };
+}
+
+export function useImgMat(nodes: any) {
+  const [imgMaterial, setImgMaterial] = useState<any>(null);
+
+  useEffect(() => {
+    if (nodes) {
+      setImgMaterial(getMatObj(nodes));
+    }
+  }, [nodes]);
+
+  return imgMaterial;
 }
 
 export function getMaterial(img: string, outline: boolean = false) {
