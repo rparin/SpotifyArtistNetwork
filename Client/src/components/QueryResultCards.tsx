@@ -2,38 +2,20 @@
 
 import { NO_IMAGE } from "@/constants";
 import { useRef, useCallback, JSX } from "react";
-import { useSpotifyCToken } from "@/hooks/useSpotifyCToken";
+import {
+  useSpotifyCToken,
+  useGetSearchQuery,
+} from "@/lib/API/Spotify/SpotifyAPI";
 import { ArtistCardVertical } from "./ArtistCardVertical";
-import { fetchSearchResults } from "@/lib/API/Spotify/SpotifyAPI";
-import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function QueryResultCards(props: { query?: string }) {
-  const parseNextPage = (nextPage: string) => {
-    const searchParams = new URLSearchParams(nextPage);
-    return `query=${props.query}&type=artist&offset=${searchParams.get(
-      "offset"
-    )}&limit=${searchParams.get("limit")}`;
-  };
+  const cTokenQuery = useSpotifyCToken(!(props?.query === undefined));
 
-  const cTokenQuery = useSpotifyCToken(props?.query != undefined);
-
-  const searchQuery = useInfiniteQuery({
-    enabled: !!cTokenQuery.data,
-    queryKey: ["query", props.query],
-    queryFn: (params: any) => {
-      return fetchSearchResults(
-        props.query as string,
-        params.pageParam,
-        cTokenQuery.data
-      );
-    },
-    initialPageParam: undefined,
-    getNextPageParam: (lastPage: any) => {
-      if (lastPage.artists.next == null) return null;
-      return parseNextPage(lastPage.artists.next);
-    },
-    staleTime: 600000, //cache search for 10 minutes
-  });
+  const searchQuery = useGetSearchQuery(
+    !!cTokenQuery.data,
+    props.query as string,
+    cTokenQuery.data
+  );
 
   // Trigger fetchNextPage when near last artist card item
   const observer = useRef<IntersectionObserver | null>(null);
