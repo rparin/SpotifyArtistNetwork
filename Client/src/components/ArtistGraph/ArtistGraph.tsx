@@ -23,11 +23,11 @@ const ArtistGraph = (props: { graphData: any }) => {
   const [gData, setGData] = useState<any | null>(null);
   const { signalThemeState } = useThemeState();
   const { winSize, updateSize } = useUpdateSize(fgRef);
-  const [artistPreview, setArtistPreview] = useState<any | null>(null);
+  const [nodePreview, setNodePreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
   const [isClickedEnabled, setIsClickedEnabled] = useState(true);
   const { reload, refreshGraph } = useReloadGraph(() => {
-    setArtistPreview(null);
+    setNodePreview(null);
   });
 
   useEffect(() => {
@@ -56,32 +56,42 @@ const ArtistGraph = (props: { graphData: any }) => {
 
   const handleHover = useCallback((node: Node | any) => {
     if (node?.id) {
-      if (artistPreview && node.id == artistPreview.id) {
+      if (nodePreview && node.id == nodePreview.id) {
         return;
       }
-      setArtistPreview(getNodePreview(node));
+      setNodePreview(getNodePreview(node));
     }
   }, []);
 
   const handleSearchSelect = async (item: any) => {
     zoomToNode(item);
     await delay(2100);
-    setArtistPreview(getNodePreview(item));
+    setNodePreview(getNodePreview(item));
   };
-
-  // const getArtistSphere = useCallback(
-  //   (node: Node, material: THREE.SpriteMaterial) => {
-  //     let sphere = new THREE.Sprite(material);
-  //     const size = 10 + nodeVal(node);
-  //     sphere.scale.set(size, size, 1);
-  //     return sphere;
-  //   },
-  //   []
-  // );
 
   if (reload || !gData) {
     return <LoadingForceGraph />;
   }
+
+  const getPreview = () => {
+    if (!nodePreview) return;
+    if (nodePreview.type == "artist") {
+      return (
+        <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
+          <ArtistCardHorizontal
+            name={nodePreview.name}
+            img={nodePreview.img}
+            alt={`${nodePreview.name} profile picture`}
+            genres={nodePreview.genres}
+            followers={nodePreview.followers}
+            pop={nodePreview.pop}
+            url={nodePreview.url}
+            id={nodePreview.id}
+          />
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -129,20 +139,8 @@ const ArtistGraph = (props: { graphData: any }) => {
         }}
         nodeThreeObjectExtend={false}
       />
-      {artistPreview && (
-        <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
-          <ArtistCardHorizontal
-            name={artistPreview.name}
-            img={artistPreview.img}
-            alt={`${artistPreview.name} profile picture`}
-            genres={artistPreview.genres}
-            followers={artistPreview.followers}
-            pop={artistPreview.pop}
-            url={artistPreview.url}
-            id={artistPreview.id}
-          />
-        </div>
-      )}
+
+      {getPreview()}
     </>
   );
 };
