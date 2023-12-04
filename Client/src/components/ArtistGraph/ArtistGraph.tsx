@@ -69,10 +69,6 @@ const ArtistGraph = (props: { graphData: any }) => {
     setNodePreview(getNodePreview(item));
   };
 
-  if (reload || !gData) {
-    return <LoadingForceGraph />;
-  }
-
   const getPreview = () => {
     if (!nodePreview) return;
     if (nodePreview.type == "artist") {
@@ -92,6 +88,11 @@ const ArtistGraph = (props: { graphData: any }) => {
       );
     }
   };
+
+  //Show reloading graph on reload or no graphData
+  if (reload || !gData) {
+    return <LoadingForceGraph />;
+  }
 
   return (
     <>
