@@ -13,10 +13,9 @@ import {
   Node,
   getNodePreview,
   useUpdateSize,
-  nodeVal,
-  zoomToNode,
+  getArtistSphere,
+  getLoadingArtistSphere,
 } from "@/lib/graphUtils";
-import * as THREE from "three";
 
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -27,8 +26,10 @@ const ArtistGraph = (props: { graphData: any }) => {
   const [imgMaterial, setImgMaterial] = useState<any>(null);
 
   useEffect(() => {
-    setImgMaterial(getMatObj(props.graphData.nodes));
-  }, []);
+    if (props.graphData.nodes) {
+      setImgMaterial(getMatObj(props.graphData.nodes));
+    }
+  }, [props.graphData.nodes]);
 
   const refreshGraph = async () => {
     setReload(true);
@@ -36,6 +37,25 @@ const ArtistGraph = (props: { graphData: any }) => {
     await delay(2000);
     setReload(false);
   };
+
+  const zoomToNode = useCallback(
+    (node: Node | any) => {
+      const distance = 50;
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+      if (fgRef.current) {
+        fgRef.current.cameraPosition(
+          {
+            x: node.x * distRatio,
+            y: node.y * distRatio,
+            z: node.z * distRatio,
+          },
+          node,
+          2000
+        );
+      }
+    },
+    [fgRef]
+  );
 
   const handleHover = useCallback((node: Node | any) => {
     if (node?.id) {
@@ -47,7 +67,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   }, []);
 
   const handleSearchSelect = async (item: any) => {
-    zoomToNode(item, fgRef);
+    zoomToNode(item);
     await delay(2100);
     setArtistPreview(getNodePreview(item));
   };
@@ -69,7 +89,7 @@ const ArtistGraph = (props: { graphData: any }) => {
     );
   };
 
-  if (reload && Object.keys(imgMaterial).length <= 0) {
+  if (reload) {
     return <LoadingForceGraph />;
   }
 
@@ -101,15 +121,13 @@ const ArtistGraph = (props: { graphData: any }) => {
         ref={fgRef}
         graphData={props.graphData}
         nodeLabel="name"
-        // onNodeClick={(node: Node | any) => {
-        //   zoomToNode(node, fgRef);
-        // }}
+        onNodeClick={zoomToNode}
         onNodeHover={handleHover}
         nodeThreeObject={(node: Node | any) => {
-          let sphere = new THREE.Sprite(imgMaterial[node.id]);
-          const size = 10 + nodeVal(node);
-          sphere.scale.set(size, size, 1);
-          return sphere;
+          if (imgMaterial != null) {
+            return getArtistSphere(node, imgMaterial[node.id]);
+          }
+          return getLoadingArtistSphere(node);
         }}
         nodeThreeObjectExtend={false}
       />
