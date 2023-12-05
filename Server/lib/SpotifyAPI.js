@@ -133,6 +133,7 @@ class SpotifyAPI {
       };
     }
 
+    const idNodes = new Set();
     const followMap = { nodes: [], links: [] };
     followMap.nodes.push(createUserNode(userInfo.data));
     followingArtists.data.artists.items.map((item, _index) => {
@@ -142,7 +143,22 @@ class SpotifyAPI {
         target: item.id,
         linkType: "main",
       });
+      idNodes.add(item.id);
     });
+
+    for (var i = 0; i < followingArtists.data.artists.items.length; i++) {
+      const data = followingArtists.data.artists.items[i];
+      const res = await this.getRelatedArtists(data.id, accessToken);
+      res.data.artists.map((item, _index) => {
+        if (idNodes.has(item.id)) {
+          followMap.links.push({
+            source: data.id,
+            target: item.id,
+            linkType: "related",
+          });
+        }
+      });
+    }
 
     return { data: followMap, status: 200 };
   }
