@@ -79,7 +79,7 @@ const LoadingGraph = () => {
         height={winSize.height}
         showNavInfo={false}
         backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
-        linkColor={() => "#1db954"}
+        linkColor={() => "#ff005a"}
         linkWidth={0.5}
         linkOpacity={0.5}
         ref={fgRef}
