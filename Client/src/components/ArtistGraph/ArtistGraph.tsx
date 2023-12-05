@@ -140,7 +140,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
         linkColor={(node: Node | any) => {
           if (node.linkType) {
-            return node.linkType == "main" ? "#1db3b9" : "#b01db9";
+            return node.linkType == "main" ? "#1db3b9" : "#1db966";
           }
           return "#1db954";
         }}
