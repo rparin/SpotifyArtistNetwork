@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { ArtistCardHorizontal } from "@/components/ArtistCardHorizontal";
+import { UserCardHorizontal } from "../UserCardHorizontal";
 import GraphSearchResult from "@/components/GraphSearchResult";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
@@ -77,20 +78,28 @@ const ArtistGraph = (props: { graphData: any }) => {
     if (!nodePreview) return;
     if (nodePreview.type == "artist") {
       return (
-        <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
-          <ArtistCardHorizontal
-            name={nodePreview.name}
-            img={nodePreview.img}
-            alt={`${nodePreview.name} profile picture`}
-            genres={nodePreview.genres}
-            followers={nodePreview.followers}
-            pop={nodePreview.pop}
-            url={nodePreview.url}
-            id={nodePreview.id}
-          />
-        </div>
+        <ArtistCardHorizontal
+          name={nodePreview.name}
+          img={nodePreview.img}
+          alt={`${nodePreview.name} profile picture`}
+          genres={nodePreview.genres}
+          followers={nodePreview.followers}
+          pop={nodePreview.pop}
+          url={nodePreview.url}
+          id={nodePreview.id}
+        />
       );
     }
+    return (
+      <UserCardHorizontal
+        name={nodePreview.name}
+        img={nodePreview.img}
+        alt={`${nodePreview.name} profile picture`}
+        followers={nodePreview.followers}
+        url={nodePreview.url}
+        id={nodePreview.id}
+      />
+    );
   };
 
   //Show reloading graph on reload or no graphData
@@ -145,7 +154,9 @@ const ArtistGraph = (props: { graphData: any }) => {
         nodeThreeObjectExtend={false}
       />
 
-      {getPreview()}
+      <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
+        {getPreview()}
+      </div>
     </>
   );
 };
