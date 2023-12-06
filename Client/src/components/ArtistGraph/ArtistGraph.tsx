@@ -37,6 +37,10 @@ const ArtistGraph = (props: { graphData: any }) => {
     updateSize();
   }, []);
 
+  useEffect(() => {
+    refreshGraph();
+  }, [signalThemeState]);
+
   const zoomToNode = useCallback(
     async (node: Node | any) => {
       setIsHoverEnabled(false);
