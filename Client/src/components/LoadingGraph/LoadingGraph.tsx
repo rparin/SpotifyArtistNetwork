@@ -74,12 +74,12 @@ const LoadingGraph = () => {
           Loading...
         </h1>
       </div>
-      <div className="absolute z-[60]">
+      <div className="absolute z-[60] bg-background">
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
           showNavInfo={false}
-          backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
+          backgroundColor={"#00000000"}
           linkColor={() => "#ff005a"}
           linkWidth={0.5}
           linkOpacity={0.5}

@@ -37,10 +37,6 @@ const ArtistGraph = (props: { graphData: any }) => {
     updateSize();
   }, []);
 
-  useEffect(() => {
-    refreshGraph();
-  }, [signalThemeState]);
-
   const zoomToNode = useCallback(
     async (node: Node | any) => {
       setIsHoverEnabled(false);
@@ -113,10 +109,10 @@ const ArtistGraph = (props: { graphData: any }) => {
 
   return (
     <>
-      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[100]">
+      <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[80]">
         <div className="relative flex w-full justify-center gap-2">
           <ReactSearchAutocomplete
-            className="w-[60%] md:w-[40%] lg:w-[30%] z-[100]"
+            className="w-[60%] md:w-[40%] lg:w-[30%] z-[80]"
             items={props.graphData.nodes}
             onSelect={handleSearchSelect}
             formatResult={(item: any) => {
@@ -137,31 +133,33 @@ const ArtistGraph = (props: { graphData: any }) => {
           </div>
         </div>
       </div>
-      <ForceGraph3D
-        width={winSize.width}
-        height={winSize.height}
-        showNavInfo={false}
-        backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
-        linkColor={(node: Node | any) => {
-          if (node.linkType) {
-            return node.linkType == "main" ? "#1db3b9" : "#1db966";
-          }
-          return "#1db954";
-        }}
-        linkOpacity={0.5}
-        ref={fgRef}
-        graphData={gData}
-        nodeLabel="name"
-        onNodeClick={isClickedEnabled ? zoomToNode : undefined}
-        onNodeHover={isHoverEnabled ? handleHover : undefined}
-        nodeThreeObject={(node: Node | any) => {
-          if (imgMaterial != null) {
-            return getArtistSphere(node, imgMaterial[node.id]);
-          }
-          return getLoadingArtistSphere(node);
-        }}
-        nodeThreeObjectExtend={false}
-      />
+      <div className="bg-background">
+        <ForceGraph3D
+          width={winSize.width}
+          height={winSize.height}
+          showNavInfo={false}
+          backgroundColor={"#00000000"}
+          linkColor={(node: Node | any) => {
+            if (node.linkType) {
+              return node.linkType == "main" ? "#1db3b9" : "#1db966";
+            }
+            return "#1db954";
+          }}
+          linkOpacity={0.5}
+          ref={fgRef}
+          graphData={gData}
+          nodeLabel="name"
+          onNodeClick={isClickedEnabled ? zoomToNode : undefined}
+          onNodeHover={isHoverEnabled ? handleHover : undefined}
+          nodeThreeObject={(node: Node | any) => {
+            if (imgMaterial != null) {
+              return getArtistSphere(node, imgMaterial[node.id]);
+            }
+            return getLoadingArtistSphere(node);
+          }}
+          nodeThreeObjectExtend={false}
+        />
+      </div>
 
       <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
         {getPreview()}
