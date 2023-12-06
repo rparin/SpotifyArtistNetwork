@@ -1,6 +1,6 @@
-import MyNetwork from "@/pages/MyNetwork";
-import Link from "next/link";
 import CountdownNavigateTo from "@/components/CountdownNavigateTo";
+import MyNetwork from "@/components/PageComponents/MyNetwork";
+import Link from "next/link";
 
 export default function myNetworkRoute({
   searchParams,

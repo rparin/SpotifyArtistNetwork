@@ -1,4 +1,4 @@
-import SearchResults from "@/pages/SearchResults";
+import SearchResults from "@/components/PageComponents/SearchResults";
 
 export default function searchRoute({
   searchParams,

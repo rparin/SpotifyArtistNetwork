@@ -1,4 +1,4 @@
-import ArtistNetwork from "@/pages/ArtistNetwork";
+import ArtistNetwork from "@/components/PageComponents/ArtistNetwork";
 import { APP_NAME } from "@/constants";
 import Link from "next/link";
 import { Home } from "lucide-react";
