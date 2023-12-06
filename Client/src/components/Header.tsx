@@ -10,7 +10,7 @@ export default function Header(props: { className?: string }) {
 
       <Link
         className="flex items-center bg-primary text-primary-foreground hover:bg-primary/90 px-4 rounded-3xl font-medium"
-        href={"http://localhost:8080/api/spotify/askAuth"}>
+        href={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/spotify/askAuth`}>
         {MY_NETWORK_BTN_TEXT}
       </Link>
     </div>
