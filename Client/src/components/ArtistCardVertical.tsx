@@ -29,6 +29,9 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, artistCardType>(
             href={netLink}
             className="flex flex-col text-center items-center">
             <Image
+              loader={() => {
+                return img;
+              }}
               className="h-28 w-28 lg:h-32 lg:w-32 object-cover rounded-[50%]"
               width={100}
               height={100}
@@ -77,6 +80,9 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, artistCardType>(
         </article>
 
         <Image
+          loader={() => {
+            return img;
+          }}
           className="absolute top-0 left-0 -z-10 h-full w-full opacity-80 dark:opacity-40 rounded-md"
           width={100}
           height={100}
