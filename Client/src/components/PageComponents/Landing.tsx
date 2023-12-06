@@ -1,4 +1,3 @@
-"use client";
 import { APP_NAME } from "@/constants";
 import { Searchbox } from "@/components/UI/Searchbox";
 import { SEARCH_PLACEHOLDER } from "@/constants";
