@@ -1,5 +1,5 @@
-import { ThemeProvider } from "@/Providers/ThemeProvider";
-import { ReactQueryProvider } from "@/Providers/ReactQueryProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
