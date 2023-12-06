@@ -1,8 +1,12 @@
+//Import Env Variables
+require("dotenv").config();
+const { CLIENT_URL, SERVER_URL } = process.env;
+
 const Urls = {
   api: "https://api.spotify.com/v1",
   accounts: "https://accounts.spotify.com",
-  host: "http://localhost:8080",
-  authRedirect: "http://localhost:3000/mynetwork",
+  server: `${SERVER_URL}`,
+  authRedirect: `${CLIENT_URL}/mynetwork`,
 };
 
 function getUser(id) {
@@ -47,7 +51,7 @@ function getBearerHeader(tokenType, authToken) {
 }
 
 const Endpoints = {
-  authCallback: `${Urls.host}/api/spotify/authCallback`,
+  authCallback: `${Urls.server}/api/spotify/authCallback`,
   authRedirect: `${Urls.authRedirect}`,
   auth: `${Urls.accounts}/authorize?`,
   token: `${Urls.accounts}/api/token`,
