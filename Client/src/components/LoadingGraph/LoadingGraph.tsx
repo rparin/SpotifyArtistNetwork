@@ -69,12 +69,12 @@ const LoadingGraph = () => {
 
   return (
     <div>
-      <div className="absolute flex justify-center text-center items-center z-[70] w-full min-h-screen">
+      <div className="absolute flex justify-center text-center items-center z-30 w-full min-h-screen">
         <h1 className="select-none text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
           Loading...
         </h1>
       </div>
-      <div className="absolute z-[60] bg-background">
+      <div className="bg-background">
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
