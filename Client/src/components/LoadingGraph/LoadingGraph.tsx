@@ -69,28 +69,30 @@ const LoadingGraph = () => {
 
   return (
     <div>
-      <div className="absolute flex justify-center text-center items-center z-40 w-full h-screen">
+      <div className="absolute flex justify-center text-center items-center z-[70] w-full min-h-screen">
         <h1 className="select-none text-2xl bg-teal-200/75 dark:bg-teal-600/60 px-20 py-2 rounded-lg backdrop-blur-md horizontal-mask">
           Loading...
         </h1>
       </div>
-      <ForceGraph3D
-        width={winSize.width}
-        height={winSize.height}
-        showNavInfo={false}
-        backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
-        linkColor={() => "#ff005a"}
-        linkWidth={0.5}
-        linkOpacity={0.5}
-        ref={fgRef}
-        graphData={loadData}
-        nodeThreeObject={() => {
-          return getGraphSphere(
-            signalThemeState == "dark" ? 0xffffff : 0x000000
-          );
-        }}
-        nodeThreeObjectExtend={false}
-      />
+      <div className="absolute z-[60]">
+        <ForceGraph3D
+          width={winSize.width}
+          height={winSize.height}
+          showNavInfo={false}
+          backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
+          linkColor={() => "#ff005a"}
+          linkWidth={0.5}
+          linkOpacity={0.5}
+          ref={fgRef}
+          graphData={loadData}
+          nodeThreeObject={() => {
+            return getGraphSphere(
+              signalThemeState == "dark" ? 0xffffff : 0x000000
+            );
+          }}
+          nodeThreeObjectExtend={false}
+        />
+      </div>
     </div>
   );
 };
