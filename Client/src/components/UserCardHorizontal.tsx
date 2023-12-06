@@ -1,7 +1,7 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
-import formatNumber from "@/lib/utils";
+import { formatNumber, imageLoader } from "@/lib/utils";
 
 export interface UserCardType extends React.HtmlHTMLAttributes<HTMLElement> {
   name: string;
@@ -19,7 +19,7 @@ const UserCardHorizontal = React.forwardRef<HTMLElement, UserCardType>(
         <article className="flex items-center rounded-md py-2 gap-2 backdrop-blur-md px-2">
           <Image
             loader={() => {
-              return img;
+              return imageLoader(img);
             }}
             className=" h-24 w-24 object-cover rounded-[50%]"
             width={100}
@@ -50,7 +50,7 @@ const UserCardHorizontal = React.forwardRef<HTMLElement, UserCardType>(
         </article>
         <Image
           loader={() => {
-            return img;
+            return imageLoader(img);
           }}
           className="absolute top-0 left-0 -z-10 h-full w-full opacity-80 dark:opacity-40 rounded-md"
           width={100}
