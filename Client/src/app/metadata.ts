@@ -20,7 +20,7 @@ const og = {
 // }
 
 const Metadata = {
-  metadataBase: `${process.env.NEXT_PUBLIC_CLIENT_URL}`,
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_URL}`),
   title: og.title,
   description: og.description,
   openGraph: og,
