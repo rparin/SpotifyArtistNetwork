@@ -16,7 +16,7 @@ export interface Dictionary<T> {
   [Key: string]: T;
 }
 
-export default function formatNumber(num: number) {
+export function formatNumber(num: number) {
   const precision = 2;
   const map = [
     { suffix: "T", threshold: 1e12 },
@@ -37,4 +37,12 @@ export default function formatNumber(num: number) {
 
 export function delay(delay: number) {
   return new Promise((res) => setTimeout(res, delay));
+}
+
+export function imageLoader(
+  src: string,
+  width: number = 120,
+  quality: number = 80
+) {
+  return `${src}?w=${width}&q=${quality}`;
 }
