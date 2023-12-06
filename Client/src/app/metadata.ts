@@ -11,10 +11,19 @@ const og = {
   ],
 };
 
+// const twitter =  {
+//   card: 'Todo: summary_large_image',
+//   site: 'Todo: site',
+//   title: og.title,
+//   description: og.description,
+//   image: 'Todo: Image'
+// }
+
 const Metadata = {
   title: og.title,
   description: og.description,
   openGraph: og,
+  // twitter: twitter
 };
 
 export { Metadata };
