@@ -8,7 +8,7 @@ export default function NetworkLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="max-h-screen flex flex-col">
       <div className="flex-1">
         <Header className="absolute top-0 right-0 z-50 w-full" />
         {children}
