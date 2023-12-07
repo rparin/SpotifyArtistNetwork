@@ -7,7 +7,7 @@ const og = {
   siteName: "Spotify Artist Network",
   images: [
     {
-      url: "Todo: Image",
+      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/Banner.png",
     },
   ],
 };
