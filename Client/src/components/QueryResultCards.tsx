@@ -1,6 +1,6 @@
 "use client";
 
-import { NO_IMAGE } from "@/constants";
+import { NO_IMAGE, SEARCH_RESULT_HELP } from "@/constants";
 import { useRef, useCallback, JSX } from "react";
 import {
   useSpotifyCToken,
@@ -103,6 +103,9 @@ export default function QueryResultCards(props: { query?: string }) {
 
   return (
     <>
+      <p className="text-lg font-medium w-full text-center opacity-80">
+        {SEARCH_RESULT_HELP}
+      </p>
       {getArtistCards(searchQuery.data)}
       {searchQuery.isFetchingNextPage && (
         <p className="text-xl font-semibold w-full text-center mt-3">

@@ -6,7 +6,7 @@ const SEARCH_PLACEHOLDER = "Enter the name of an artist";
 const SHORT_SEARCH_PLACEHOLDER = "Search Artist";
 
 const FOOTER_SEARCH_TEXT = "How search works";
-const FOOTER_LOGIN_TEXT = "Why login?";
+const FOOTER_PRIVACY = "Privacy";
 const CR = "©️ 2023. Developed by Ralph Parin.";
 
 const GRAPH_INSTRUCTIONS =
@@ -17,13 +17,16 @@ const NO_IMAGE = "/assets/noImage.png";
 const LOAD_WARNING =
   "Loading search results may take over a minute on the first run";
 
+const SEARCH_RESULT_HELP = "Select an artist to view their network";
+
 export {
   APP_NAME,
   MY_NETWORK_BTN_TEXT,
   SEARCH_PLACEHOLDER,
   SHORT_SEARCH_PLACEHOLDER,
+  SEARCH_RESULT_HELP,
   FOOTER_SEARCH_TEXT,
-  FOOTER_LOGIN_TEXT,
+  FOOTER_PRIVACY,
   CR,
   GRAPH_INSTRUCTIONS,
   NO_IMAGE,
