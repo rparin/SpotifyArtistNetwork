@@ -18,7 +18,7 @@ export interface artistCardType extends React.HtmlHTMLAttributes<HTMLElement> {
 const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
   ({ id, name, img, alt, genres, followers, pop, url }, ref) => {
     return (
-      <section ref={ref} className="relative w-80 md:w-96 rounded-md">
+      <section ref={ref} className="relative w-[22rem] md:w-96 rounded-md">
         <article className="flex items-center rounded-md py-2 gap-2 backdrop-blur-md px-2">
           <Image
             loader={() => {
@@ -30,7 +30,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, artistCardType>(
             src={img}
             alt={alt}
           />
-          <div className="flex flex-col gap-1 w-56 md:w-64">
+          <div className="flex flex-col gap-1 w-60 md:w-64">
             <h2 className="flex text-lg font-medium line-clamp-1 justify-center text-center">
               {name}
             </h2>
