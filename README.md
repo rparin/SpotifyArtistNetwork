@@ -19,7 +19,7 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 
 <div align="center">
 
-<img height=350 alt="demo of Spotify Artist Network website" src="https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/preview/Demo.gif">
+<img max-height=350 alt="demo of Spotify Artist Network website" src="https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/preview/Demo.gif">
 
 </div>
 
