@@ -4,7 +4,7 @@ import Landing from "@/components/PageComponents/Landing";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="max-h-screen flex flex-col">
       <div className="flex-1">
         <Header />
         <Landing />
