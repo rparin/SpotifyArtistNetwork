@@ -156,9 +156,12 @@ small {
 
 @layer utilities {
   .h-screen {
-    height: 100dvh;
+    height: 100svh;
   }
   .min-h-screen {
-    height: 100dvh;
+    height: 100svh;
+  }
+  .max-h-screen {
+    height: 100svh;
   }
 }
