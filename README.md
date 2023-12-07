@@ -21,6 +21,8 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 
 <img max-height=350 alt="demo of Spotify Artist Network website" src="https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/preview/Demo.gif">
 
+#### [Website][Website-url]
+
 </div>
 
 ### Features
@@ -66,5 +68,6 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 [nodejs-io]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [rquery-url]: https://tanstack.com/query/latest
 [rquery-io]: https://img.shields.io/badge/reactquery-111827?style=for-the-badge&logo=reactquery
+[Website-url]: https://spotify-artist-network.vercel.app/
 
 <!-- Badges: https://simpleicons.org or https://github.com/simple-icons/simple-icons/blob/master/slugs.md -->
