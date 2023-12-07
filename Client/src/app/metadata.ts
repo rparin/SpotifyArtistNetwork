@@ -4,7 +4,7 @@ const og = {
   title: "Spotify Artist Network",
   description:
     "A website that utilizes the Spotify API to showcase a network of related artists for any given artist.",
-  siteName: "Spotify Artist Network",
+  siteName: "spotify-artist-network.vercel.app",
   images: [
     {
       url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/Banner.png",
