@@ -11,7 +11,7 @@ export default function Landing() {
           <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
         </Link>
         <Searchbox placeholder={SEARCH_PLACEHOLDER} />
-        <p className="w-full text-sm hidden md:flex justify-center text-center opacity-75">
+        <p className="absolute w-full text-sm flex justify-center text-center bottom-10 opacity-75 z-50">
           {LOAD_WARNING}
         </p>
       </div>
