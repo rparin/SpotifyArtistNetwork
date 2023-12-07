@@ -23,7 +23,7 @@ const searchVariants = cva(
 const sizeVariants = cva("relative h-10 flex justify-start", {
   variants: {
     size: {
-      default: "w-5/6 md:w-9/12 lg:w-4/12",
+      default: "w-[80%] md:w-[60%] max-w-2xl",
       sm: "w-[60%] md:w-[40%] lg:w-[30%]",
       md: "w-[80%] md:w-[50%] lg:w-[40%]",
     },
@@ -153,7 +153,6 @@ const Searchbox = ({
         onChange={handleInputChange}
         {...props}
       />
-
       {getButton()}
     </div>
   );
