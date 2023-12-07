@@ -1,9 +1,10 @@
 const og = {
   type: "website",
-  url: "Todo: add public url",
+  url: "https://spotify-artist-network.vercel.app",
   title: "Spotify Artist Network",
-  description: "Todo: Description",
-  siteName: "Todo: SiteName",
+  description:
+    "A website that utilizes the Spotify API to showcase a network of related artists for any given artist.",
+  siteName: "Spotify Artist Network",
   images: [
     {
       url: "Todo: Image",
