@@ -11,7 +11,7 @@ export default function SearchLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="max-h-screen flex flex-col">
       <div className="flex-1">
         <div className="absolute z-50 flex w-full justify-between px-5 mt-5">
           <Link
