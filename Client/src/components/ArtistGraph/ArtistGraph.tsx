@@ -39,6 +39,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   const zoomToNode = useCallback(
     async (node: Node | any) => {
       setIsHoverEnabled(false);
+      setNodePreview(getNodePreview(node));
       const distance = 50;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
@@ -54,7 +55,6 @@ const ArtistGraph = (props: { graphData: any }) => {
       }
       await delay(2500);
       setIsHoverEnabled(true);
-      setNodePreview(getNodePreview(node));
     },
     [fgRef]
   );
