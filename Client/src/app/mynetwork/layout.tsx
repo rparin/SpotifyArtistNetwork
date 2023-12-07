@@ -24,7 +24,7 @@ export default function SearchLayout({
         </div>
         {children}
       </div>
-      <p className="absolute z-50 bottom-[4.3rem] w-full text-xs flex justify-center text-center">
+      <p className="absolute z-50 bottom-8 w-full text-xs hidden md:flex justify-center text-center ">
         {GRAPH_INSTRUCTIONS}
       </p>
       {/* Display footer at the bottom */}
