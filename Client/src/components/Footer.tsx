@@ -1,4 +1,4 @@
-import { FOOTER_LOGIN_TEXT, FOOTER_SEARCH_TEXT, CR } from "@/constants";
+import { FOOTER_PRIVACY, FOOTER_SEARCH_TEXT, CR } from "@/constants";
 import { ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,7 @@ export default function Footer(props: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:underline underline-offset-2">
-          <p>{FOOTER_LOGIN_TEXT}</p>
+          <p>{FOOTER_PRIVACY}</p>
         </a>
       </section> */}
       <section className="flex">
