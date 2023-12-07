@@ -50,7 +50,7 @@ export default function QueryResultCards(props: { query?: string }) {
     const lastItemId =
       data.pages[data.pages.length - 1].artists.items[
         data.pages[data.pages.length - 1].artists.items.length - 1
-      ].id;
+      ]?.id;
 
     // Data contains a list of pages and each page contains artist items
     data.pages.map((dItem: any) => {
@@ -59,7 +59,7 @@ export default function QueryResultCards(props: { query?: string }) {
         if (item?.images[0]?.url) {
           bakImage = item.images[0].url;
         }
-        if (!idSet.has(item.id)) {
+        if (!idSet.has(item.id) && lastItemId) {
           cards.push(
             <ArtistCardVertical
               ref={item.id === lastItemId ? lastArtistCardRef : null}
