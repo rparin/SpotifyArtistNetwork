@@ -14,6 +14,9 @@ const GRAPH_INSTRUCTIONS =
 
 const NO_IMAGE = "/assets/noImage.png";
 
+const LOAD_WARNING =
+  "Loading search results may take over a minute on the first run";
+
 export {
   APP_NAME,
   MY_NETWORK_BTN_TEXT,
@@ -24,4 +27,5 @@ export {
   CR,
   GRAPH_INSTRUCTIONS,
   NO_IMAGE,
+  LOAD_WARNING,
 };
