@@ -22,7 +22,6 @@ import {
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
   const [gData, setGData] = useState<any | null>(null);
-  const { signalThemeState } = useThemeState();
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const [nodePreview, setNodePreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
