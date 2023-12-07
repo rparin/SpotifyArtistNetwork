@@ -6,10 +6,10 @@ export default function Footer(props: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-black text-white mx-auto flex flex-col items-center gap-2 py-3 w-full z-50",
+        "bg-black text-white mx-auto flex flex-col items-center gap-2 py-2 w-full z-50",
         props.className
       )}>
-      <section className="flex gap-5 text-sm">
+      {/* <section className="flex gap-5 text-sm">
         <a
           href=""
           target="_blank"
@@ -24,7 +24,7 @@ export default function Footer(props: { className?: string }) {
           className="hover:underline underline-offset-2">
           <p>{FOOTER_LOGIN_TEXT}</p>
         </a>
-      </section>
+      </section> */}
       <section className="flex">
         <p className="text-white/30 text-xs">{CR}</p>
         <a
