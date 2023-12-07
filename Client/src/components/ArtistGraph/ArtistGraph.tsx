@@ -160,7 +160,7 @@ const ArtistGraph = (props: { graphData: any }) => {
         />
       </div>
 
-      <div className="absolute z-40 bottom-24 mb-2 flex justify-center w-full">
+      <div className="absolute z-40 bottom-7 md:bottom-12 mb-2 flex justify-center w-full">
         {getPreview()}
       </div>
     </>
