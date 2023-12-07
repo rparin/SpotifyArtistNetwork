@@ -168,9 +168,9 @@ class SpotifyAPI {
     const idNodes = new Set();
 
     const getArtist = async (info, depth) => {
-      if (depth != 0) {
-        console.log(info.id, info.name, depth);
-      }
+      // if (depth != 0) {
+      //   console.log(info.id, info.name, depth);
+      // }
 
       relatedMap.nodes.push(createArtistNode(info));
       idNodes.add(info.id);
