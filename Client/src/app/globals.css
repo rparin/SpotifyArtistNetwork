@@ -153,3 +153,12 @@ small {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+
+@layer utilities {
+  .h-screen {
+    height: 100dvh;
+  }
+  .min-h-screen {
+    height: 100dvh;
+  }
+}
