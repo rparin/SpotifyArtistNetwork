@@ -5,7 +5,7 @@
 [![License][license.io]][license-url]
 
 <p align="left">
-A website that utilizes the Spotify API, built with React, to create a platform for users to explore a network of related artists or their own Spotify network
+A website that utilizes the Spotify API, built with React, to create a platform for users to explore a network of related artists
 </p>
 
 [About](#about) •
