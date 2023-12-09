@@ -134,14 +134,7 @@ const ArtistGraph = (props: { graphData: any }) => {
             autoFocus={false}
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
-            <RefreshCw
-              onClick={() => {
-                updateSize();
-                fgRef.current?.zoomToFit(200);
-                setNodePreview(null);
-              }}
-              aria-label="Reload graph"
-            />
+            <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
           </div>
         </div>
       </div>
