@@ -34,7 +34,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   useEffect(() => {
     setGData(props.graphData);
     updateSize();
-  }, []);
+  }, [updateSize, props.graphData]);
 
   const zoomToNode = useCallback(
     async (node: Node | any) => {
@@ -59,14 +59,17 @@ const ArtistGraph = (props: { graphData: any }) => {
     [fgRef]
   );
 
-  const handleHover = useCallback((node: Node | any) => {
-    if (node?.id) {
-      if (nodePreview && node.id == nodePreview.id) {
-        return;
+  const handleHover = useCallback(
+    (node: Node | any) => {
+      if (node?.id) {
+        if (nodePreview && node.id == nodePreview.id) {
+          return;
+        }
+        setNodePreview(getNodePreview(node));
       }
-      setNodePreview(getNodePreview(node));
-    }
-  }, []);
+    },
+    [nodePreview]
+  );
 
   const handleSearchSelect = async (item: any) => {
     zoomToNode(item);
