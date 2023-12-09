@@ -16,6 +16,7 @@ import {
   useUpdateSize,
   getArtistSphere,
 } from "@/lib/graphUtils";
+import useTabActive from "@/hooks/useTabActive";
 
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
@@ -25,9 +26,17 @@ const ArtistGraph = (props: { graphData: any }) => {
   const imgMaterial = useImgMat(props.graphData.nodes);
   const [isClickedEnabled, setIsClickedEnabled] = useState(true);
   const [isHoverEnabled, setIsHoverEnabled] = useState(true);
-  const { reload, refreshGraph } = useReloadGraph(() => {
-    setNodePreview(null);
-  });
+
+  const visibilityState = useTabActive();
+  useEffect(() => {
+    if (fgRef) {
+      if (visibilityState) {
+        fgRef.current?.resumeAnimation();
+      } else {
+        fgRef.current?.pauseAnimation();
+      }
+    }
+  }, [fgRef, visibilityState]);
 
   const zoomToNode = useCallback(
     async (node: Node | any) => {
@@ -108,10 +117,6 @@ const ArtistGraph = (props: { graphData: any }) => {
     return <LoadText text="Rendering Network..." />;
   }
 
-  if (reload) {
-    return <LoadText text="Refreshing..." />;
-  }
-
   return (
     <>
       <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[80]">
@@ -134,7 +139,14 @@ const ArtistGraph = (props: { graphData: any }) => {
             autoFocus={false}
           />
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
-            <RefreshCw onClick={refreshGraph} aria-label="Reload graph" />
+            <RefreshCw
+              onClick={() => {
+                updateSize();
+                fgRef.current?.zoomToFit(500);
+                setNodePreview(null);
+              }}
+              aria-label="Reload graph"
+            />
           </div>
         </div>
       </div>
@@ -158,6 +170,8 @@ const ArtistGraph = (props: { graphData: any }) => {
           onNodeHover={isHoverEnabled ? handleHover : undefined}
           nodeThreeObject={getArtistNode}
           nodeThreeObjectExtend={false}
+          cooldownTicks={100}
+          cooldownTime={Infinity}
         />
       </div>
 
