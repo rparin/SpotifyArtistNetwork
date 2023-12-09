@@ -65,7 +65,7 @@ const LoadingGraph = () => {
       clearInterval(loadIntervalId);
       clearInterval(camIntervalId);
     };
-  }, []);
+  }, [loadIntervalFunc, camIntervalFunc, updateSize]);
 
   return (
     <>
