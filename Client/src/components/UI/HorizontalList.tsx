@@ -34,12 +34,13 @@ export default function HorizontalList({
   };
 
   useEffect(() => {
+    const refCurrent = ref.current;
     const handleScroll = () => {
-      if (!ref.current) return;
+      if (!refCurrent) return;
       const arrowOffset = 15;
 
       // Disable left arrow when no items to the left
-      if (ref.current.scrollLeft <= arrowOffset) {
+      if (refCurrent.scrollLeft <= arrowOffset) {
         setArrows({
           left: false,
           right: true,
@@ -48,8 +49,8 @@ export default function HorizontalList({
 
       // Show both arrows when in the middle of the list
       else if (
-        ref.current.scrollLeft <=
-        ref.current.scrollWidth - ref.current.offsetWidth
+        refCurrent.scrollLeft <=
+        refCurrent.scrollWidth - ref.current.offsetWidth
       ) {
         setArrows({
           left: true,
@@ -59,8 +60,8 @@ export default function HorizontalList({
 
       // Disable right arrow when at the end of the list
       if (
-        ref.current.scrollLeft >=
-        ref.current.scrollWidth - ref.current.offsetWidth - arrowOffset
+        refCurrent.scrollLeft >=
+        refCurrent.scrollWidth - refCurrent.offsetWidth - arrowOffset
       ) {
         setArrows({
           left: true,
@@ -69,14 +70,14 @@ export default function HorizontalList({
       }
     };
 
-    if (ref && ref.current) {
-      ref.current.addEventListener("scroll", handleScroll);
+    if (refCurrent) {
+      refCurrent.addEventListener("scroll", handleScroll);
     }
 
     // cleanup function to remove event listener on unmount
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener("scroll", handleScroll);
+      if (refCurrent) {
+        refCurrent.removeEventListener("scroll", handleScroll);
       }
     };
   }, []);
