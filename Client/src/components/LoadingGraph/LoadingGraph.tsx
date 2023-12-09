@@ -26,7 +26,7 @@ const LoadingGraph = () => {
           ],
         };
       });
-    }, 1000);
+    }, 770);
   }, []);
 
   const camIntervalFunc = useCallback(() => {
