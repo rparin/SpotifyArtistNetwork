@@ -32,11 +32,7 @@ export default function QueryResultCards(props: { query?: string }) {
       });
       if (node) observer.current.observe(node);
     },
-    [
-      searchQuery.isFetchingNextPage,
-      searchQuery.fetchNextPage,
-      searchQuery.hasNextPage,
-    ]
+    [props?.query, searchQuery]
   );
 
   const getArtistCards = (data: any) => {
