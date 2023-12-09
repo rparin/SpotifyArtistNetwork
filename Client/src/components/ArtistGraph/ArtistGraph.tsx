@@ -28,6 +28,7 @@ const ArtistGraph = (props: { graphData: any }) => {
   const [isClickedEnabled, setIsClickedEnabled] = useState(true);
   const [isHoverEnabled, setIsHoverEnabled] = useState(true);
   const [isNodeImgUsed, setIsNodeImgUsed] = useState(false);
+  const [isFinalLoadDone, setIsFinalLoadDone] = useState(false);
   const { signalThemeState } = useThemeState();
   const visibilityState = useTabActive();
 
@@ -126,6 +127,8 @@ const ArtistGraph = (props: { graphData: any }) => {
 
   return (
     <>
+      {!isFinalLoadDone && <LoadText text="Loading.." />}
+
       <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[80]">
         <div className="relative flex w-full justify-center gap-2">
           <ReactSearchAutocomplete
@@ -179,8 +182,10 @@ const ArtistGraph = (props: { graphData: any }) => {
           nodeThreeObjectExtend={false}
           cooldownTicks={100}
           cooldownTime={Infinity}
-          onEngineStop={() => {
+          onEngineStop={async () => {
             setIsNodeImgUsed(true);
+            await delay(3000);
+            setIsFinalLoadDone(true);
           }}
         />
       </div>
