@@ -21,7 +21,7 @@ export const useCountdown = (
     if (time <= 0) callback();
 
     return () => clearInterval(customInterval);
-  }, [time]);
+  }, [time, callback, interval]);
 
   return time;
 };
