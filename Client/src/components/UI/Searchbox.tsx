@@ -93,14 +93,15 @@ const Searchbox = ({
 
   // Input value into searchbox on page load
   useEffect(() => {
-    if (inputOnLoad) {
-      changeInput(inputOnLoad, inputOnLoad);
-      return;
+    if (inputOnLoad && ref.current) {
+      ref.current.value = inputOnLoad;
+      setHelper(setPrev, inputOnLoad);
+      setHelper(setSearch, inputOnLoad);
     }
     if (ref.current) {
       ref.current.focus();
     }
-  }, []);
+  }, [inputOnLoad]);
 
   // Set search value on input
   const handleInputChange = (event: {
