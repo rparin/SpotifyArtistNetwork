@@ -7,8 +7,7 @@ import GraphSearchResult from "@/components/GraphSearchResult";
 import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { RefreshCw } from "lucide-react";
-import LoadingForceGraph from "../LoadingGraph/LoadingGraphWrapper";
-import { useThemeState } from "@/hooks/useThemeState";
+import LoadText from "../LoadText";
 import {
   useImgMat,
   Node,
@@ -103,9 +102,12 @@ const ArtistGraph = (props: { graphData: any }) => {
     );
   };
 
-  //Show reloading graph on reload or no graphData
-  if (reload || !gData) {
-    return <LoadingForceGraph />;
+  if (!gData) {
+    return <LoadText text="Rendering Network..." />;
+  }
+
+  if (reload) {
+    return <LoadText text="Refreshing..." />;
   }
 
   return (
