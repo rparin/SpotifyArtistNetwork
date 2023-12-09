@@ -8,11 +8,11 @@ export default function Header(props: { className?: string }) {
     <div className={cn("flex justify-end gap-3 mx-5 pt-5", props.className)}>
       <ThemeToggle className="rounded-[2rem]" />
 
-      <Link
+      {/* <Link
         className="flex items-center bg-primary text-primary-foreground hover:bg-primary/90 px-4 rounded-3xl font-medium"
         href={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/spotify/askAuth`}>
         {MY_NETWORK_BTN_TEXT}
-      </Link>
+      </Link> */}
     </div>
   );
 }
