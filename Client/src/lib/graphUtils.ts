@@ -26,12 +26,12 @@ export function useUpdateSize(fgRef: any) {
     height: undefined,
   });
 
-  async function updateSize() {
+  const updateSize = useCallback(async () => {
     setWinSize({
       width: window.innerWidth,
       height: window.innerHeight,
     });
-  }
+  }, []);
 
   async function clearSize() {
     setWinSize({
@@ -47,7 +47,7 @@ export function useUpdateSize(fgRef: any) {
     return () => {
       window.removeEventListener("resize", updateSize);
     };
-  }, []);
+  }, [updateSize]);
   return { winSize, updateSize, clearSize };
 }
 
