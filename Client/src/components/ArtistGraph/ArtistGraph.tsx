@@ -21,7 +21,7 @@ import {
 
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [gData, setGData] = useState<any | null>(null);
+  const [gData, setGData] = useState<any | null>(props.graphData);
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const [nodePreview, setNodePreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
@@ -32,9 +32,8 @@ const ArtistGraph = (props: { graphData: any }) => {
   });
 
   useEffect(() => {
-    setGData(props.graphData);
     updateSize();
-  }, [updateSize, props.graphData]);
+  }, [updateSize]);
 
   const zoomToNode = useCallback(
     async (node: Node | any) => {
@@ -164,7 +163,7 @@ const ArtistGraph = (props: { graphData: any }) => {
       </div>
 
       <div className="absolute z-40 bottom-7 md:bottom-12 mb-2 flex justify-center w-full">
-        {getPreview()}
+        {/* {getPreview()} */}
       </div>
     </>
   );
