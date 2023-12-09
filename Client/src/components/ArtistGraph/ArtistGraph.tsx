@@ -15,7 +15,6 @@ import {
   useReloadGraph,
   useUpdateSize,
   getArtistSphere,
-  getLoadingArtistSphere,
 } from "@/lib/graphUtils";
 
 const ArtistGraph = (props: { graphData: any }) => {
@@ -29,10 +28,6 @@ const ArtistGraph = (props: { graphData: any }) => {
   const { reload, refreshGraph } = useReloadGraph(() => {
     setNodePreview(null);
   });
-
-  useEffect(() => {
-    updateSize();
-  }, [updateSize]);
 
   const zoomToNode = useCallback(
     async (node: Node | any) => {
@@ -102,6 +97,13 @@ const ArtistGraph = (props: { graphData: any }) => {
     );
   };
 
+  const getArtistNode = useCallback(
+    (node: Node | any) => {
+      return getArtistSphere(node, imgMaterial[node.id]);
+    },
+    [imgMaterial]
+  );
+
   if (!gData) {
     return <LoadText text="Rendering Network..." />;
   }
@@ -154,12 +156,7 @@ const ArtistGraph = (props: { graphData: any }) => {
           nodeLabel="name"
           onNodeClick={isClickedEnabled ? zoomToNode : undefined}
           onNodeHover={isHoverEnabled ? handleHover : undefined}
-          nodeThreeObject={(node: Node | any) => {
-            if (imgMaterial != null) {
-              return getArtistSphere(node, imgMaterial[node.id]);
-            }
-            return getLoadingArtistSphere(node);
-          }}
+          nodeThreeObject={getArtistNode}
           nodeThreeObjectExtend={false}
         />
       </div>
