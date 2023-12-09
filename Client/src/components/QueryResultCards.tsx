@@ -1,6 +1,6 @@
 "use client";
 
-import { NO_IMAGE, SEARCH_RESULT_HELP } from "@/constants";
+import { NO_IMAGE, SEARCH_RESULT_HELP, LOAD_WARNING } from "@/constants";
 import { useRef, useCallback, JSX } from "react";
 import {
   useSpotifyCToken,
@@ -78,7 +78,14 @@ export default function QueryResultCards(props: { query?: string }) {
   };
 
   if (cTokenQuery.isLoading || searchQuery.isLoading) {
-    return <p className="text-xl font-semibold">Loading results...</p>;
+    return (
+      <>
+        <p className="text-xl font-semibold w-full text-center">
+          Loading results...
+        </p>
+        <p className="text-base opacity-50">{LOAD_WARNING}</p>
+      </>
+    );
   }
 
   if (cTokenQuery.isError) {
