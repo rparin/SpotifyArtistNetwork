@@ -52,14 +52,7 @@ export function useUpdateSize(fgRef: any) {
 }
 
 export function useImgMat(nodes: any) {
-  const [imgMaterial, setImgMaterial] = useState<any>(null);
-
-  useEffect(() => {
-    if (nodes) {
-      setImgMaterial(getMatObj(nodes));
-    }
-  }, [nodes]);
-
+  const [imgMaterial, setImgMaterial] = useState<any>(getMatObj(nodes));
   return imgMaterial;
 }
 
