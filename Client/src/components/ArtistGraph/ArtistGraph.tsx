@@ -8,13 +8,14 @@ import { delay } from "@/lib/utils";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { RefreshCw } from "lucide-react";
 import LoadText from "../LoadText";
+import { useThemeState } from "@/hooks/useThemeState";
 import {
   useImgMat,
   Node,
   getNodePreview,
-  useReloadGraph,
   useUpdateSize,
   getArtistSphere,
+  getGraphSphere,
 } from "@/lib/graphUtils";
 import useTabActive from "@/hooks/useTabActive";
 
@@ -26,8 +27,10 @@ const ArtistGraph = (props: { graphData: any }) => {
   const imgMaterial = useImgMat(props.graphData.nodes);
   const [isClickedEnabled, setIsClickedEnabled] = useState(true);
   const [isHoverEnabled, setIsHoverEnabled] = useState(true);
-
+  const [isNodeImgUsed, setIsNodeImgUsed] = useState(false);
+  const { signalThemeState } = useThemeState();
   const visibilityState = useTabActive();
+
   useEffect(() => {
     if (fgRef) {
       if (visibilityState) {
@@ -113,6 +116,10 @@ const ArtistGraph = (props: { graphData: any }) => {
     [imgMaterial]
   );
 
+  const getLoadNode = useCallback(() => {
+    return getGraphSphere(signalThemeState == "dark" ? 0xffffff : 0x000000);
+  }, []);
+
   if (!gData) {
     return <LoadText text="Rendering Network..." />;
   }
@@ -168,10 +175,13 @@ const ArtistGraph = (props: { graphData: any }) => {
           nodeLabel="name"
           onNodeClick={isClickedEnabled ? zoomToNode : undefined}
           onNodeHover={isHoverEnabled ? handleHover : undefined}
-          nodeThreeObject={getArtistNode}
+          nodeThreeObject={isNodeImgUsed ? getArtistNode : getLoadNode}
           nodeThreeObjectExtend={false}
           cooldownTicks={100}
           cooldownTime={Infinity}
+          onEngineStop={() => {
+            setIsNodeImgUsed(true);
+          }}
         />
       </div>
 
