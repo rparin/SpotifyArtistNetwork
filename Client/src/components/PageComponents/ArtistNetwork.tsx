@@ -10,7 +10,7 @@ export default function ArtistNetwork(props: { id?: string | undefined }) {
   const networkQuery = useGetNetworkQuery(
     !!cTokenQuery.data && !(props.id === undefined),
     props?.id as string,
-    "4",
+    "3",
     cTokenQuery.data
   );
 
