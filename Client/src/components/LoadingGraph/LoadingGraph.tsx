@@ -26,7 +26,7 @@ const LoadingGraph = () => {
           ],
         };
       });
-    }, 500);
+    }, 1000);
   }, []);
 
   const camIntervalFunc = useCallback(() => {
@@ -56,7 +56,7 @@ const LoadingGraph = () => {
     const camIntervalId = camIntervalFunc();
 
     const stopLoad = async () => {
-      await delay(30000);
+      await delay(60000);
       clearInterval(loadIntervalId);
     };
 
