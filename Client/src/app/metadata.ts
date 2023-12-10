@@ -7,7 +7,7 @@ const og = {
   siteName: "spartistnetwork.vercel.app",
   images: [
     {
-      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/Banner.png",
+      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/public/_preview/Banner.png",
     },
   ],
 };
