@@ -6,8 +6,8 @@ import { Redis } from "@upstash/redis";
 type Unit = "ms" | "s" | "m" | "h" | "d";
 type Duration = `${number} ${Unit}` | `${number}${Unit}`;
 
-const token = parseInt(process.env.NEXT_PUBLIC_RATE_TOKENS as string);
-const window = process.env.NEXT_PUBLIC_RATE_WINDOW as Duration;
+const token = parseInt(process.env.RATE_TOKENS as string);
+const window = process.env.RATE_WINDOW as Duration;
 
 //Rate limit user: x requests Y time, afterwards user is blocked until Y time passes
 const ratelimit = new Ratelimit({
