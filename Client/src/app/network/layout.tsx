@@ -1,6 +1,6 @@
+import { GRAPH_INSTRUCTIONS } from "@/constants";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { GRAPH_INSTRUCTIONS } from "@/constants";
 
 export default function NetworkLayout({
   children,
@@ -10,7 +10,10 @@ export default function NetworkLayout({
   return (
     <main className="max-h-screen flex flex-col">
       <div className="flex-1">
-        <Header className="absolute top-0 right-0 z-50 w-full" />
+        <Header
+          className="absolute top-0 z-50 w-full m-0 px-7"
+          showHomeBtn={true}
+        />
         {children}
       </div>
       <p className="absolute z-50 bottom-8 w-full text-xs hidden md:flex justify-center text-center ">
