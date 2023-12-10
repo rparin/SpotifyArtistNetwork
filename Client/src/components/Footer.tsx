@@ -25,7 +25,7 @@ export default function Footer(props: { className?: string }) {
           <p>{FOOTER_PRIVACY}</p>
         </a>
       </section> */}
-      <section className="flex">
+      {/* <section className="flex">
         <p className="text-white/30 text-xs">{CR}</p>
         <a
           href="https://rparin.github.io"
@@ -33,7 +33,7 @@ export default function Footer(props: { className?: string }) {
           rel="noopener noreferrer">
           <ExternalLink className="opacity-40 w-auto h-[.7rem]" />
         </a>
-      </section>
+      </section> */}
     </div>
   );
 }
