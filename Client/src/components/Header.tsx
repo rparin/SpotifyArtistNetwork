@@ -17,9 +17,11 @@ export default function Header(props: {
       )}>
       {props.showHomeBtn && (
         <Link
-          className="md:p-0 p-2 rounded-3xl md:rounded-none bg-primary text-primary-foreground md:text-primary md:bg-transparent"
+          className="md:p-0 p-2 rounded-3xl hover:bg-[#1DB954] md:hover:bg-transparent md:rounded-none bg-primary text-primary-foreground md:text-primary md:bg-transparent"
           href={"/"}>
-          <h1 className="text-lg hidden md:block py-2">{APP_NAME}</h1>
+          <h1 className="text-lg hidden md:block py-2 hover:text-[#1DB954]">
+            {APP_NAME}
+          </h1>
           <Home className="md:hidden" />
         </Link>
       )}
