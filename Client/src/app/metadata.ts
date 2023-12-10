@@ -1,10 +1,10 @@
 const og = {
   type: "website",
-  url: "https://spartistnetwork.vercel.app",
+  url: "https://artistnetwork-sp.vercel.app",
   title: "Spotify Artist Network",
   description:
     "A website that utilizes the Spotify API to showcase a network of related artists for any given artist.",
-  siteName: "spartistnetwork.vercel.app",
+  siteName: "artistnetwork-sp.vercel.app",
   images: [
     {
       url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/public/_preview/Banner.png",
