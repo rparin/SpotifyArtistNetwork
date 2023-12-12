@@ -193,10 +193,14 @@ class SpotifyAPI {
     };
 
     try {
+      if (depth > 4) {
+        throw new Error("Error fetching related artists: invalid depth");
+      }
       const fArtist = await this.getArtistInfo(id, access_token);
       await getArtist(fArtist.data, depth);
       return { data: relatedMap, status: 200 };
     } catch (error) {
+      console.log(error);
       return { data: null, status: 500 };
     }
   }
