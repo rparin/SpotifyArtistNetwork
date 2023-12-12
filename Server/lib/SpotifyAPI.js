@@ -200,7 +200,6 @@ class SpotifyAPI {
       await getArtist(fArtist.data, depth);
       return { data: relatedMap, status: 200 };
     } catch (error) {
-      console.log(error);
       return { data: null, status: 500 };
     }
   }
