@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
 const searchVariants = cva(
   "rounded-[7rem] w-full px-4 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
