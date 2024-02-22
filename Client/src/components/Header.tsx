@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/UI/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { Home } from "lucide-react";
+// import { publicParsedEnv } from "@env/publicEnv";
 
 export default function Header(props: {
   className?: string;
@@ -30,7 +31,7 @@ export default function Header(props: {
         <ThemeToggle className="rounded-[2rem]" />
         {/* <Link
           className="flex items-center bg-primary text-primary-foreground hover:bg-primary/90 px-3 rounded-3xl font-medium my-[0.15rem]"
-          href={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/spotify/askAuth`}>
+          href={`${publicParsedEnv.NEXT_PUBLIC_SERVER_URL}/api/spotify/askAuth`}>
           {MY_NETWORK_BTN_TEXT}
         </Link> */}
       </div>
