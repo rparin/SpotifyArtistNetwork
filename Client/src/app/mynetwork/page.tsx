@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function myNetworkRoute({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string | undefined };
 }) {
   const error = searchParams?.error;
   const accessToken = searchParams?.access_token;
