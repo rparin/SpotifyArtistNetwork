@@ -6,11 +6,12 @@ import { useSpotifyCToken } from "@/lib/API/Spotify/SpotifyAPI";
 import { useGetNetworkQuery } from "@/lib/API/Spotify/SpotifyAPI";
 
 export default function ArtistNetwork(props: { id?: string | undefined }) {
+  const DEPTH = `${process.env.NEXT_PUBLIC_ARTIST_NODE_DEPTH}`;
   const cTokenQuery = useSpotifyCToken(!(props.id === undefined));
   const networkQuery = useGetNetworkQuery(
     !!cTokenQuery.data && !(props.id === undefined),
     props?.id as string,
-    "4",
+    DEPTH,
     cTokenQuery.data
   );
 
