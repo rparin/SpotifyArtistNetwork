@@ -1,3 +1,5 @@
+import { publicParsedEnv } from "@env/publicEnv";
+
 const og = {
   type: "website",
   url: "https://spotify-artist-network.vercel.app",
@@ -21,7 +23,7 @@ const og = {
 // }
 
 const Metadata = {
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_URL}`),
+  metadataBase: new URL(`${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}`),
   title: og.title,
   description: og.description,
   openGraph: og,
