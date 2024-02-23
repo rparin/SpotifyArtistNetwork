@@ -9,7 +9,7 @@ const og = {
   siteName: "spotify-artist-network.vercel.app",
   images: [
     {
-      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/Banner.png",
+      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/SpotifyArtistNetwork.webp",
     },
   ],
 };
