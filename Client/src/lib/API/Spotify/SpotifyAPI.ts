@@ -12,12 +12,12 @@ const fetchSearchResults = async (
   return res.data;
 };
 
-const getClientToken = async () => {
+const fetchClientToken = async () => {
   const res = await spotifyAPI.get("/api/spotify/cAuthToken");
   return res.data;
 };
 
-const getMyFollowingArtists = async (accessToken: string) => {
+const fetchMyFollowingArtists = async (accessToken: string) => {
   const res = await spotifyAPI.get(
     `/api/spotify/myFollowingArtists/${accessToken}`
   );
@@ -39,7 +39,7 @@ export const useSpotifyCToken = (enabled: boolean) => {
   const cToken = useQuery({
     enabled: enabled,
     queryKey: ["cToken"],
-    queryFn: getClientToken,
+    queryFn: fetchClientToken,
     refetchOnWindowFocus: true,
     refetchInterval: 3000000, //grab new token every 50 minutes
     staleTime: 3000000, //cache token for 50 minutes
@@ -55,7 +55,7 @@ export const useGetFollowingArtists = (
     enabled: enabled,
     queryKey: ["followingArtists"],
     queryFn: () => {
-      return getMyFollowingArtists(accessToken);
+      return fetchMyFollowingArtists(accessToken);
     },
     staleTime: 3000000, //cache data for 50 minutes
   });
