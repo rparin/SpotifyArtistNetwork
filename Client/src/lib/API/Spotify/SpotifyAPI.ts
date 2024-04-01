@@ -1,4 +1,5 @@
 import { spotifyAPI } from "./axios";
+import { spotifyCTokenSchema } from "./SpotifySchema";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 const fetchSearchResults = async (
@@ -14,7 +15,13 @@ const fetchSearchResults = async (
 
 const fetchClientToken = async () => {
   const res = await spotifyAPI.get("/api/spotify/cAuthToken");
-  return res.data;
+  const result = spotifyCTokenSchema.safeParse(res.data);
+
+  if (!result.success) {
+    throw new Error("Invalid cToken");
+  } else {
+    return res.data;
+  }
 };
 
 const fetchMyFollowingArtists = async (accessToken: string) => {
