@@ -2,17 +2,6 @@ import { spotifyAPI } from "./axios";
 import { spotifyCTokenSchema } from "./SpotifySchema";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
-const fetchSearchResults = async (
-  artist: string,
-  page: string | null | undefined,
-  accessToken: string
-) => {
-  const res = await spotifyAPI.get(
-    `/api/spotify/search/${artist}/${page}/${accessToken}`
-  );
-  return res.data;
-};
-
 const fetchClientToken = async () => {
   const res = await spotifyAPI.get("/api/spotify/cAuthToken");
   const result = spotifyCTokenSchema.safeParse(res.data);
@@ -24,9 +13,13 @@ const fetchClientToken = async () => {
   }
 };
 
-const fetchMyFollowingArtists = async (accessToken: string) => {
+const fetchSearchResults = async (
+  artist: string,
+  page: string | null | undefined,
+  accessToken: string
+) => {
   const res = await spotifyAPI.get(
-    `/api/spotify/myFollowingArtists/${accessToken}`
+    `/api/spotify/search/${artist}/${page}/${accessToken}`
   );
   return res.data;
 };
@@ -38,6 +31,13 @@ const fetchArtistNetwork = async (
 ) => {
   const res = await spotifyAPI.get(
     `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
+  );
+  return res.data;
+};
+
+const fetchMyFollowingArtists = async (accessToken: string) => {
+  const res = await spotifyAPI.get(
+    `/api/spotify/myFollowingArtists/${accessToken}`
   );
   return res.data;
 };
