@@ -106,9 +106,6 @@ export default function QueryResultCards(props: { query?: string }) {
 
   return (
     <>
-      <p className="text-sm font-medium w-full text-center opacity-80">
-        {SEARCH_RESULT_HELP}
-      </p>
       {getArtistCards(searchQuery.data)}
       {searchQuery.isFetchingNextPage && (
         <p className="text-xl font-semibold w-full text-center mt-3">

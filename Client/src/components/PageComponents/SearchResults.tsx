@@ -1,6 +1,6 @@
 import { Searchbox } from "@/components/UI/Searchbox";
 import { APP_NAME } from "@/constants";
-import { SEARCH_PLACEHOLDER } from "@/constants";
+import { SEARCH_PLACEHOLDER, SEARCH_RESULT_HELP } from "@/constants";
 import Link from "next/link";
 import QueryResultCards from "@/components/QueryResultCards";
 
@@ -18,6 +18,9 @@ export default function SearchResults(props: { query?: string }) {
         />
       </div>
       <div className="mt-5 flex flex-wrap justify-center items-center gap-3 mx-6 md:mx-12 lg:mx-28 mb-10">
+        <p className="text-sm font-medium w-full text-center opacity-80">
+          {SEARCH_RESULT_HELP}
+        </p>
         <QueryResultCards query={props.query} />
       </div>
     </>
