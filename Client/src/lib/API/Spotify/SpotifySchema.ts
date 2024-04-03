@@ -38,5 +38,32 @@ export const spotifySearchResultSchema = z.object({
   total: z.number(),
 });
 
+const spotifyNodeItemSchema = z.array(
+  z.object({
+    id: z.string().length(22),
+    name: z.string(),
+    img: z.string().url().nullable(),
+    followers: z.number(),
+    pop: z.number(),
+    genres: z.array(z.string()),
+    size: z.number(),
+    url: z.string().url(),
+    type: z.string(),
+  })
+);
+
+const spotifyLinkItemSchema = z.array(
+  z.object({
+    source: z.string().length(22),
+    target: z.string().length(22),
+  })
+);
+
+export const spotifyNetworkSchema = z.object({
+  nodes: spotifyNodeItemSchema,
+  links: spotifyLinkItemSchema,
+});
+
 export type spotifyArtistItem = z.infer<typeof spotifyArtistItemSchema>;
 export type spotifySearchResult = z.infer<typeof spotifySearchResultSchema>;
+export type spotifyNetworkMap = z.infer<typeof spotifyNetworkSchema>;

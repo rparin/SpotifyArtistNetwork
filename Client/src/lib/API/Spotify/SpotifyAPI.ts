@@ -2,6 +2,7 @@ import { spotifyAPI } from "./axios";
 import {
   spotifyCTokenSchema,
   spotifySearchResultSchema,
+  spotifyNetworkSchema,
 } from "./SpotifySchema";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
@@ -41,7 +42,12 @@ const fetchArtistNetwork = async (
   const res = await spotifyAPI.get(
     `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
   );
-  return res.data;
+  const result = spotifyNetworkSchema.safeParse(res.data);
+  if (!result.success) {
+    throw new Error("Invalid network format");
+  } else {
+    return res.data;
+  }
 };
 
 const fetchMyFollowingArtists = async (accessToken: string) => {
