@@ -1,5 +1,8 @@
 import { spotifyAPI } from "./axios";
-import { spotifyCTokenSchema } from "./SpotifySchema";
+import {
+  spotifyCTokenSchema,
+  spotifySearchResultSchema,
+} from "./SpotifySchema";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 const fetchClientToken = async () => {
@@ -21,7 +24,13 @@ const fetchSearchResults = async (
   const res = await spotifyAPI.get(
     `/api/spotify/search/${artist}/${page}/${accessToken}`
   );
-  return res.data;
+
+  const result = spotifySearchResultSchema.safeParse(res.data.artists);
+  if (!result.success) {
+    throw new Error("Invalid result format");
+  } else {
+    return res.data;
+  }
 };
 
 const fetchArtistNetwork = async (
