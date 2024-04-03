@@ -46,7 +46,7 @@ const ArtistGraph = (props: { graphData: any }) => {
     async (node: Node | any) => {
       setIsHoverEnabled(false);
       setNodePreview(getNodePreview(node));
-      const distance = 50;
+      const distance = 100;
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
       if (fgRef.current) {
         fgRef.current.cameraPosition(
