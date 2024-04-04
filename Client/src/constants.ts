@@ -7,7 +7,7 @@ const SHORT_SEARCH_PLACEHOLDER = "Search Artist";
 
 const FOOTER_SEARCH_TEXT = "How search works";
 const FOOTER_PRIVACY = "Privacy";
-const CR = "©️ 2023. Developed by Ralph Parin.";
+const CR = "©️ 2024. Developed by Ralph Parin.";
 
 const GRAPH_INSTRUCTIONS =
   "Left-click: rotate, Mouse-wheel/Middle-click: zoom, Right-click:pan";
