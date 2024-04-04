@@ -1,6 +1,6 @@
 "use client";
 
-import { NO_IMAGE, SEARCH_RESULT_HELP, LOAD_WARNING } from "@/constants";
+import { NO_IMAGE, LOAD_WARNING } from "@/constants";
 import { useRef, useCallback, JSX } from "react";
 import {
   useSpotifyCToken,
