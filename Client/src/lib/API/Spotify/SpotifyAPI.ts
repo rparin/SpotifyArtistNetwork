@@ -42,12 +42,13 @@ const fetchArtistNetwork = async (
   const res = await spotifyAPI.get(
     `/api/spotify/relatedMap/${id}/${depth}/${accessToken}`
   );
-  const result = spotifyNetworkSchema.safeParse(res.data);
-  if (!result.success) {
-    throw new Error("Invalid network format");
-  } else {
-    return res.data;
-  }
+  return res.data;
+  // const result = spotifyNetworkSchema.safeParse(res.data);
+  // if (!result.success) {
+  //   throw new Error("Invalid network format");
+  // } else {
+  //   return res.data;
+  // }
 };
 
 const fetchMyFollowingArtists = async (accessToken: string) => {
