@@ -5,12 +5,20 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "i.scdn.co",
-        port: "",
         pathname: "/image/**",
       },
       {
         protocol: "http",
         hostname: "localhost:3000",
+      },
+      {
+        protocol: "https",
+        hostname: "REDACTED",
+        pathname: "/api/spotify/**",
+      },
+      {
+        protocol: "https",
+        hostname: "spotify-artist-network.vercel.app",
       },
     ],
   },
