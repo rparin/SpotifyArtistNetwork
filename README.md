@@ -39,6 +39,7 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 [![nextjs-io]][nextjs-url]
 [![tailwind-io]][tailwind-url]
 [![rquery-io]][rquery-url]
+[![zod-io]][zod-url]
 [![shadcn-io]][shadcn-url]
 
 </div>
@@ -68,6 +69,8 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 [nodejs-io]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [rquery-url]: https://tanstack.com/query/latest
 [rquery-io]: https://img.shields.io/badge/reactquery-111827?style=for-the-badge&logo=reactquery
+[zod-url]: https://zod.dev/
+[zod-io]: https://img.shields.io/badge/zod-FFFFFF.svg?style=for-the-badge&logo=zod&logoColor=3068b7
 [Website-url]: https://spotify-artist-network.vercel.app/
 
 <!-- Badges: https://simpleicons.org or https://github.com/simple-icons/simple-icons/blob/master/slugs.md -->
