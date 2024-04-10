@@ -34,6 +34,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#Env file
+# Env file
 .env
+
+# Misc
 Client/test.js
