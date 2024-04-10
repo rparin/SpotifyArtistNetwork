@@ -131,13 +131,13 @@ const Searchbox = ({
   const getButton = () => {
     if (prevValue == searchValue && searchValue != "") {
       return (
-        <button onClick={() => changeInput("")}>
+        <button title="Search button" onClick={() => changeInput("")}>
           <X className={searchIconVariants({ variant })} />
         </button>
       );
     }
     return (
-      <button onClick={handleClick}>
+      <button title="Search button" onClick={handleClick}>
         <Search className={searchIconVariants({ variant })} />
       </button>
     );
