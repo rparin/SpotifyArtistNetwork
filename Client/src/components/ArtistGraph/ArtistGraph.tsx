@@ -21,7 +21,6 @@ import useTabActive from "@/hooks/useTabActive";
 
 const ArtistGraph = (props: { graphData: any }) => {
   const fgRef = useRef<ForceGraphMethods>();
-  const [gData, setGData] = useState<any | null>(props.graphData);
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const [nodePreview, setNodePreview] = useState<any | null>(null);
   const imgMaterial = useImgMat(props.graphData.nodes);
@@ -121,7 +120,7 @@ const ArtistGraph = (props: { graphData: any }) => {
     return getGraphSphere(signalThemeState == "dark" ? 0xffffff : 0x000000);
   }, []);
 
-  if (!gData) {
+  if (!props.graphData) {
     return <LoadText text="Rendering Network..." />;
   }
 
@@ -174,7 +173,7 @@ const ArtistGraph = (props: { graphData: any }) => {
           }}
           linkOpacity={0.5}
           ref={fgRef}
-          graphData={gData}
+          graphData={props.graphData}
           nodeLabel="name"
           onNodeClick={isClickedEnabled ? zoomToNode : undefined}
           onNodeHover={isHoverEnabled ? handleHover : undefined}
