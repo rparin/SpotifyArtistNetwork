@@ -1,21 +1,35 @@
 const express = require("express");
 const SpotifyAPI = require("../lib/SpotifyAPI");
+const Cipher = require("../lib/Cipher.js");
 const router = express.Router();
 const qs = require("querystring");
 const SPOTIFY = require("../constants/Spotify.js");
 
 //Import Env Variables
 require("dotenv").config();
-const { CLIENT_ID, CLIENT_SECRET } = process.env;
+const {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  CIPHER_ALGO,
+  CIPHER_KEYBYTES,
+  CIPHER_IVBYTES,
+} = process.env;
 
 //Create Helper API Class
 const spotifyAPI = new SpotifyAPI(CLIENT_ID, CLIENT_SECRET);
+const cipher = new Cipher(
+  CIPHER_ALGO,
+  Number(CIPHER_KEYBYTES),
+  Number(CIPHER_IVBYTES)
+);
 
 router.get("/cAuthToken", async (req, res) => {
   const response = await spotifyAPI.getClientAuthToken();
   res
     .status(response.status)
-    .json(response.status == 200 ? response.data.access_token : null);
+    .json(
+      response.status == 200 ? cipher.encrypt(response.data.access_token) : null
+    );
 });
 
 router.get("/askAuth", async (req, res) => {
@@ -50,14 +64,14 @@ router.get("/authCallback", async (req, res) => {
 });
 
 router.get("/rAuthToken/:authToken", async (req, res) => {
-  res.json(await spotifyAPI.refreshToken(req.params.authToken));
+  res.json(await spotifyAPI.refreshToken(cipher.decrypt(req.params.authToken)));
 });
 
 router.get("/search/:artist/:page/:authToken", async (req, res) => {
   const response = await spotifyAPI.searchArtist(
     req.params.artist,
     req.params.page,
-    req.params.authToken
+    cipher.decrypt(req.params.authToken)
   );
   res
     .status(response.status)
@@ -68,7 +82,7 @@ router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
   const response = await spotifyAPI.getArtistRelatedMap(
     req.params.id,
     req.params.depth,
-    req.params.authToken
+    cipher.decrypt(req.params.authToken)
   );
   res.status(response.status).json(response.data);
 });
@@ -76,7 +90,7 @@ router.get("/relatedMap/:id/:depth/:authToken", async (req, res) => {
 router.get("/userInfo/:id/:authToken", async (req, res) => {
   const response = await spotifyAPI.getUserInfo(
     req.params.id,
-    req.params.authToken
+    cipher.decrypt(req.params.authToken)
   );
   res
     .status(response.status)
@@ -84,14 +98,18 @@ router.get("/userInfo/:id/:authToken", async (req, res) => {
 });
 
 router.get("/myInfo/:authToken", async (req, res) => {
-  const response = await spotifyAPI.getMyInfo(req.params.authToken);
+  const response = await spotifyAPI.getMyInfo(
+    cipher.decrypt(req.params.authToken)
+  );
   res
     .status(response.status)
     .json(response.status == 200 ? response.data : null);
 });
 
 router.get("/myFollowingArtists/:authToken", async (req, res) => {
-  const response = await spotifyAPI.getMyArtistMap(req.params.authToken);
+  const response = await spotifyAPI.getMyArtistMap(
+    cipher.decrypt(req.params.authToken)
+  );
   res
     .status(response.status)
     .json(response.status == 200 ? response.data : null);

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const spotifyCTokenSchema = z
   .string()
-  .length(115, { message: "Invalid token length" });
+  .length(256, { message: "Invalid token length" });
 
 const spotifyArtistItemSchema = z.object({
   external_urls: z.object({
