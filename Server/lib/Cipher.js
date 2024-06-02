@@ -2,9 +2,9 @@ const crypto = require("crypto");
 
 class Cipher {
   constructor(algo, keyBytes, ivBytes) {
-    this._algorithm = algo; //const algorithm = 'REDACTED
-    this._key = crypto.randomBytes(keyBytes); //const key = REDACTED
-    this._iv = crypto.randomBytes(ivBytes); //const iv = REDACTED
+    this._algorithm = algo;
+    this._key = crypto.randomBytes(keyBytes);
+    this._iv = crypto.randomBytes(ivBytes);
   }
 
   encrypt(text) {
@@ -22,7 +22,6 @@ class Cipher {
     encrypted = Buffer.concat([encrypted, cipher.final()]);
 
     // Returning iv and encrypted data
-    // return { iv: iv.toString("hex"), encryptedData: encrypted.toString("hex") };
     return encrypted.toString("hex");
   }
 
