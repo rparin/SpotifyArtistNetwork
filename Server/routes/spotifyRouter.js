@@ -13,14 +13,16 @@ const {
   CIPHER_ALGO,
   CIPHER_KEYBYTES,
   CIPHER_IVBYTES,
+  CIPHER_TYPE,
 } = process.env;
 
 //Create Helper API Class
 const spotifyAPI = new SpotifyAPI(CLIENT_ID, CLIENT_SECRET);
 const cipher = new Cipher(
   CIPHER_ALGO,
-  Number(CIPHER_KEYBYTES),
-  Number(CIPHER_IVBYTES)
+  CIPHER_KEYBYTES,
+  CIPHER_IVBYTES,
+  CIPHER_TYPE
 );
 
 router.get("/cAuthToken", async (req, res) => {

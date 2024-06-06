@@ -1,10 +1,11 @@
 const crypto = require("crypto");
 
 class Cipher {
-  constructor(algo, keyBytes, ivBytes) {
+  constructor(algo, keyBytes, ivBytes, byteType) {
     this._algorithm = algo;
-    this._key = crypto.randomBytes(keyBytes);
-    this._iv = crypto.randomBytes(ivBytes);
+    this._key = Buffer.from(keyBytes, byteType);
+    this._iv = Buffer.from(ivBytes, byteType);
+    this._byteType = byteType;
   }
 
   encrypt(text) {
@@ -22,11 +23,11 @@ class Cipher {
     encrypted = Buffer.concat([encrypted, cipher.final()]);
 
     // Returning iv and encrypted data
-    return encrypted.toString("hex");
+    return encrypted.toString(this._byteType);
   }
 
   decrypt(text) {
-    let encryptedText = Buffer.from(text, "hex");
+    let encryptedText = Buffer.from(text, this._byteType);
 
     // Creating Decipher
     let decipher = crypto.createDecipheriv(
