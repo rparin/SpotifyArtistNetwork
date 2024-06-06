@@ -35,7 +35,7 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, artistCardType>(
               src={img}
               alt={alt}
             />
-            <h2 className="text-2xl lg:text-3xl font-medium line-clamp-1">
+            <h2 className="text-2xl lg:text-3xl font-medium line-clamp-1 bg-slate-200/40 dark:bg-slate-400/20 horizontal-mask w-40 mt-2">
               {name}
             </h2>
           </Link>
