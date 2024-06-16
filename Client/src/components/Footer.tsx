@@ -28,8 +28,8 @@ export default function Footer(props: { className?: string }) {
       <section className="flex">
         <p className="text-white/30 text-xs">{CR}</p>
         <a
-          href="https://rparin.github.io"
-          aria-label="External link to rparin portfolio website"
+          href="https://github.com/rparin/SpotifyArtistNetwork"
+          aria-label="External link to source code"
           target="_blank"
           rel="noopener noreferrer">
           <ExternalLink className="opacity-40 w-auto h-[.7rem]" />
