@@ -1,5 +1,26 @@
 import ArtistNetwork from "@/components/PageComponents/ArtistNetwork";
 
+import type { Metadata, ResolvingMetadata } from "next";
+import { getMetadata } from "./metadata";
+
+type Props = {
+  params: { q: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  var id = "";
+  var artist = "";
+  if (searchParams.id) {
+    id = searchParams.id as string;
+    artist = searchParams.network as string;
+  }
+  return getMetadata(id, artist);
+}
+
 export default function networkRoute({
   searchParams,
 }: {

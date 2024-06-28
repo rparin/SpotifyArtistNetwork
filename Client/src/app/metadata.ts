@@ -1,15 +1,15 @@
 import { publicParsedEnv } from "@env/publicEnv";
+import { DESCRIPTION, PREVIEW } from "@/constants";
 
 const og = {
   type: "website",
-  url: "https://spotify-artist-network.vercel.app",
+  url: publicParsedEnv.NEXT_PUBLIC_CLIENT_URL,
   title: "Spotify Artist Network",
-  description:
-    "A website that utilizes the Spotify API to showcase a network of related artists for any given artist.",
-  siteName: "spotify-artist-network.vercel.app",
+  description: DESCRIPTION,
+  siteName: publicParsedEnv.NEXT_PUBLIC_CLIENT_URL,
   images: [
     {
-      url: "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/SpotifyArtistNetwork.webp",
+      url: PREVIEW,
     },
   ],
 };
@@ -23,7 +23,7 @@ const og = {
 // }
 
 const Metadata = {
-  metadataBase: new URL(`${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}`),
+  metadataBase: new URL(publicParsedEnv.NEXT_PUBLIC_CLIENT_URL),
   title: og.title,
   description: og.description,
   openGraph: og,

@@ -19,6 +19,12 @@ const LOAD_WARNING =
 
 const SEARCH_RESULT_HELP = "Select an artist to view their network";
 
+const DESCRIPTION =
+  "A website that utilizes the Spotify API to showcase a network of related artists for any given artist.";
+
+const PREVIEW =
+  "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/SpotifyArtistNetwork.webp";
+
 export {
   APP_NAME,
   MY_NETWORK_BTN_TEXT,
@@ -31,4 +37,6 @@ export {
   GRAPH_INSTRUCTIONS,
   NO_IMAGE,
   LOAD_WARNING,
+  DESCRIPTION,
+  PREVIEW,
 };
