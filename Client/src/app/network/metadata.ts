@@ -13,7 +13,7 @@ export async function getMetadata(id: string, artist: string) {
   const og = {
     type: "website",
     url: `${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}/network?id=${id}&network=${artist}`,
-    title: `Spotify Artist Network - Network - ${artist}`,
+    title: `Spotify Artist Network - ${artist}`,
     description: DESCRIPTION,
     siteName: `${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}`,
     images: [
