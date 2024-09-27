@@ -31,6 +31,8 @@ const ArtistGraph = (props: { graphData: any }) => {
   const [isFinalLoadDone, setIsFinalLoadDone] = useState(false);
   const { signalThemeState } = useThemeState();
   const visibilityState = useTabActive();
+  const [searchValue, setSearch] = useState<undefined | any>(undefined);
+  const [inputSearchString, setInputSearchString] = useState("");
 
   useEffect(() => {
     if (fgRef) {
@@ -41,6 +43,35 @@ const ArtistGraph = (props: { graphData: any }) => {
       }
     }
   }, [fgRef, visibilityState]);
+
+  const handleSearchSelect = async (item: any) => {
+    zoomToNode(item);
+    await delay(2100);
+  };
+
+  const handleOnSearch = async (value: string, results: any[]) => {
+    if (value.replace(/ /g, "") != "" && results.length > 0) {
+      setSearch(results[0]);
+      setIsClickedEnabled(false);
+      await delay(2000);
+      setIsClickedEnabled(true);
+    }
+  };
+
+  const unfocusInput = () => {
+    const divElements = document.getElementById("graph");
+    divElements?.click();
+  };
+
+  const handleOnSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchValue) {
+      handleSearchSelect(searchValue);
+      setInputSearchString(searchValue.name);
+      await delay(100);
+      unfocusInput();
+    }
+  };
 
   const zoomToNode = useCallback(
     async (node: Node | any) => {
@@ -76,11 +107,6 @@ const ArtistGraph = (props: { graphData: any }) => {
     },
     [nodePreview]
   );
-
-  const handleSearchSelect = async (item: any) => {
-    zoomToNode(item);
-    await delay(2100);
-  };
 
   const getPreview = () => {
     if (!nodePreview) return;
@@ -131,23 +157,24 @@ const ArtistGraph = (props: { graphData: any }) => {
 
       <div className="absolute top-24 md:top-14 left-0 right-0 m-auto z-[80]">
         <div className="relative flex w-full justify-center gap-2">
-          <ReactSearchAutocomplete
-            className="w-[60%] md:w-[40%] lg:w-[30%] z-[80]"
-            items={props.graphData.nodes}
-            onSelect={handleSearchSelect}
-            formatResult={(item: any) => {
-              return GraphSearchResult(item);
-            }}
-            placeholder="Enter artist name"
-            showIcon={false}
-            maxResults={5}
-            onSearch={async () => {
-              setIsClickedEnabled(false);
-              await delay(2000);
-              setIsClickedEnabled(true);
-            }}
-            autoFocus={false}
-          />
+          <form
+            onSubmit={handleOnSubmit}
+            className="w-[60%] md:w-[40%] lg:w-[30%] z-[80]">
+            <ReactSearchAutocomplete
+              className="w-full"
+              items={props.graphData.nodes}
+              onSelect={handleSearchSelect}
+              formatResult={(item: any) => {
+                return GraphSearchResult(item);
+              }}
+              placeholder="Enter artist name"
+              showIcon={false}
+              maxResults={5}
+              onSearch={handleOnSearch}
+              inputSearchString={inputSearchString}
+              autoFocus={false}
+            />
+          </form>
           <div className="bg-background border-2 hover:bg-input rounded-full px-[0.4rem] my-1 flex items-center">
             <RefreshCw
               onClick={() => {
@@ -160,7 +187,7 @@ const ArtistGraph = (props: { graphData: any }) => {
           </div>
         </div>
       </div>
-      <div className="bg-background">
+      <div id="graph" className="bg-background">
         <ForceGraph3D
           width={winSize.width}
           height={winSize.height}
