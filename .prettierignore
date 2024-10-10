@@ -1,0 +1,6 @@
+# Files to let editor know which files not to touch, as well as for being able to run
+# https://prettier.io/docs/en/ignore
+
+# Ignore artifacts:
+build
+coverage
