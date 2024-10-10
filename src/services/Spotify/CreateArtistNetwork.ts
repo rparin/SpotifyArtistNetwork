@@ -32,11 +32,11 @@ const createArtistNetwork = async (
 
     if (depth > 0) {
       await delay(FETCH_ARTISTS_DELAY); //1000
-      let relatedArtists = await fetchSpotifyRelatedArtists(
+      const relatedArtists = await fetchSpotifyRelatedArtists(
         accessToken,
         spotifyArtistData.id
       );
-      for (var i = 0; i < relatedArtists.length; i++) {
+      for (let i = 0; i < relatedArtists.length; i++) {
         if (spotifyArtistData.id != relatedArtists[i].id) {
           networkMap.links.push({
             source: spotifyArtistData.id,

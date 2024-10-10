@@ -6,7 +6,7 @@ import useCreateArtistNetwork from "@/hooks/Spotify/useCreateArtistNetwork";
 import LoadingForceGraph from "@/components/ForceGraph/LoadingGraph/LoadingGraphWrapper";
 import RelatedArtistGraph from "@/components/ForceGraph/RelatedArtistGraph/RelatedArtistGraphWrapper";
 
-export default function networkPage({ params }: { params: { id: string } }) {
+export default function NetworkPage({ params }: { params: { id: string } }) {
   const props = params.id.split("_");
   const artistName = props[0];
   const artistId = props[1];
@@ -20,7 +20,7 @@ export default function networkPage({ params }: { params: { id: string } }) {
   const networkQuery = useCreateArtistNetwork(
     tokenQuery.data?.access_token,
     artistId,
-    1
+    DEPTH
   );
 
   if (tokenQuery.isError) {

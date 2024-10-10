@@ -154,7 +154,7 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
     return getGraphSphereColor(
       signalThemeState == "dark" ? 0xffffff : 0x000000
     );
-  }, []);
+  }, [signalThemeState]);
 
   if (!props.graphData) {
     return <FullScreenLoadText text="Rendering Network..." />;

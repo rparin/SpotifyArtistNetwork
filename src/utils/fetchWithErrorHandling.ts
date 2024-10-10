@@ -14,7 +14,7 @@ export type FetchWithErrorHandlingType = {
 export async function fetchWithErrorHandling(
   config: FetchWithErrorHandlingType
 ) {
-  var res;
+  let res;
 
   try {
     res = await fetch(config.fetchUrl, {

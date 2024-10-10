@@ -5,7 +5,7 @@ import useFetchSpotifyToken from "@/hooks/Spotify/useFetchSpotifyToken";
 import useFetchSpotifySearchArtist from "@/hooks/Spotify/useFetchSpotifySearchArtist";
 import getArtistCards from "@/services/Spotify/GetArtistCards";
 
-export default function searchPage({ params }: { params: { query: string } }) {
+export default function SearchPage({ params }: { params: { query: string } }) {
   const tokenQuery = useFetchSpotifyToken();
   const searchQuery = useFetchSpotifySearchArtist(
     tokenQuery.data?.access_token,
