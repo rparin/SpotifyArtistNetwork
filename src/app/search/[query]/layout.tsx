@@ -35,7 +35,7 @@ export default function searchResultsLayout({
           <Searchbox
             placeholder={SEARCH_PLACEHOLDER}
             size="md"
-            inputOnLoad={params.query}
+            inputOnLoad={decodeURIComponent(params.query)}
             queryRoute={false}
             focus={true}
           />
