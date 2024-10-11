@@ -1,6 +1,7 @@
 "use client";
 
-import { FETCH_ARTISTS_DELAY } from "@/constants/SpotifyConstants";
+import publicParsedEnv from "@env/publicEnv";
+import { MAX_DEPTH } from "@/constants/SpotifyConstants";
 import { SpotifyArtist } from "@/schema/Spotify/SpotifyArtistSchema";
 import { SpotifyNetworkMap } from "@/dto/Spotify/SpotifyArtistNetworkDto";
 import fetchSpotifyArtist from "@/actions/Spotify/fetchSpotifyArtist";
@@ -13,7 +14,7 @@ const createArtistNetwork = async (
   id: string,
   depth: number = 4
 ) => {
-  if (depth > 7) {
+  if (depth > MAX_DEPTH) {
     throw new Error("Error fetching related artists: invalid depth");
   }
 
@@ -31,7 +32,7 @@ const createArtistNetwork = async (
     networkMap.nodes.push(createArtistNodeDto(spotifyArtistData));
 
     if (depth > 0) {
-      await delay(FETCH_ARTISTS_DELAY); //1000
+      await delay(publicParsedEnv.NEXT_PUBLIC_FETCH_ARTISTS_DELAY);
       const relatedArtists = await fetchSpotifyRelatedArtists(
         accessToken,
         spotifyArtistData.id
