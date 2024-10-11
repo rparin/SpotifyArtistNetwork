@@ -9,7 +9,7 @@ export default function SearchPage({ params }: { params: { query: string } }) {
   const tokenQuery = useFetchSpotifyToken();
   const searchQuery = useFetchSpotifySearchArtist(
     tokenQuery.data?.access_token,
-    params.query as string
+    decodeURIComponent(params.query as string)
   );
 
   // Trigger fetchNextPage when near last artist card item
