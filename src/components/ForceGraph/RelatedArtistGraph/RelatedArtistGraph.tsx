@@ -12,7 +12,6 @@ import useUpdateSize from "@/hooks/Graph/useUdateSize";
 import getArtistSphereSize from "@/services/Graph/GetArtistSphereSize";
 import getGraphSphereColor from "@/services/Graph/GetGraphSphereColor";
 import FullScreenLoadText from "@/components/FullScreenLoadText";
-import GraphArtistCard from "@/components/ForceGraph/GraphArtistCard";
 import GraphSearchResult from "@/components/Spotify/GraphSearchResult";
 import ArtistCardHorizontal from "@/components/Spotify/ArtistCardHorizontal";
 import delay from "@/utils/delay";
@@ -116,33 +115,6 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
     [nodePreview]
   );
 
-  const getPreview = () => {
-    if (!nodePreview) return;
-    if (nodePreview.type == "artist") {
-      return (
-        <ArtistCardHorizontal
-          name={nodePreview.name}
-          img={nodePreview.img}
-          alt={`${nodePreview.name} profile picture`}
-          genres={nodePreview.genres}
-          followers={nodePreview.followers}
-          pop={nodePreview.pop}
-          url={nodePreview.url}
-          id={nodePreview.id}
-        />
-      );
-    }
-    return (
-      <GraphArtistCard
-        name={nodePreview.name}
-        img={nodePreview.img}
-        alt={`Spotify Artist:${nodePreview.name} Profile Picture`}
-        followers={nodePreview.followers}
-        url={nodePreview.url}
-      />
-    );
-  };
-
   const getArtistNode = useCallback(
     (node: SpotifyGraphArtistNode) => {
       return getArtistSphereSize(node, imgMaterial[node.id]);
@@ -223,9 +195,20 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
         />
       </div>
 
-      <div className="absolute bottom-7 z-40 mb-2 flex w-full justify-center md:bottom-12">
-        {getPreview()}
-      </div>
+      {nodePreview && (
+        <div className="absolute bottom-7 z-40 mb-2 flex w-full justify-center md:bottom-12">
+          <ArtistCardHorizontal
+            name={nodePreview.name}
+            img={nodePreview.img}
+            alt={`${nodePreview.name} profile picture`}
+            genres={nodePreview.genres}
+            followers={nodePreview.followers}
+            pop={nodePreview.pop}
+            url={nodePreview.url}
+            id={nodePreview.id}
+          />
+        </div>
+      )}
     </>
   );
 };
