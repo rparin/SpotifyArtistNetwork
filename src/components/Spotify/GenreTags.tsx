@@ -114,6 +114,7 @@ export default function GenreTags({
         {getButtons()}
         <ul
           ref={ref}
+          title="List of Genres"
           className={
             "no-scrollbar horizontal-mask flex gap-2 overflow-x-scroll whitespace-nowrap px-3 pl-7 text-sm text-black dark:text-white " +
             centerGenre

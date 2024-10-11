@@ -13,6 +13,7 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, SpotifyArtistCard>(
     return (
       <section
         ref={ref}
+        title={name}
         className="relative w-full max-w-[13rem] rounded-md hover:mb-0 hover:bg-blue-950/20 dark:hover:bg-slate-400/20 lg:max-w-[15rem]">
         {/* Artist Music Info */}
         <article className="flex flex-col gap-2 rounded-t-md py-3 backdrop-blur-md">
@@ -58,6 +59,7 @@ const ArtistCardVertical = React.forwardRef<HTMLElement, SpotifyArtistCard>(
         {/* Spotify Link to Artist */}
         <article className="rounded-b-md bg-[#1DB954] text-black">
           <Link
+            title="Link to Artist Spotify"
             href={url}
             target="_blank"
             rel="noopener noreferrer"

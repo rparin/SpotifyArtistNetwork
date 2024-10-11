@@ -9,7 +9,10 @@ import { SpotifyArtistCard } from "@/dto/Spotify/SpotifyArtistCardDto";
 const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
   ({ id, name, img, genres, followers, pop, url, alt }, ref) => {
     return (
-      <section ref={ref} className="relative w-[22rem] rounded-md md:w-96">
+      <section
+        ref={ref}
+        title={name}
+        className="relative w-[22rem] rounded-md md:w-96">
         <article className="flex items-center gap-2 rounded-md px-2 py-2 backdrop-blur-md">
           <Image
             className="h-20 w-20 rounded-[50%] object-cover md:h-24 md:w-24"
@@ -42,8 +45,10 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
               />
             )}
 
+            {/* Spotify Link to Artist */}
             <a
               href={url}
+              title="Link to Artist Spotify"
               target="_blank"
               rel="noopener noreferrer"
               className="horizontal-mask flex w-full items-center justify-center gap-1 rounded-br-md bg-[#1DB954] text-center text-xs">
