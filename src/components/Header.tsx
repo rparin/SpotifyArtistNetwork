@@ -25,7 +25,7 @@ export default function Header(props: {
           <Home className="md:hidden" />
         </Link>
       )}
-      <ThemeToggle className="mx-5 rounded-[2rem] px-5" />
+      <ThemeToggle className="rounded-[2rem] md:mx-5 md:px-5" />
     </section>
   );
 }
