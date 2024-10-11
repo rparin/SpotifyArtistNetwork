@@ -38,7 +38,7 @@ export default function NetworkPage({ params }: { params: { id: string } }) {
   return (
     <>
       <div className="absolute top-16 z-40 flex w-full flex-col items-center gap-1 md:top-7">
-        <h1 className="mr-7 line-clamp-1 text-xl">{`${artistName} Network`}</h1>
+        <h1 className="mr-7 line-clamp-1 text-xl">{`${decodeURIComponent(artistName)} Network`}</h1>
       </div>
       {networkQuery.data && (
         <RelatedArtistGraph graphData={networkQuery.data} />

@@ -14,7 +14,7 @@ export default async function getMetadata(id: string) {
   const og = {
     type: "website",
     url: `${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}/network/${id}`,
-    title: `${APP_NAME} - ${artistName}`,
+    title: `${APP_NAME} - ${decodeURIComponent(artistName)}`,
     description: DESCRIPTION,
     siteName: `${publicParsedEnv.NEXT_PUBLIC_CLIENT_URL}`,
     images: [
