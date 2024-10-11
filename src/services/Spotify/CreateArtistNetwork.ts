@@ -1,5 +1,3 @@
-"use client";
-
 import publicParsedEnv from "@env/publicEnv";
 import { MAX_DEPTH } from "@/constants/SpotifyConstants";
 import { SpotifyArtist } from "@/schema/Spotify/SpotifyArtistSchema";
