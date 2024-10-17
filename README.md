@@ -35,12 +35,11 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 <div align="center">
 
 [![react-io]][react-url]
-[![nodejs-io]][nodejs-url]
 [![nextjs-io]][nextjs-url]
-[![tailwind-io]][tailwind-url]
 [![rquery-io]][rquery-url]
 [![zod-io]][zod-url]
 [![docker-io]][docker-url]
+[![tailwind-io]][tailwind-url]
 [![shadcn-io]][shadcn-url]
 
 </div>
