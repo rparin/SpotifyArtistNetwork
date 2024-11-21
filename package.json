@@ -10,7 +10,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test jest __tests__",
-    "test:watch": "cross-env NODE_ENV=test jest --watch __tests__"
+    "test:watch": "cross-env NODE_ENV=test jest --watch __tests__",
+    "playwright": "cross-env NODE_ENV=test npx playwright test --workers 1",
+    "playwright-ui": "cross-env NODE_ENV=test npx playwright test --ui --headed --workers 1"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",
