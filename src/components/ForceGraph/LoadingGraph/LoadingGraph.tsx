@@ -1,16 +1,16 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import useThemeState from "@/hooks/useThemeState";
 import useUpdateSize from "@/hooks/Graph/useUdateSize";
 import getNodeColor from "@/services/Graph/GetNodeColor";
 import FullScreenLoadText from "@/components/FullScreenLoadText";
 import delay from "@/utils/delay";
 
 const LoadingGraph = () => {
+  const { theme } = useTheme();
   const fgRef = useRef<ForceGraphMethods>();
-  const { signalThemeState } = useThemeState();
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const [loadData, setLoadData] = useState({ nodes: [{ id: 0 }], links: [] });
 
@@ -77,15 +77,13 @@ const LoadingGraph = () => {
           width={winSize.width}
           height={winSize.height}
           showNavInfo={false}
-          backgroundColor={signalThemeState == "light" ? "#E2E8F0" : "#020817"}
+          backgroundColor={theme == "light" ? "#E2E8F0" : "#020817"}
           linkColor={() => "#ff005a"}
           linkWidth={0.5}
           linkOpacity={0.5}
           graphData={loadData}
           nodeThreeObject={() => {
-            return getNodeColor(
-              signalThemeState == "dark" ? 0xffffff : 0x000000
-            );
+            return getNodeColor(theme == "dark" ? 0xffffff : 0x000000);
           }}
           nodeThreeObjectExtend={false}
         />

@@ -1,11 +1,11 @@
 "use client";
+import { useTheme } from "next-themes";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { RefreshCw } from "lucide-react";
 import { SpotifyNetworkMap } from "@/dto/Spotify/SpotifyArtistNetworkDto";
 import { SpotifyGraphArtistNode } from "@/dto/Spotify/SpotifyGraphArtistNodeDto";
-import useThemeState from "@/hooks/useThemeState";
 import useTabActive from "@/hooks/useTabActive";
 import useImgMat from "@/hooks/Graph/useImgMat";
 import useUpdateSize from "@/hooks/Graph/useUdateSize";
@@ -33,8 +33,8 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
   );
 
   //Hooks
+  const { theme } = useTheme();
   const visibilityState = useTabActive();
-  const { signalThemeState } = useThemeState();
   const { winSize, updateSize } = useUpdateSize(fgRef);
   const imgMaterial = useImgMat(props.graphData.nodes);
 
@@ -123,10 +123,8 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
   );
 
   const getLoadNode = useCallback(() => {
-    return getGraphSphereColor(
-      signalThemeState == "dark" ? 0xffffff : 0x000000
-    );
-  }, [signalThemeState]);
+    return getGraphSphereColor(theme == "dark" ? 0xffffff : 0x000000);
+  }, [theme]);
 
   if (!props.graphData) {
     return <FullScreenLoadText text="Rendering Network..." />;
