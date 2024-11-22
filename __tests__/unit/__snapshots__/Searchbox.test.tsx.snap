@@ -8,12 +8,14 @@ exports[`it renders component unchanged 1`] = `
   >
     <label
       aria-label="Spotify Artist Network Search Bar"
-    >
-      <input
-        class="rounded-[7rem] w-full px-5 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background outline outline-black outline-2 dark:outline-white"
-        type="text"
-      />
-    </label>
+      for="searchbar"
+    />
+    <input
+      class="rounded-[7rem] w-full px-5 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background outline outline-black outline-2 dark:outline-white"
+      id="searchbar"
+      name="searchbar"
+      type="text"
+    />
     <button
       title="Search button"
     >

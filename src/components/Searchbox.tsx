@@ -149,19 +149,29 @@ const Searchbox = ({
     );
   };
 
+  const handleOnSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleClick();
+  };
+
   return (
-    <form role="search" className={cn(sizeVariants({ size }))}>
-      <label aria-label="Spotify Artist Network Search Bar">
-        <input
-          ref={ref}
-          className={cn(searchVariants({ variant }), className)}
-          type="text"
-          placeholder={placeholder}
-          onKeyDown={handleKeyDown}
-          onChange={handleInputChange}
-          {...props}
-        />
-      </label>
+    <form
+      role="search"
+      onSubmit={handleOnSubmit}
+      className={cn(sizeVariants({ size }))}>
+      <label
+        htmlFor="searchbar"
+        aria-label="Spotify Artist Network Search Bar"></label>
+      <input
+        name="searchbar"
+        id="searchbar"
+        className={cn(searchVariants({ variant }), className)}
+        ref={ref}
+        type="text"
+        placeholder={placeholder}
+        onChange={handleInputChange}
+        {...props}
+      />
       {getButton()}
     </form>
   );
