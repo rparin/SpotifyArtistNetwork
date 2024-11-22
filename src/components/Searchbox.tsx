@@ -150,18 +150,20 @@ const Searchbox = ({
   };
 
   return (
-    <div className={cn(sizeVariants({ size }))}>
-      <input
-        ref={ref}
-        className={cn(searchVariants({ variant }), className)}
-        type="text"
-        placeholder={placeholder}
-        onKeyDown={handleKeyDown}
-        onChange={handleInputChange}
-        {...props}
-      />
+    <form role="search" className={cn(sizeVariants({ size }))}>
+      <label aria-label="Spotify Artist Network Search Bar">
+        <input
+          ref={ref}
+          className={cn(searchVariants({ variant }), className)}
+          type="text"
+          placeholder={placeholder}
+          onKeyDown={handleKeyDown}
+          onChange={handleInputChange}
+          {...props}
+        />
+      </label>
       {getButton()}
-    </div>
+    </form>
   );
 };
 
