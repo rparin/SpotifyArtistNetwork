@@ -32,7 +32,7 @@ export default function SearchPage({ params }: { params: { query: string } }) {
 
   if (tokenQuery.isLoading || searchQuery.isLoading) {
     return (
-      <p className="w-full text-center text-xl font-semibold">
+      <p className="w-full text-center text-lg font-semibold">
         Loading results...
       </p>
     );
@@ -51,7 +51,7 @@ export default function SearchPage({ params }: { params: { query: string } }) {
       {searchQuery.data &&
         getArtistCards(searchQuery.data, lastArtistCardCallback)}
       {searchQuery.isFetchingNextPage && (
-        <p className="mt-3 w-full text-center text-xl font-semibold">
+        <p className="mt-3 w-full text-center text-base font-semibold">
           Loading more results...
         </p>
       )}

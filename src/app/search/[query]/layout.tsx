@@ -30,7 +30,7 @@ export default function searchResultsLayout({
         <Header />
         <div className="flex flex-col items-center gap-5 px-5 pt-10 text-center md:flex-row md:pt-5">
           <Link href={"/"}>
-            <h1 className="text-xl font-bold md:pl-10 lg:text-2xl">
+            <h1 className="text-xl font-bold hover:text-[#1DB954] md:pl-10 lg:text-2xl">
               {APP_NAME}
             </h1>
           </Link>
