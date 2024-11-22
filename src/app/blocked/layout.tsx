@@ -7,9 +7,9 @@ export default function SearchLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="flex min-h-screen flex-col">
       <div className="flex-1">
-        <Header showHomeBtn={true} />
+        <Header showHomeLink={true} />
         {children}
       </div>
       {/* Display footer at the bottom */}
