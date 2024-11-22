@@ -9,10 +9,7 @@ import { SpotifyArtistCard } from "@/dto/Spotify/SpotifyArtistCardDto";
 const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
   ({ id, name, img, genres, followers, pop, url, alt }, ref) => {
     return (
-      <section
-        ref={ref}
-        title={name}
-        className="relative w-[22rem] rounded-md md:w-96">
+      <section ref={ref} className="relative w-[22rem] rounded-md md:w-96">
         <article className="flex items-center gap-2 rounded-md px-2 py-2 backdrop-blur-md">
           <Image
             className="h-20 w-20 rounded-[50%] object-cover md:h-24 md:w-24"
@@ -22,7 +19,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
             alt={alt}
           />
           <div className="flex w-60 flex-col gap-1 md:w-64">
-            <h2 className="line-clamp-1 flex justify-center text-center text-lg font-medium">
+            <h2 className="line-clamp-1 flex justify-center text-center text-sm font-medium leading-tight md:text-base md:leading-none">
               {name}
             </h2>
             <div className="grid grid-cols-2 gap-1">
@@ -48,12 +45,11 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
             {/* Spotify Link to Artist */}
             <a
               href={url}
-              title="Link to Artist Spotify"
               target="_blank"
               rel="noopener noreferrer"
-              className="horizontal-mask flex w-full items-center justify-center gap-1 rounded-br-md bg-[#1DB954] text-center text-xs">
+              className="horizontal-mask flex w-full items-center justify-center gap-0.5 rounded-br-md bg-[#1DB954] text-center text-xs">
               Spotify
-              <ExternalLink className="mb-2 h-[.7rem] w-auto" />
+              <ExternalLink className="mb-1 h-[.7rem] w-auto" />
             </a>
           </div>
         </article>

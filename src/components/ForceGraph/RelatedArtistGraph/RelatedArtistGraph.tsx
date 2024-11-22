@@ -134,7 +134,7 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
     <>
       {!isFinalLoadDone && <FullScreenLoadText text="Loading.." />}
 
-      <div className="absolute left-0 right-0 top-24 z-[80] m-auto md:top-14">
+      <div className="absolute left-0 right-0 top-20 z-[80] m-auto md:top-16">
         <div className="relative flex w-full justify-center gap-2">
           <form
             onSubmit={handleOnSubmit}
@@ -194,7 +194,7 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
       </div>
 
       {nodePreview && (
-        <div className="absolute bottom-7 z-40 mb-2 flex w-full justify-center md:bottom-12">
+        <div className="absolute bottom-10 z-40 mb-2 flex w-full justify-center md:bottom-14">
           <ArtistCardHorizontal
             name={nodePreview.name}
             img={nodePreview.img}

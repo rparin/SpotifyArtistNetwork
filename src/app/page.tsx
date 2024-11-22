@@ -11,7 +11,9 @@ export default function Home() {
         <Header />
         <div className="flex h-[70vh] flex-col items-center justify-center gap-7 text-center">
           <Link href={"/"}>
-            <h1 className="text-3xl md:text-5xl">{APP_NAME}</h1>
+            <h1 className="text-xl font-bold leading-none md:text-3xl">
+              {APP_NAME}
+            </h1>
           </Link>
           <Searchbox placeholder={SEARCH_PLACEHOLDER} queryRoute={false} />
         </div>

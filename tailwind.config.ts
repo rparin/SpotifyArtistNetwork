@@ -8,6 +8,24 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
+    //Major third
+    fontSize: {
+      xs: "0.8rem",
+      sm: "1rem",
+      base: "1.25rem",
+      lg: "1.563rem",
+      xl: "1.953rem",
+      "2xl": "2.441rem",
+      "3xl": "3.052rem",
+      "4xl": "3.815rem",
+    },
+    fontWeight: {
+      normal: "400",
+      medium: "500",
+      semibold: "600",
+      bold: "700",
+      extrabold: "800",
+    },
     container: {
       center: true,
       padding: "2rem",

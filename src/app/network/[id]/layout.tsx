@@ -17,11 +17,11 @@ export default function networkLayout({
       <div className="flex-1">
         <Header
           className="absolute top-0 z-50 m-0 w-full px-7"
-          showHomeBtn={true}
+          showHomeLink={true}
         />
         {children}
       </div>
-      <p className="absolute bottom-8 z-50 hidden w-full justify-center text-center text-xs md:flex">
+      <p className="absolute bottom-11 z-50 hidden w-full justify-center text-center text-xs font-semibold opacity-80 md:flex">
         {GRAPH_INSTRUCTIONS}
       </p>
       {/* Display footer at the bottom */}

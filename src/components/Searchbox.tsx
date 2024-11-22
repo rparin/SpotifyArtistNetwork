@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import cn from "@/utils/cn";
 
 const searchVariants = cva(
-  "rounded-[7rem] w-full px-4 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
+  "rounded-[7rem] w-full px-5 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background",
   {
     variants: {
       variant: {

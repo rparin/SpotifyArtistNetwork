@@ -30,7 +30,9 @@ export default function searchResultsLayout({
         <Header />
         <div className="flex flex-col items-center gap-5 px-5 pt-10 text-center md:flex-row md:pt-5">
           <Link href={"/"}>
-            <h1 className="text-3xl md:pl-10 lg:text-4xl">{APP_NAME}</h1>
+            <h1 className="text-xl font-bold md:pl-10 lg:text-2xl">
+              {APP_NAME}
+            </h1>
           </Link>
           <Searchbox
             placeholder={SEARCH_PLACEHOLDER}
@@ -41,7 +43,7 @@ export default function searchResultsLayout({
           />
         </div>
         <div className="mx-6 mb-10 mt-5 flex flex-wrap items-center justify-center gap-3 md:mx-12 lg:mx-28">
-          <p className="w-full text-center font-medium opacity-50">
+          <p className="w-full text-center font-semibold opacity-80">
             {SEARCH_RESULT_HELP}
           </p>
           {children}
