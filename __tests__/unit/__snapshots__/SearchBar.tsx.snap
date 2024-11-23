@@ -7,13 +7,13 @@ exports[`it renders component unchanged 1`] = `
     role="search"
   >
     <label
-      aria-label="Spotify Artist Network Search Bar"
-      for="searchbar"
+      aria-label="Search Bar"
+      for="searchBar"
     />
     <input
       class="rounded-[7rem] w-full px-5 text-sm md:text-base shadow-lg focus:shadow-xl dark:bg-background outline outline-black outline-2 dark:outline-white"
-      id="searchbar"
-      name="searchbar"
+      id="searchBar"
+      name="searchBar"
       type="text"
     />
     <button
