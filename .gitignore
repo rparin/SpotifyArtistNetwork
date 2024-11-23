@@ -3,18 +3,23 @@
 # dependencies
 /node_modules
 /.pnp
+Client/.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
 /coverage
+Client/coverage
 
 # next.js
 /.next/
 /out/
+Client/.next
+Client/out/
 
 # production
 /build
+Client/build
 
 # misc
 .DS_Store
@@ -27,6 +32,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -46,3 +52,6 @@ Client/playwright/.cache/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Misc
+Client/test.js
