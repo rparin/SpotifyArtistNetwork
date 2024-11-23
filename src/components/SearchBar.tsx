@@ -59,7 +59,7 @@ export interface SearchProps
   focus?: boolean;
 }
 
-const Searchbox = ({
+export default function SearchBar({
   className,
   variant,
   size,
@@ -69,7 +69,7 @@ const Searchbox = ({
   queryRoute = true,
   focus = false,
   ...props
-}: SearchProps) => {
+}: SearchProps) {
   // Hold search values
   const [searchValue, setSearch] = useState("");
   const [prevValue, setPrev] = useState("");
@@ -173,6 +173,4 @@ const Searchbox = ({
       {getButton()}
     </form>
   );
-};
-
-export { Searchbox };
+}

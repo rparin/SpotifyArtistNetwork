@@ -2,7 +2,7 @@ import getMetadata from "./metadata";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { Searchbox } from "@/components/Searchbox";
+import SearchBar from "@/components/SearchBar";
 import {
   APP_NAME,
   SEARCH_PLACEHOLDER,
@@ -34,7 +34,7 @@ export default function searchResultsLayout({
               {APP_NAME}
             </h1>
           </Link>
-          <Searchbox
+          <SearchBar
             placeholder={SEARCH_PLACEHOLDER}
             size="md"
             inputOnLoad={decodeURIComponent(params.query)}

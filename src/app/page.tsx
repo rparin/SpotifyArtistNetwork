@@ -1,8 +1,8 @@
 import { APP_NAME, SEARCH_PLACEHOLDER } from "@/constants/AppConstants";
-import { Searchbox } from "@/components/Searchbox";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import SearchBar from "@/components/SearchBar";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
               {APP_NAME}
             </h1>
           </Link>
-          <Searchbox placeholder={SEARCH_PLACEHOLDER} queryRoute={false} />
+          <SearchBar placeholder={SEARCH_PLACEHOLDER} queryRoute={false} />
         </div>
       </div>
       {/* Display footer at the bottom */}

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { Searchbox } from "@/components/Searchbox";
+import { Searchbox } from "@/components/SearchBar";
 
 test("it renders component unchanged", () => {
   const { container } = render(<Searchbox />);
