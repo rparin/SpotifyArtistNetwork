@@ -159,12 +159,10 @@ const Searchbox = ({
       role="search"
       onSubmit={handleOnSubmit}
       className={cn(sizeVariants({ size }))}>
-      <label
-        htmlFor="searchbar"
-        aria-label="Spotify Artist Network Search Bar"></label>
+      <label htmlFor="searchBar" aria-label="Search Bar"></label>
       <input
-        name="searchbar"
-        id="searchbar"
+        name="searchBar"
+        id="searchBar"
         className={cn(searchVariants({ variant }), className)}
         ref={ref}
         type="text"
