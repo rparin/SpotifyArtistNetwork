@@ -47,7 +47,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="horizontal-mask flex w-full items-center justify-center gap-0.5 rounded-br-md bg-[#1DB954] text-center text-xs">
+              className="horizontal-mask flex w-full items-center justify-center gap-0.5 rounded-br-md bg-[#1DB954] text-center text-xs text-black">
               Spotify
               <ExternalLink className="mb-1 h-[.7rem] w-auto" />
             </a>
