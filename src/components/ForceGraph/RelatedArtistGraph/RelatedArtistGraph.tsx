@@ -137,24 +137,29 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
       <div className="absolute left-0 right-0 top-20 z-[80] m-auto md:top-16">
         <div className="relative flex w-full justify-center gap-2">
           <form
+            role="search"
             onSubmit={handleOnSubmit}
             className="z-[80] w-[60%] md:w-[40%] lg:w-[30%]">
-            <ReactSearchAutocomplete
-              className="w-full"
-              items={props.graphData.nodes as any}
-              onSelect={handleSearchSelect}
-              formatResult={(item: SpotifyGraphArtistNode) => {
-                return GraphSearchResult(item);
-              }}
-              placeholder="Enter artist name"
-              showIcon={false}
-              maxResults={5}
-              onSearch={handleOnSearch}
-              inputSearchString={inputSearchString}
-              autoFocus={false}
-            />
+            <label aria-label="Network Search Bar">
+              <ReactSearchAutocomplete
+                className="w-full"
+                items={props.graphData.nodes as any}
+                onSelect={handleSearchSelect}
+                formatResult={(item: SpotifyGraphArtistNode) => {
+                  return GraphSearchResult(item);
+                }}
+                placeholder="Enter artist name"
+                showIcon={false}
+                maxResults={5}
+                onSearch={handleOnSearch}
+                inputSearchString={inputSearchString}
+                autoFocus={false}
+              />
+            </label>
           </form>
-          <div className="my-1 flex items-center rounded-full border-2 bg-background px-[0.4rem] hover:bg-input">
+          <div
+            tabIndex={0}
+            className="my-1 flex items-center rounded-full border-2 bg-background px-[0.4rem] hover:bg-input">
             <RefreshCw
               onClick={() => {
                 updateSize();

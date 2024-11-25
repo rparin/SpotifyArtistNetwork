@@ -87,13 +87,15 @@ export default function GenreTags({
       return (
         <>
           <button
+            aria-label="Genre Tags: Scroll Left"
             onClick={() => hScroll(-hScrollAmt)}
-            className="invisible absolute left-[-0.12rem] top-[-2px] group-hover:visible">
+            className="invisible absolute left-[-0.12rem] top-[-2px] group-focus-within:visible group-hover:visible">
             {arrows.left && <ChevronLeft />}
           </button>
           <button
+            aria-label="Genre Tags: Scroll Right"
             onClick={() => hScroll(hScrollAmt)}
-            className="invisible absolute right-[-0.12rem] top-[-2px] group-hover:visible">
+            className="invisible absolute right-[-0.12rem] top-[-2px] group-focus-within:visible group-hover:visible">
             {arrows.right && <ChevronRight />}
           </button>
         </>
@@ -113,8 +115,8 @@ export default function GenreTags({
         {/* Display arrow buttons if more than 1 genre */}
         {getButtons()}
         <ul
+          tabIndex={0}
           ref={ref}
-          title="List of Genres"
           className={
             "no-scrollbar horizontal-mask flex gap-2 overflow-x-scroll whitespace-nowrap px-3 pl-7 text-sm text-black dark:text-white " +
             centerGenre

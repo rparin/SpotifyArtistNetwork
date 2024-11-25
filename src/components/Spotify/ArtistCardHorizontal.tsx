@@ -10,7 +10,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
   ({ id, name, img, genres, followers, pop, url, alt }, ref) => {
     return (
       <section ref={ref} className="relative w-[22rem] rounded-md md:w-96">
-        <article className="flex items-center gap-2 rounded-md px-2 py-2 backdrop-blur-md">
+        <div className="flex items-center gap-2 rounded-md px-2 py-2 backdrop-blur-md">
           <Image
             className="h-20 w-20 rounded-[50%] object-cover md:h-24 md:w-24"
             width={100}
@@ -52,7 +52,7 @@ const ArtistCardHorizontal = React.forwardRef<HTMLElement, SpotifyArtistCard>(
               <ExternalLink className="mb-1 h-[.7rem] w-auto" />
             </a>
           </div>
-        </article>
+        </div>
         <Image
           className="absolute left-0 top-0 -z-10 h-full w-full rounded-md opacity-80 dark:opacity-40"
           width={100}
