@@ -19,6 +19,8 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 
 <div align="center">
 
+#### [Playwright Report][Report-url]
+
 <img max-height=350 alt="demo of Spotify Artist Network website" src="https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/Demo.gif">
 
 #### [Website][Website-url]
@@ -29,17 +31,18 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 
 - Artist Preview: Get a sneak peek into an artist's profile
 - Data Caching: Utilizes React Query to cache recent queries, reducing load times
+- Automated E2E Test Execution: Runs and [Publishes Playwright E2E tests][Report-Repo-url] on predefined workflows.
 
 ## Technologies
 
 <div align="center">
 
 [![react-io]][react-url]
-[![nodejs-io]][nodejs-url]
 [![nextjs-io]][nextjs-url]
-[![tailwind-io]][tailwind-url]
 [![rquery-io]][rquery-url]
 [![zod-io]][zod-url]
+[![docker-io]][docker-url]
+[![tailwind-io]][tailwind-url]
 [![shadcn-io]][shadcn-url]
 
 </div>
@@ -68,9 +71,13 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 [nodejs-url]: https://nodejs.org/en
 [nodejs-io]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [rquery-url]: https://tanstack.com/query/latest
-[rquery-io]: https://img.shields.io/badge/reactquery-111827?style=for-the-badge&logo=reactquery
+[rquery-io]: https://img.shields.io/badge/Tanstack%20Query-111827?style=for-the-badge&logo=reactquery
 [zod-url]: https://zod.dev/
 [zod-io]: https://img.shields.io/badge/zod-FFFFFF.svg?style=for-the-badge&logo=zod&logoColor=3068b7
-[Website-url]: https://spotify-artist-network.vercel.app/
+[docker-url]: https://www.docker.com/
+[docker-io]: https://img.shields.io/badge/Docker-FFFFFF.svg?style=for-the-badge&logo=Docker&logoColor=1d63ed
+[Website-url]: https://spotify-artist-network.vercel.app
+[Report-url]: https://rparin.github.io/SpotifyArtistNetwork
+[Report-Repo-url]: https://github.com/rparin/SpotifyArtistNetwork/tree/playwright-report
 
 <!-- Badges: https://simpleicons.org or https://github.com/simple-icons/simple-icons/blob/master/slugs.md -->
