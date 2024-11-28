@@ -29,7 +29,8 @@
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animated": "^1.1.2",
     "three": "^0.157.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-validation-error": "^3.4.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",

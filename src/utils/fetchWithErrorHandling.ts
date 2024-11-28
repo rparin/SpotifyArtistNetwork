@@ -1,4 +1,5 @@
 import { ZodSchema } from "zod";
+import { fromError } from "zod-validation-error";
 
 export type FetchWithErrorHandlingType = {
   fetchUrl: string | URL | Request;
@@ -37,7 +38,7 @@ export async function fetchWithErrorHandling(
   const result = config.zodSchema.safeParse(data);
   if (!result.success) {
     throw new Error(config.zodErrorStr, {
-      cause: result.error,
+      cause: fromError(result.error).toString(),
     });
   } else {
     return result.data;
