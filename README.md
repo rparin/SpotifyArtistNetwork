@@ -38,6 +38,7 @@ A website that utilizes the Spotify API, built with React, to create a platform 
 <div align="center">
 
 [![react-io]][react-url]
+[![nodejs-io]][nodejs-url]
 [![nextjs-io]][nextjs-url]
 [![rquery-io]][rquery-url]
 [![zod-io]][zod-url]
@@ -64,6 +65,8 @@ This project is licensed under the MIT License - see the [LICENSE][git-license-u
 [react-io]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [tailwind-url]: https://tailwindcss.com/
 [tailwind-io]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
+[nodejs-url]: https://nodejs.org/en
+[nodejs-io]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [nextjs-url]: https://nextjs.org/
 [nextjs-io]: https://img.shields.io/badge/Nextjs-000000.svg?style=for-the-badge&logo=nextdotjs
 [shadcn-url]: https://ui.shadcn.com/
