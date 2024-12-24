@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import ThemeProvider from "@/providers/ThemeProvider";
 import TanstackQueryProvider from "@/providers/TanstackQueryProvider";
 import TokenQuery from "@/providers/Spotify/TokenQueryProvider";
@@ -37,6 +38,7 @@ export default function RootLayout({
             <TokenQuery>{children}</TokenQuery>
           </TanstackQueryProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
