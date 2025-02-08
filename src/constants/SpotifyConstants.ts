@@ -1,5 +1,7 @@
 const NO_IMAGE = "/assets/noImage.png";
 
+const TOKEN_LENGTH = 139;
+
 const GRAPH_IMAGES = {
   mask: "/assets/graph/mask.png",
   maskOutline: "/assets/graph/mask-outline.png",
@@ -14,6 +16,7 @@ const SPOTIFY_DEP_URL =
 
 export {
   NO_IMAGE,
+  TOKEN_LENGTH,
   GRAPH_IMAGES,
   SPOTIFY_ARTIST_ID_LENGTH,
   SPOTIFY_DEP_URL,
