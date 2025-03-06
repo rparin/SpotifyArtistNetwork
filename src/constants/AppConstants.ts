@@ -4,7 +4,7 @@ const SEARCH_PLACEHOLDER = "Enter the name of an artist";
 const SHORT_SEARCH_PLACEHOLDER = "Search Artist";
 
 const FOOTER_PRIVACY = "Privacy";
-const CR = "©️ 2024. Developed by Ralph Parin.";
+const CR = "©️ 2025. Developed by Ralph Parin.";
 
 const SEARCH_RESULT_HELP = "Select an artist to view their network";
 
