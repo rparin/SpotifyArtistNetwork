@@ -8,7 +8,7 @@ import getArtistCards from "@/services/Spotify/GetArtistCards";
 export default function SearchPage({ params }: { params: { query: string } }) {
   const tokenQuery = useFetchSpotifyToken();
   const searchQuery = useFetchSpotifySearchArtist(
-    tokenQuery.data?.access_token,
+    tokenQuery.data,
     decodeURIComponent(params.query as string)
   );
 

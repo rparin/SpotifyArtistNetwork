@@ -1,14 +1,12 @@
 "use server";
 
 import parsedEnv from "@env/env";
-import {
-  SpotifyToken,
-  spotifyTokenSchema,
-} from "@/schema/Spotify/SpotifyTokenSchema";
+import { spotifyTokenSchema } from "@/schema/Spotify/SpotifyTokenSchema";
 import { fetchWithErrorHandling } from "@/utils/fetchWithErrorHandling";
+import handleEncryption from "@/utils/Crypto/encrypt";
 
-const fetchSpotifyToken = async (): Promise<SpotifyToken> => {
-  return await fetchWithErrorHandling({
+const fetchSpotifyToken = async () => {
+  const spotifyToken = await fetchWithErrorHandling({
     fetchUrl: `https://accounts.spotify.com/api/token`,
     method: "POST",
     headers: {
@@ -25,6 +23,7 @@ const fetchSpotifyToken = async (): Promise<SpotifyToken> => {
     zodErrorStr: "Spotify Token: Invalid API Response format",
     zodSchema: spotifyTokenSchema,
   });
+  return await handleEncryption(spotifyToken);
 };
 
 export default fetchSpotifyToken;

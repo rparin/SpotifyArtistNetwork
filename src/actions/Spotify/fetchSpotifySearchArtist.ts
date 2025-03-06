@@ -5,11 +5,14 @@ import {
   SpotifySearchArtistObject,
   spotifySearchArtistObjectSchema,
 } from "@/schema/Spotify/SpotifySearchArtistSchema";
+import { SpotifyToken } from "@/schema/Spotify/SpotifyTokenSchema";
 import { fetchWithErrorHandling } from "@/utils/fetchWithErrorHandling";
+import { EncryptedPayload } from "@/utils/Crypto/types";
+import handleDecryption from "@/utils/Crypto/decrypt";
 import isValidHttpsUrl from "@/utils/isValidHttpsUrl";
 
 const fetchSpotifySearchArtist = async (
-  accessToken: string,
+  encryptedToken: EncryptedPayload,
   searchQuery: string
 ): Promise<SpotifySearchArtist> => {
   const url = isValidHttpsUrl(searchQuery)
@@ -18,11 +21,12 @@ const fetchSpotifySearchArtist = async (
         type: "artist",
         q: searchQuery,
       })}`;
+  const tokenData = (await handleDecryption(encryptedToken)) as SpotifyToken;
   const data: SpotifySearchArtistObject = await fetchWithErrorHandling({
     fetchUrl: url,
     method: "GET",
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${tokenData.access_token}`,
     },
     fetchErrorStr: "Spotify Search Artist: Fetch Error",
     resErrorStr: "Spotify Search Artist: Fetch Error",
