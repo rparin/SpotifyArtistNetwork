@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import ThemeProvider from "@/providers/ThemeProvider";
 import TanstackQueryProvider from "@/providers/TanstackQueryProvider";
-import TokenQuery from "@/providers/Spotify/TokenQueryProvider";
+import TokenQuery from "@/providers/TokenQueryProvider";
 import type { Metadata } from "next";
 import { Metadata as mData } from "./metadata";
 import localFont from "next/font/local";
