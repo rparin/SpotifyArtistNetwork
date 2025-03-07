@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import useUpdateSize from "@/hooks/Graph/useUdateSize";
+import useUpdateSize from "@/hooks/Graph/useUpdateSize";
 import getNodeColor from "@/services/Graph/GetNodeColor";
 import FullScreenLoadText from "@/components/FullScreenLoadText";
 import delay from "@/utils/delay";

@@ -8,7 +8,7 @@ import { SpotifyNetworkMap } from "@/dto/Spotify/SpotifyArtistNetworkDto";
 import { SpotifyGraphArtistNode } from "@/dto/Spotify/SpotifyGraphArtistNodeDto";
 import useTabActive from "@/hooks/useTabActive";
 import useImgMat from "@/hooks/Graph/useImgMat";
-import useUpdateSize from "@/hooks/Graph/useUdateSize";
+import useUpdateSize from "@/hooks/Graph/useUpdateSize";
 import getArtistSphereSize from "@/services/Graph/GetArtistSphereSize";
 import getGraphSphereColor from "@/services/Graph/GetGraphSphereColor";
 import FullScreenLoadText from "@/components/FullScreenLoadText";
