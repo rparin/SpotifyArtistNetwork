@@ -1,6 +1,8 @@
-import { randomBytes } from "crypto";
+/* eslint-disable @typescript-eslint/no-require-imports */
+const crypto = require("crypto");
+/* eslint-enable @typescript-eslint/no-require-imports */
 
-randomBytes(32, (err, buffer) => {
+crypto.randomBytes(32, (err, buffer) => {
   if (err) {
     console.error(err);
     return;
