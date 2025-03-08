@@ -12,7 +12,7 @@ exports[`it renders component unchanged 1`] = `
     </p>
     <a
       aria-label="External link to source code"
-      href="https://github.com/rparin/SpotifyArtistNetwork/tree/Express"
+      href="https://github.com/rparin/SpotifyArtistNetwork"
       rel="noopener noreferrer"
       target="_blank"
     >
