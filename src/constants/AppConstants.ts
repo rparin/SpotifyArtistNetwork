@@ -14,8 +14,11 @@ const DESCRIPTION =
 const PREVIEW =
   "https://raw.githubusercontent.com/rparin/SpotifyArtistNetwork/main/_preview/SpotifyArtistNetwork.webp";
 
+const SOURCE_CODE = "https://github.com/rparin/SpotifyArtistNetwork";
+
 export {
   APP_NAME,
+  SOURCE_CODE,
   SEARCH_PLACEHOLDER,
   SHORT_SEARCH_PLACEHOLDER,
   SEARCH_RESULT_HELP,

@@ -1,4 +1,4 @@
-import { CR } from "@/constants/AppConstants";
+import { CR, SOURCE_CODE } from "@/constants/AppConstants";
 import { ExternalLink } from "lucide-react";
 import cn from "@/utils/cn";
 
@@ -11,7 +11,7 @@ export default function Footer(props: { className?: string }) {
       )}>
       <p className="text-xs text-white/80">{CR}</p>
       <a
-        href="https://github.com/rparin/SpotifyArtistNetwork/tree/Express"
+        href={SOURCE_CODE}
         aria-label="External link to source code"
         target="_blank"
         rel="noopener noreferrer">
