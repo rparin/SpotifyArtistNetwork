@@ -5,11 +5,12 @@ import Link from "next/link";
 import delay from "@/utils/delay";
 import { SPOTIFY_DEP_URL } from "@/constants/SpotifyConstants";
 import CountdownNavigateTo from "@/components/CountdownNavigateTo";
-import LoadingForceGraph from "@/components/ForceGraph/LoadingGraph/LoadingGraphWrapper";
+import LoadingForceGraph from "@/components/ForceGraph/LoadingGraph";
+
 // import publicParsedEnv from "@env/publicEnv";
 // import useFetchSpotifyToken from "@/hooks/Spotify/useFetchSpotifyToken";
 // import useCreateArtistNetwork from "@/hooks/Spotify/useCreateArtistNetwork";
-// import RelatedArtistGraph from "@/components/ForceGraph/RelatedArtistGraph/RelatedArtistGraphWrapper";
+// import RelatedArtistForceGraph from "@/components/ForceGraph/RelatedArtistForceGraph";
 
 export default function NetworkPage({ params }: { params: { id: string } }) {
   const [showLoadGraph, setShowLoadGraph] = useState<boolean>(true);
@@ -89,7 +90,7 @@ export default function NetworkPage({ params }: { params: { id: string } }) {
   //       <h2 className="mr-7 line-clamp-1 text-lg font-semibold">{`${decodeURIComponent(artistName)} Network`}</h2>
   //     </div>
   //     {networkQuery.data && (
-  //       <RelatedArtistGraph graphData={networkQuery.data} />
+  //       <RelatedArtistForceGraph graphData={networkQuery.data} />
   //     )}
   //   </>
   // );

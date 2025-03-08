@@ -1,4 +1,6 @@
 "use client";
+
+import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
@@ -16,7 +18,7 @@ import GraphSearchResult from "@/components/Spotify/GraphSearchResult";
 import ArtistCardHorizontal from "@/components/Spotify/ArtistCardHorizontal";
 import delay from "@/utils/delay";
 
-const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
+function RelatedArtistGraph(props: { graphData: SpotifyNetworkMap }) {
   const fgRef = useRef<ForceGraphMethods<SpotifyGraphArtistNode>>();
 
   //States
@@ -214,6 +216,14 @@ const RelatedArtistGraph = (props: { graphData: SpotifyNetworkMap }) => {
       )}
     </>
   );
-};
+}
 
-export default RelatedArtistGraph;
+//Run the Graph client side
+const RelatedArtistForceGraph = dynamic(
+  () => Promise.resolve(RelatedArtistGraph),
+  {
+    ssr: false,
+  }
+);
+
+export default RelatedArtistForceGraph;

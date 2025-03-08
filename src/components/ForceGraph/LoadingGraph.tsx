@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
@@ -8,7 +9,7 @@ import getNodeColor from "@/services/Graph/GetNodeColor";
 import FullScreenLoadText from "@/components/FullScreenLoadText";
 import delay from "@/utils/delay";
 
-const LoadingGraph = () => {
+function LoadingGraph() {
   const { theme } = useTheme();
   const fgRef = useRef<ForceGraphMethods>();
   const { winSize, updateSize } = useUpdateSize(fgRef);
@@ -90,6 +91,11 @@ const LoadingGraph = () => {
       </div>
     </>
   );
-};
+}
 
-export default LoadingGraph;
+//Run the Graph client side
+const LoadingForceGraph = dynamic(() => Promise.resolve(LoadingGraph), {
+  ssr: false,
+});
+
+export default LoadingForceGraph;
